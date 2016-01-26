@@ -15,9 +15,6 @@ import util.StringHelper;
  * The Class EmailHandler.
  */
 public class EmailHandler {
-
-	/** The email handler. */
-	private static EmailHandler emailHandler = null;
 	
 	/** The Constant SECURITY_LEVEL. */
 	public static final int SECURITY_LEVEL = 6;
@@ -56,25 +53,6 @@ public class EmailHandler {
 	
 //	/** The date format mail. */
 //	private final DateFormat DATE_FORMAT_MAIL = new SimpleDateFormat("d m yyyy HH:mm:ss");	
-	
-	/**
-	 * Instantiates a new email handler.
-	 */
-	private EmailHandler() {}
-	
-	/**
-	 * Gets the single instance of EmailHandler.
-	 *
-	 * @return single instance of EmailHandler
-	 */
-	public static EmailHandler getInstance() {
-	
-		if (emailHandler == null) {
-			
-			emailHandler = new EmailHandler();
-		}
-		return emailHandler;
-	}
 	
 	/**
 	 * Check mailbox.

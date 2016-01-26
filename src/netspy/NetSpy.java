@@ -9,6 +9,9 @@ import java.util.List;
  */
 public class NetSpy {
 
+	/** The email handler. */
+	static EmailHandler emailHandler = new EmailHandler();
+	
     /**
      * The main method.
      *
@@ -56,9 +59,9 @@ public class NetSpy {
     private static void processMailsInInbox() {
 
         try {
-            EmailHandler.getInstance().scanMails();
-            if (!EmailHandler.getInstance().getMailContainer().getMails().isEmpty()) {
-                EmailHandler.getInstance().putMailsIntoQuarantine();
+            emailHandler.scanMails();
+            if (!emailHandler.getMailContainer().getMails().isEmpty()) {
+            	emailHandler.putMailsIntoQuarantine();
                 // TODO: do we need this if we give an option in menu to re-scan the inbox manually?
                 // EmailHandler.getInstance().reset();
             }
@@ -84,21 +87,21 @@ public class NetSpy {
      */
     private static boolean checkInboxForMails() {
 
-        if (!EmailHandler.getInstance().checkMailbox()) {
+        if (!emailHandler.checkMailbox()) {
             System.out.println("Keine Emails in der Mailbox gefunden. Keine �berpr�fung notwendig.");
             return false;
         } else {
             // get emails as files
-            final List<File> mailFiles = EmailHandler.getInstance().getEmlFiles();
+            final List<File> mailFiles = emailHandler.getEmlFiles();
 
             for (final File mailFile : mailFiles) {
                 try {
                     // extract content of emailFile and create an email object with that content
-                    final Email email = new Email(EmailHandler.getInstance().getMailContent(mailFile),
+                    final Email email = new Email(emailHandler.getMailContent(mailFile),
                         mailFile.getPath());
 
                     // add email object to email container
-                    EmailHandler.getInstance().getMailContainer().getMails().add(email);
+                    emailHandler.getMailContainer().getMails().add(email);
                 } catch (final IOException e) {
                     System.out.println(e.getMessage());
                 }
