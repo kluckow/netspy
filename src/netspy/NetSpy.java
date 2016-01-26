@@ -29,30 +29,6 @@ public class NetSpy {
         // 4. the Result is a
         // System.out.println("Format des Datums umgeformt: " + date);
 
-        // displayMenu();
-
-        // TODO: comment this out
-        // final JFrame frame = new JFrame("JComboBox Test");
-        // frame.setLayout(new FlowLayout());
-        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // final JButton button = new JButton("Select File");
-        // button.addActionListener(new ActionListener() {
-        //
-        // @Override
-        // public void actionPerformed(final ActionEvent ae) {
-        //
-        // final JFileChooser fileChooser = new JFileChooser();
-        // final int returnValue = fileChooser.showOpenDialog(null);
-        // if (returnValue == JFileChooser.APPROVE_OPTION) {
-        // final File selectedFile = fileChooser.getSelectedFile();
-        // System.out.println(selectedFile.getName());
-        // }
-        // }
-        // });
-        // frame.add(button);
-        // frame.pack();
-        // frame.setVisible(true);
-
         if (checkInboxForMails()) {
             processMailsInInbox();
             // // TODO: implement logging
