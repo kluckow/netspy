@@ -291,7 +291,7 @@ public class EmailHandler {
 	
 	public void logResults() {
 		
-		LogManager.getInstance().log(this.scanResults);
+		LogManager.log(this.scanResults);
 		// reset, just in case you want to re-scan inbox within single runtime
 		this.scanResults = null;
 	}

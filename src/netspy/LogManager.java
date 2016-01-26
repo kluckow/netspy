@@ -8,10 +8,6 @@ import java.util.List;
  * The Class LogManager.
  */
 public class LogManager {
-
-	/** The log manager. */
-	private static LogManager logManager;
-	
 	/** The date format logging. */
 	public final DateFormat DATE_FORMAT_LOGGING = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 	
@@ -34,20 +30,14 @@ public class LogManager {
 	 *
 	 * @return single instance of LogManager
 	 */
-	public static LogManager getInstance() {
-		
-		if (logManager == null) {
-			logManager = new LogManager();
-		}
-		return logManager;
-	}
+	public LogManager logManager = new LogManager();
 	
 	/**
 	 * Log.
 	 *
 	 * @param scanResults the email
 	 */
-	public void log(List<ScanResult> scanResults) {
+	public static void log(List<ScanResult> scanResults) {
 		
 		String logLine = "";
 		// TODO: Format of logline of this mail object:
