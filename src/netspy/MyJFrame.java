@@ -9,21 +9,44 @@ import java.awt.GridLayout;
 
 import javax.swing.*;
 
+/**
+ * The Class MyJFrame.
+ */
 public class MyJFrame extends JFrame {
 	
-	private JTextField InputMailPath;
-	private JTextField InputBlackwordPath;
-	private JTextField InputQuarantinePath;
-	private JTextField InputLogPath;
-	private JTextField OutputInfoBox;
-	private Dimension TextFieldSize = new Dimension(250,25);
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = -2357381332647405895L;
+	
+	/** The Input mail path. */
+	private JTextField inputMailPath;
+	
+	/** The Input blackword path. */
+	private JTextField inputBlackwordPath;
+	
+	/** The Input quarantine path. */
+	private JTextField inputQuarantinePath;
+	
+	/** The Input log path. */
+	private JTextField inputLogPath;
+	
+	/** The Output info box. */
+	private JTextField outputInfoBox;
+	
+	/** The Text field size. */
+	private Dimension textFieldSize = new Dimension(250,25);
 	
 	
+	/**
+	 * Instantiates a new my j frame.
+	 */
 	public MyJFrame(){
 		super();
 		initialize();
 	}
 	
+	/**
+	 * Initialize.
+	 */
 	private void initialize(){
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("NetSpy 2.0v");
@@ -41,6 +64,9 @@ public class MyJFrame extends JFrame {
 		this.setVisible(true);
 	}
 	
+	/**
+	 * Sets the title panel.
+	 */
 	private void setTitlePanel(){
 		
 		JPanel titlePanel = new JPanel();
@@ -50,6 +76,9 @@ public class MyJFrame extends JFrame {
 		this.add(titlePanel, BorderLayout.NORTH);
 	}
 	
+	/**
+	 * Sets the form layout.
+	 */
 	private void setFormLayout(){
 		
 		JPanel formPanel = new JPanel(new GridBagLayout());
@@ -188,6 +217,9 @@ public class MyJFrame extends JFrame {
 		this.add(formPanel, BorderLayout.CENTER);
 	}
 	
+	/**
+	 * Sets the extra space.
+	 */
 	private void setExtraSpace(){
 		JPanel Space1 = new JPanel();
 		Space1.setLayout(new GridLayout());
@@ -207,6 +239,9 @@ public class MyJFrame extends JFrame {
 		this.add(Space2, BorderLayout.WEST);
 	}
 	
+	/**
+	 * Sets the info box.
+	 */
 	private void setInfoBox(){
 		JPanel InfoBox = new JPanel();
 		InfoBox.setLayout(new GridLayout(1,7));
@@ -220,47 +255,97 @@ public class MyJFrame extends JFrame {
 		this.add(InfoBox, BorderLayout.SOUTH);
 	}
 	
-	public void setInputMailPath(JTextField InputMailPath){
-		this.InputMailPath = InputMailPath;
+	/**
+	 * Sets the input mail path.
+	 *
+	 * @param InputMailPath the new input mail path
+	 */
+	public void setInputMailPath(JTextField inputMailPath){
+		this.inputMailPath = inputMailPath;
 	}
 	
+	/**
+	 * Gets the input mail path.
+	 *
+	 * @return the input mail path
+	 */
 	public JTextField getInputMailPath(){
-		InputMailPath.setPreferredSize(TextFieldSize);
-		return InputMailPath;
+		inputMailPath.setPreferredSize(textFieldSize);
+		return inputMailPath;
 	}
 	
-	public void setInputBlackwordPath(JTextField InputBlackwordPath){
-		this.InputBlackwordPath = InputBlackwordPath;
+	/**
+	 * Sets the input blackword path.
+	 *
+	 * @param InputBlackwordPath the new input blackword path
+	 */
+	public void setInputBlackwordPath(JTextField inputBlackwordPath){
+		this.inputBlackwordPath = inputBlackwordPath;
 	}
 	
+	/**
+	 * Gets the input blackword path.
+	 *
+	 * @return the input blackword path
+	 */
 	public JTextField getInputBlackwordPath(){
-		InputBlackwordPath.setPreferredSize(TextFieldSize);
-		return InputBlackwordPath;
+		inputBlackwordPath.setPreferredSize(textFieldSize);
+		return inputBlackwordPath;
 	}
 	
-	public void setInputLogPath(JTextField InputLogPath){
-		this.InputLogPath = InputLogPath;
+	/**
+	 * Sets the input log path.
+	 *
+	 * @param InputLogPath the new input log path
+	 */
+	public void setInputLogPath(JTextField inputLogPath){
+		this.inputLogPath = inputLogPath;
 	}
 	
+	/**
+	 * Gets the input log path.
+	 *
+	 * @return the input log path
+	 */
 	public JTextField getInputLogPath() {
-		InputLogPath.setPreferredSize(TextFieldSize);
-		return InputLogPath;
+		inputLogPath.setPreferredSize(textFieldSize);
+		return inputLogPath;
 	}
 		
-	public void setInputQuarantinePath(JTextField InputQuarantinePath){
-		this.InputQuarantinePath = InputQuarantinePath;
+	/**
+	 * Sets the input quarantine path.
+	 *
+	 * @param InputQuarantinePath the new input quarantine path
+	 */
+	public void setInputQuarantinePath(JTextField inputQuarantinePath){
+		this.inputQuarantinePath = inputQuarantinePath;
 	}
 	
+	/**
+	 * Gets the input quarantine path.
+	 *
+	 * @return the input quarantine path
+	 */
 	public JTextField getInputQuarantinePath(){
-		InputQuarantinePath.setPreferredSize(TextFieldSize);
-		return InputQuarantinePath;
+		inputQuarantinePath.setPreferredSize(textFieldSize);
+		return inputQuarantinePath;
 	}
 	
-	public void setInfoBoxText(JTextField OutputInfoBox){
-		this.OutputInfoBox = OutputInfoBox;
+	/**
+	 * Sets the info box text.
+	 *
+	 * @param OutputInfoBox the new info box text
+	 */
+	public void setInfoBoxText(JTextField outputInfoBox){
+		this.outputInfoBox = outputInfoBox;
 	}
 	
+	/**
+	 * Gets the info box text.
+	 *
+	 * @return the info box text
+	 */
 	public JTextField getInfoBoxText(){
-		return OutputInfoBox;
+		return outputInfoBox;
 	}
 }
