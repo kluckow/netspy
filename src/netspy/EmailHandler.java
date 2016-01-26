@@ -42,7 +42,7 @@ public class EmailHandler {
 	
 	/** The mail containers. */
 	private EmailContainer mailContainer = new EmailContainer();
-	
+		
 	private List<File> emlFiles = null;
 	
 	/** The blacklist. */
@@ -291,7 +291,7 @@ public class EmailHandler {
 	
 	public void logResults() {
 		
-		LogManager.log(this.scanResults);
+		new LogManager().log(this.scanResults);
 		// reset, just in case you want to re-scan inbox within single runtime
 		this.scanResults = null;
 	}

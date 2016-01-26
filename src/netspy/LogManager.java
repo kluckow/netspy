@@ -19,25 +19,12 @@ public class LogManager {
 	
 	/** The Constant LOG_PATH. */
 	public final String LOG_PATH = "log/";
-	
-	/**
-	 * Instantiates a new log manager.
-	 */
-	private LogManager() {}
-	
-	/**
-	 * Gets the single instance of LogManager.
-	 *
-	 * @return single instance of LogManager
-	 */
-	public LogManager logManager = new LogManager();
-	
 	/**
 	 * Log.
 	 *
 	 * @param scanResults the email
 	 */
-	public static void log(List<ScanResult> scanResults) {
+	public void log(List<ScanResult> scanResults) {
 		
 		String logLine = "";
 		// TODO: Format of logline of this mail object:
