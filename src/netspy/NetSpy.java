@@ -9,9 +9,9 @@ import java.util.List;
  */
 public class NetSpy {
 
-	/** The email handler. */
-	static EmailHandler emailHandler = new EmailHandler();
-	
+    /** The email handler. */
+    static EmailHandler emailHandler = new EmailHandler();
+
     /**
      * The main method.
      *
@@ -42,6 +42,7 @@ public class NetSpy {
     /**
      * Log scan results.
      */
+    @SuppressWarnings("unused")
     private static void logScanResults() {
 
     }
@@ -49,6 +50,7 @@ public class NetSpy {
     /**
      * Report.
      */
+    @SuppressWarnings("unused")
     private static void report() {
 
     }
@@ -61,7 +63,7 @@ public class NetSpy {
         try {
             emailHandler.scanMails();
             if (!emailHandler.getMailContainer().getMails().isEmpty()) {
-            	emailHandler.putMailsIntoQuarantine();
+                emailHandler.putMailsIntoQuarantine();
                 // TODO: do we need this if we give an option in menu to re-scan the inbox manually?
                 // EmailHandler.getInstance().reset();
             }
@@ -73,6 +75,7 @@ public class NetSpy {
     /**
      * Display menu.
      */
+    @SuppressWarnings("unused")
     private static void displayMenu() {
 
         /**
