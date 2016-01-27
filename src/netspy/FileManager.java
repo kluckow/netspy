@@ -86,7 +86,7 @@ public class FileManager {
     public List<String> readFile(final String filename, final String encoding)
         throws IOException {
 
-        return TextReader.getInstance().readFile(filename, encoding);
+        return new TextReader().readFile(filename, encoding);
     }
 
     /**
@@ -101,7 +101,7 @@ public class FileManager {
     public List<String> readFile(final String filename, final String encoding, final String stopper)
         throws IOException {
 
-        return TextReader.getInstance().readFile(filename, encoding, stopper);
+        return new TextReader().readFile(filename, encoding, stopper);
     }
 
     /**
@@ -144,7 +144,7 @@ public class FileManager {
     public List<String> getBlacklist()
         throws IOException {
 
-        return TextReader.getInstance().readFile(BLACKLIST_PATH, BLACKLSIT_ENCODING);
+        return new TextReader().readFile(BLACKLIST_PATH, BLACKLSIT_ENCODING);
     }
 
     /**
