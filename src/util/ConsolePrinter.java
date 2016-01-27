@@ -7,35 +7,56 @@ import java.util.List;
  */
 public class ConsolePrinter {
 
-    /**
-     * Prints the lines.
-     *
-     * @param lines the lines
-     */
-    public void printLines(final List<String> lines) {
+	/** The printer. */
+	private static ConsolePrinter printer = null;
+	
+	/**
+	 * Instantiates a new console printer.
+	 */
+	private ConsolePrinter() {}
+	
+	/**
+	 * Gets the single instance of ConsolePrinter.
+	 *
+	 * @return single instance of ConsolePrinter
+	 */
+	public static ConsolePrinter getInstance() {
+		
+		if (printer == null) {
+			printer = new ConsolePrinter();
+		}
+		return printer;
+	}
+	
+	/**
+	 * Prints the lines.
+	 *
+	 * @param lines the lines
+	 */
+	public void printLines(List<String> lines) {
 
-        for (final String line : lines) {
-            printLine(line);
-        }
-    }
-
-    /**
-     * Prints the line.
-     *
-     * @param line the line
-     */
-    public void printLine(final String line) {
-
-        System.out.println(line);
-    }
-
-    /**
-     * Prints the.
-     *
-     * @param str the str
-     */
-    public void print(final String str) {
-
-        System.out.print(str);
-    }
+		for (String line: lines) {
+			printLine(line);
+		}
+	}
+	
+	/**
+	 * Prints the line.
+	 *
+	 * @param line the line
+	 */
+	public void printLine(String line) {
+		
+		System.out.println(line);
+	}
+	
+	/**
+	 * Prints the.
+	 *
+	 * @param str the str
+	 */
+	public void print(String str) {
+		
+		System.out.print(str);
+	}
 }

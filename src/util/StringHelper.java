@@ -10,8 +10,17 @@ import java.util.Map;
  */
 public class StringHelper {
 
+    /** The string helper. */
+    private static StringHelper stringHelper;
+
     /** The Constant ASCII_MAP. */
     private static final Map<String, String> ASCII_MAP = new HashMap<>();
+
+    /**
+     * Instantiates a new string helper.
+     */
+    private StringHelper() {
+    }
 
     static {
 
@@ -23,6 +32,19 @@ public class StringHelper {
         ASCII_MAP.put("=F6", "�");
         ASCII_MAP.put("=DF", "�");
         ASCII_MAP.put("=B5", "�");
+    }
+
+    /**
+     * Gets the single instance of StringHelper.
+     *
+     * @return single instance of StringHelper
+     */
+    public static StringHelper getInstance() {
+
+        if (stringHelper == null) {
+            return new StringHelper();
+        }
+        return stringHelper;
     }
 
     /**
