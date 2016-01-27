@@ -113,7 +113,7 @@ public class FileManager {
         final File file = new File(LOG_PATH
             + LOG_FILE_PREFIX
             // TODO: adjust after resolving todo concerned to getFormattedDate(), also fix warning
-            + DateHelper.getInstance().dateToString(new Date(), DATE_FORMAT_LOGFILE_SUFFIX)
+            + new DateHelper().dateToString(new Date(), DATE_FORMAT_LOGFILE_SUFFIX)
             + LOG_FILE_EXTENSION);
         try {
             file.createNewFile();
