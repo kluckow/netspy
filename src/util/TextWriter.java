@@ -8,30 +8,8 @@ import java.io.IOException;
  */
 public class TextWriter {
 
-    /** The writer. */
-    private static TextWriter writer = null;
-
     /** The Constant WRITE_ERROR_MSG. */
     private static final String WRITE_ERROR_MSG = "Schreiben der Datei ist nicht m�glich!";
-
-    /**
-     * Instantiates a new text writer.
-     */
-    private TextWriter() {
-    }
-
-    /**
-     * Gets the single instance of TextWriter.
-     *
-     * @return single instance of TextWriter
-     */
-    public static TextWriter getInstance() {
-
-        if (writer == null) {
-            writer = new TextWriter();
-        }
-        return writer;
-    }
 
     /**
      * Write.
