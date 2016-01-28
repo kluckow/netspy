@@ -17,6 +17,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import netspy.components.gui.listeners.FileChooserActionListener;
+
 /**
  * The Class MyJFrame.
  */
@@ -49,6 +51,9 @@ public class MyJFrame extends JFrame {
     /** The Constant BUTTON_ID_LOG_PATH. */
     public static final String BUTTON_ID_LOG_PATH = "button_log_path";
 
+    /** The Constant BUTTON_ID_START_SCAN. */
+    public static final String BUTTON_ID_START_SCAN = "button_start_scan";
+    
     /** The Constant DIMENSION_TEXTFIELD_SIZE. */
     private static final Dimension DIMENSION_TEXTFIELD_SIZE = new Dimension(250, 25);
 
@@ -57,6 +62,7 @@ public class MyJFrame extends JFrame {
 
 	/** The Constant DIMENSION_BUTTON_SIZE. */
 	private static final Dimension DIMENSION_BUTTON_SIZE = new Dimension(30, 25);
+
 	
 	/** The Input mail path. */
 	private JTextField inputMailPath;
@@ -155,29 +161,7 @@ public class MyJFrame extends JFrame {
         btn_MailPath.setName(BUTTON_ID_MAIL_PATH);
         // TODO: Wir brauchen unseren eigenen MyActionListener der auf button clicks reagiert, je nach button in switch
         // case unterschiedlich, am besten die btn names benutzen, public static und so
-        btn_MailPath.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-
-                final JFileChooser mailPathChooser = new JFileChooser();
-                // TODO: Vielleicht nicht definieren, sonst muss man fehler abfangen,
-                // ohne definition greifen ja die default werte
-//                mailPathChooser.setCurrentDirectory(new File("C:/"));
-                // TODO: Das wäre schon die optionale anforderung! HÄFTIG!
-                mailPathChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-                final int returnVal = mailPathChooser.showOpenDialog(null);
-                final File file = mailPathChooser.getSelectedFile();
-                // Verhindert exception wenn keine file/dir ausgewählt wird
-                if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    System.out.println(file.getPath());
-                } else if (returnVal == JFileChooser.CANCEL_OPTION) {
-                    System.out.println("Es wurde leider kein File ausgewählt!");
-                } else if (returnVal == JFileChooser.ERROR_OPTION) {
-                    System.out.println("Error!");
-                }
-            }
-        });
+        btn_MailPath.addActionListener(new FileChooserActionListener(this));
         btn_MailPath.setPreferredSize(DIMENSION_BUTTON_SIZE);
         formPanel.add(btn_MailPath, bgc);
         // Beispiel für bilder laden
@@ -286,7 +270,7 @@ public class MyJFrame extends JFrame {
         bgc.gridy = 4;
         bgc.weighty = 0.1;
         final JButton btn_Start = new JButton("Start");
-        btn_Start.setName("Start");
+        btn_Start.setName(BUTTON_ID_START_SCAN);
         formPanel.add(btn_Start, bgc);
 
         this.add(formPanel, BorderLayout.CENTER);
