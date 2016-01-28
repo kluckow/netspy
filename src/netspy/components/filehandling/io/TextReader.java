@@ -13,27 +13,6 @@ import java.util.List;
  */
 public class TextReader {
 	
-	/** The parser. */
-	private static TextReader parser = null;
-	
-	/**
-	 * Instantiates a new text parser.
-	 */
-	private TextReader() {}
-	
-	/**
-	 * Gets the single instance of TextParser.
-	 *
-	 * @return single instance of TextParser
-	 */
-	public static TextReader getInstance() {
-		
-		if (parser == null) {
-			parser = new TextReader();
-		}
-		return parser;
-	}
-	
 	/**
 	 * Read a file and return lines.
 	 *
