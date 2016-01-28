@@ -27,6 +27,18 @@ public class MyJFrame extends JFrame {
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -2357381332647405895L;
 
+    /** The Constant BUTTON_ID_MAIL_PATH. */
+    public static final String BUTTON_ID_MAIL_PATH = "button_mail_path";
+    
+    /** The Constant BUTTON_ID_BLACKWORD_PATH. */
+    public static final String BUTTON_ID_BLACKWORD_PATH = "button_blackword_path";
+    
+    /** The Constant BUTTON_ID_QUARANTINE_PATH. */
+    public static final String BUTTON_ID_QUARANTINE_PATH = "button_quarantine_path";
+    
+    /** The Constant BUTTON_ID_LOG_PATH. */
+    public static final String BUTTON_ID_LOG_PATH = "button_log_path";
+    
     /** The Input mail path. */
     private JTextField inputMailPath;
 
@@ -121,6 +133,7 @@ public class MyJFrame extends JFrame {
         bgc.gridx = 6;
         bgc.gridy = 0;
         final JButton btn_MailPath = new JButton(("..."));
+        btn_MailPath.setName(BUTTON_ID_MAIL_PATH);
         // TODO: Wir brauchen unseren eigenen MyActionListener der auf button clicks reagiert, je nach button in switch
         // case unterschiedlich, am besten die btn names benutzen, public static und so
         btn_MailPath.addActionListener(new ActionListener() {
@@ -149,12 +162,12 @@ public class MyJFrame extends JFrame {
         formPanel.add(btn_MailPath, bgc);
         // Beispiel für bilder laden
         // TODO: Lass mal paar lustige bildchen mit rein tun :D
-        final JLabel bild;
-        final Icon icon1;
-        final Icon icon2;
-        icon1 = new ImageIcon(getClass().getResource("img/de.png"));
-        bild = new JLabel(icon1);
-        formPanel.add(bild);
+//        final JLabel bild;
+//        final Icon icon1;
+//        final Icon icon2;
+//        icon1 = new ImageIcon(getClass().getResource("img/de.png"));
+//        bild = new JLabel(icon1);
+//        formPanel.add(bild);
 
         bgc = new GridBagConstraints();
         bgc.fill = GridBagConstraints.HORIZONTAL;
@@ -183,6 +196,7 @@ public class MyJFrame extends JFrame {
         bgc.gridy = 1;
         // TODO: add JFileChooser
         final JButton btn_BlackwordPath = new JButton(("..."));
+        btn_BlackwordPath.setName(BUTTON_ID_BLACKWORD_PATH);
         btn_BlackwordPath.setName("Blackword Datei");
         btn_BlackwordPath.setPreferredSize(btn_size);
         formPanel.add(btn_BlackwordPath, bgc);
@@ -213,7 +227,7 @@ public class MyJFrame extends JFrame {
         bgc.gridy = 2;
         // TODO: add JFileChooser
         final JButton btn_LogPath = new JButton("...");
-        btn_LogPath.setName("Log Pfad");
+        btn_LogPath.setName(BUTTON_ID_LOG_PATH);
         btn_LogPath.setPreferredSize(btn_size);
         formPanel.add(btn_LogPath, bgc);
 
@@ -243,7 +257,7 @@ public class MyJFrame extends JFrame {
         bgc.gridy = 3;
         // TODO: add JFileChooser
         final JButton btn_QuarantinePath = new JButton(("..."));
-        btn_QuarantinePath.setName("Quarant�ne Ordner");
+        btn_QuarantinePath.setName(BUTTON_ID_QUARANTINE_PATH);
         btn_QuarantinePath.setPreferredSize(btn_size);
         formPanel.add(btn_QuarantinePath, bgc);
 
@@ -302,7 +316,7 @@ public class MyJFrame extends JFrame {
     /**
      * Sets the input mail path.
      *
-     * @param InputMailPath the new input mail path
+     * @param inputMailPath the new input mail path
      */
     public void setInputMailPath(final JTextField inputMailPath) {
 
@@ -323,7 +337,7 @@ public class MyJFrame extends JFrame {
     /**
      * Sets the input blackword path.
      *
-     * @param InputBlackwordPath the new input blackword path
+     * @param inputBlackwordPath the new input blackword path
      */
     public void setInputBlackwordPath(final JTextField inputBlackwordPath) {
 
@@ -344,7 +358,7 @@ public class MyJFrame extends JFrame {
     /**
      * Sets the input log path.
      *
-     * @param InputLogPath the new input log path
+     * @param inputLogPath the new input log path
      */
     public void setInputLogPath(final JTextField inputLogPath) {
 
@@ -365,7 +379,7 @@ public class MyJFrame extends JFrame {
     /**
      * Sets the input quarantine path.
      *
-     * @param InputQuarantinePath the new input quarantine path
+     * @param inputQuarantinePath the new input quarantine path
      */
     public void setInputQuarantinePath(final JTextField inputQuarantinePath) {
 
@@ -386,7 +400,7 @@ public class MyJFrame extends JFrame {
     /**
      * Sets the info box text.
      *
-     * @param OutputInfoBox the new info box text
+     * @param outputInfoBox the new info box text
      */
     public void setInfoBoxText(final JTextField outputInfoBox) {
 
