@@ -8,27 +8,6 @@ import java.util.Date;
  */
 public class DateHelper {
 	
-	/** The date helper. */
-	private static DateHelper dateHelper = null;
-	
-	/**
-	 * Instantiates a new date helper.
-	 */
-	private DateHelper() {}
-	
-	/**
-	 * Gets the single instance of DateHelper.
-	 *
-	 * @return single instance of DateHelper
-	 */
-	public static DateHelper getInstance() {
-		
-		if (dateHelper == null) {
-			dateHelper = new DateHelper();
-		}
-		return dateHelper;
-	}
-	
 	/**
 	 * Date to string.
 	 *
