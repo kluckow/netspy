@@ -10,8 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -23,9 +21,21 @@ import javax.swing.JTextField;
  * The Class MyJFrame.
  */
 public class MyJFrame extends JFrame {
+	
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = -2357381332647405895L;
 
-    /** The Constant serialVersionUID. */
-    private static final long serialVersionUID = -2357381332647405895L;
+    /** The Constant LABEL_QUARANTAENE_PATH. */
+    private static final String LABEL_QUARANTAENE_PATH = "Quarantäne-Verzeichnis:";
+
+	/** The Constant LABEL_LOG_PATH. */
+	private static final String LABEL_LOG_PATH = "Log-Verzeichnis:";
+
+	/** The Constant LABEL_BLACKWORD_PATH. */
+    private static final String LABEL_BLACKWORD_PATH = "Blackword-Verzeichnis:";
+
+	/** The Constant LABEL_MAIL_PATH. */
+	private static final String LABEL_MAIL_PATH = "Mail-Verzeichnis:";
 
     /** The Constant BUTTON_ID_MAIL_PATH. */
     public static final String BUTTON_ID_MAIL_PATH = "button_mail_path";
@@ -38,25 +48,31 @@ public class MyJFrame extends JFrame {
     
     /** The Constant BUTTON_ID_LOG_PATH. */
     public static final String BUTTON_ID_LOG_PATH = "button_log_path";
-    
-    /** The Input mail path. */
-    private JTextField inputMailPath;
 
-    /** The Input blackword path. */
-    private JTextField inputBlackwordPath;
+    /** The Constant DIMENSION_TEXTFIELD_SIZE. */
+    private static final Dimension DIMENSION_TEXTFIELD_SIZE = new Dimension(250, 25);
 
-    /** The Input quarantine path. */
-    private JTextField inputQuarantinePath;
+	/** The Constant DIMENSION_LABEL_SIZE. */
+	private static final Dimension DIMENSION_LABEL_SIZE = new Dimension(50, 25);
 
-    /** The Input log path. */
-    private JTextField inputLogPath;
-
-    /** The Output info box. */
-    private JTextField outputInfoBox;
-
-    /** The Text field size. */
-    private final Dimension textFieldSize = new Dimension(250, 25);
-
+	/** The Constant DIMENSION_BUTTON_SIZE. */
+	private static final Dimension DIMENSION_BUTTON_SIZE = new Dimension(30, 25);
+	
+	/** The Input mail path. */
+	private JTextField inputMailPath;
+	
+	/** The Input blackword path. */
+	private JTextField inputBlackwordPath;
+	
+	/** The Input quarantine path. */
+	private JTextField inputQuarantinePath;
+	
+	/** The Input log path. */
+	private JTextField inputLogPath;
+	
+	/** The Output info box. */
+	private JTextField outputInfoBox;
+	
     /**
      * Instantiates a new my j frame.
      */
@@ -71,14 +87,13 @@ public class MyJFrame extends JFrame {
     private void initialize() {
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setTitle("NetSpy 2.0v");
+        this.setTitle("NetSpy 2.0");
         this.setBounds(400, 300, 400, 600);
         this.setLayout(new BorderLayout());
 
         this.setTitlePanel();
-        this.setExtraSpace();
+        this.setInsets();
         this.setFormLayout();
-        // this.setStart();
         this.setInfoBox();
 
         this.pack();
@@ -100,31 +115,35 @@ public class MyJFrame extends JFrame {
     /**
      * Sets the form layout.
      */
+    // TODO: FormPanel extends JPanel erstellen und jegliche configuration da reinpacken.
     private void setFormLayout() {
 
         final JPanel formPanel = new JPanel(new GridBagLayout());
-        GridBagConstraints bgc = new GridBagConstraints();
-        final Dimension btn_size = new Dimension(30, 25);
-        final Dimension lbl_size = new Dimension(50, 25);
         formPanel.setPreferredSize(new Dimension(600, 200));
-
+        
+        GridBagConstraints bgc = new GridBagConstraints();
+        
+        final JLabel labelMailPath = new JLabel(LABEL_MAIL_PATH);
+        labelMailPath.setSize(DIMENSION_LABEL_SIZE);
+        
         bgc.fill = GridBagConstraints.HORIZONTAL;
         bgc.weightx = 0.1;
         bgc.weighty = 0.1;
         bgc.gridx = 1;
         bgc.gridy = 0;
-        final JLabel lbl_mail = new JLabel("Mail Verzeichnis:");
-        lbl_mail.setSize(lbl_size);
-        formPanel.add(lbl_mail, bgc);
+        
+        formPanel.add(labelMailPath, bgc);
 
+        setInputMailPath(new JTextField());
+        getInputMailPath().setName("InputMailPath");
+        
         bgc = new GridBagConstraints();
         bgc.fill = GridBagConstraints.HORIZONTAL;
         bgc.weightx = 0.5;
         bgc.gridx = 2;
         bgc.gridy = 0;
         bgc.gridwidth = 4;
-        setInputMailPath(new JTextField());
-        getInputMailPath().setName("InputMailPath");
+        
         formPanel.add(getInputMailPath(), bgc);
 
         bgc = new GridBagConstraints();
@@ -142,8 +161,9 @@ public class MyJFrame extends JFrame {
             public void actionPerformed(final ActionEvent e) {
 
                 final JFileChooser mailPathChooser = new JFileChooser();
-                // TODO: macht vllt sinn das auf "C:/" zu setzen
-                mailPathChooser.setCurrentDirectory(new File("C:/"));
+                // TODO: Vielleicht nicht definieren, sonst muss man fehler abfangen,
+                // ohne definition greifen ja die default werte
+//                mailPathChooser.setCurrentDirectory(new File("C:/"));
                 // TODO: Das wäre schon die optionale anforderung! HÄFTIG!
                 mailPathChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
                 final int returnVal = mailPathChooser.showOpenDialog(null);
@@ -158,7 +178,7 @@ public class MyJFrame extends JFrame {
                 }
             }
         });
-        btn_MailPath.setPreferredSize(btn_size);
+        btn_MailPath.setPreferredSize(DIMENSION_BUTTON_SIZE);
         formPanel.add(btn_MailPath, bgc);
         // Beispiel für bilder laden
         // TODO: Lass mal paar lustige bildchen mit rein tun :D
@@ -175,8 +195,8 @@ public class MyJFrame extends JFrame {
         bgc.weighty = 0.1;
         bgc.gridx = 1;
         bgc.gridy = 1;
-        final JLabel lbl_blackword = new JLabel("Blackword:");
-        lbl_blackword.setSize(lbl_size);
+        final JLabel lbl_blackword = new JLabel(LABEL_BLACKWORD_PATH);
+        lbl_blackword.setSize(DIMENSION_LABEL_SIZE);
         formPanel.add(lbl_blackword, bgc);
 
         bgc = new GridBagConstraints();
@@ -197,8 +217,7 @@ public class MyJFrame extends JFrame {
         // TODO: add JFileChooser
         final JButton btn_BlackwordPath = new JButton(("..."));
         btn_BlackwordPath.setName(BUTTON_ID_BLACKWORD_PATH);
-        btn_BlackwordPath.setName("Blackword Datei");
-        btn_BlackwordPath.setPreferredSize(btn_size);
+        btn_BlackwordPath.setPreferredSize(DIMENSION_BUTTON_SIZE);
         formPanel.add(btn_BlackwordPath, bgc);
 
         bgc = new GridBagConstraints();
@@ -207,7 +226,7 @@ public class MyJFrame extends JFrame {
         bgc.weighty = 0.1;
         bgc.gridx = 1;
         bgc.gridy = 2;
-        final JLabel lbl_logPath = new JLabel("Log Ordner:");
+        final JLabel lbl_logPath = new JLabel(LABEL_LOG_PATH);
         formPanel.add(lbl_logPath, bgc);
 
         bgc = new GridBagConstraints();
@@ -228,7 +247,7 @@ public class MyJFrame extends JFrame {
         // TODO: add JFileChooser
         final JButton btn_LogPath = new JButton("...");
         btn_LogPath.setName(BUTTON_ID_LOG_PATH);
-        btn_LogPath.setPreferredSize(btn_size);
+        btn_LogPath.setPreferredSize(DIMENSION_BUTTON_SIZE);
         formPanel.add(btn_LogPath, bgc);
 
         bgc = new GridBagConstraints();
@@ -237,7 +256,7 @@ public class MyJFrame extends JFrame {
         bgc.weighty = 0.1;
         bgc.gridx = 1;
         bgc.gridy = 3;
-        final JLabel lbl_Quarantine = new JLabel("Quarant�ne Ordner:");
+        final JLabel lbl_Quarantine = new JLabel(LABEL_QUARANTAENE_PATH);
         formPanel.add(lbl_Quarantine, bgc);
 
         bgc = new GridBagConstraints();
@@ -258,7 +277,7 @@ public class MyJFrame extends JFrame {
         // TODO: add JFileChooser
         final JButton btn_QuarantinePath = new JButton(("..."));
         btn_QuarantinePath.setName(BUTTON_ID_QUARANTINE_PATH);
-        btn_QuarantinePath.setPreferredSize(btn_size);
+        btn_QuarantinePath.setPreferredSize(DIMENSION_BUTTON_SIZE);
         formPanel.add(btn_QuarantinePath, bgc);
 
         bgc = new GridBagConstraints();
@@ -276,34 +295,24 @@ public class MyJFrame extends JFrame {
     /**
      * Sets the extra space.
      */
-    private void setExtraSpace() {
+    private void setInsets() {
 
-        final JPanel Space1 = new JPanel();
-        Space1.setLayout(new GridLayout());
-
-        final JLabel lbl_Space1 = new JLabel("     ");
-        Space1.add(lbl_Space1);
-
-        this.add(Space1, BorderLayout.EAST);
-
-        final JPanel Space2 = new JPanel();
-        Space2.setLayout(new GridLayout());
-
-        final JLabel lbl_Space2 = new JLabel("     ");
-
-        Space2.add(lbl_Space2);
-
-        this.add(Space2, BorderLayout.WEST);
+        final JPanel insetEast = new JPanel();
+        final JPanel insetWest = new JPanel();
+        this.add(insetWest, BorderLayout.WEST);
+        this.add(insetEast, BorderLayout.EAST);
     }
 
     /**
      * Sets the info box.
      */
+    // TODO: Neu implementieren, sodass hier jeglicher Output gepostet werden kann.
+    // Zum Beispiel: new Reporter(Reporter.INFO/DEBUG/WARNING/ERROR).report(SOME_STATIC_FINAL_MESSAGE)
+    // Wäre auch nicht schlecht einen clear-Button zu haben
     private void setInfoBox() {
 
         final JPanel InfoBox = new JPanel();
         InfoBox.setLayout(new GridLayout(1, 7));
-
         setInfoBoxText(new JTextField());
         getInfoBoxText().setName("Infobox");
 
@@ -330,7 +339,7 @@ public class MyJFrame extends JFrame {
      */
     public JTextField getInputMailPath() {
 
-        inputMailPath.setPreferredSize(textFieldSize);
+        inputMailPath.setPreferredSize(DIMENSION_TEXTFIELD_SIZE);
         return inputMailPath;
     }
 
@@ -351,7 +360,7 @@ public class MyJFrame extends JFrame {
      */
     public JTextField getInputBlackwordPath() {
 
-        inputBlackwordPath.setPreferredSize(textFieldSize);
+        inputBlackwordPath.setPreferredSize(DIMENSION_TEXTFIELD_SIZE);
         return inputBlackwordPath;
     }
 
@@ -372,7 +381,7 @@ public class MyJFrame extends JFrame {
      */
     public JTextField getInputLogPath() {
 
-        inputLogPath.setPreferredSize(textFieldSize);
+        inputLogPath.setPreferredSize(DIMENSION_TEXTFIELD_SIZE);
         return inputLogPath;
     }
 
@@ -393,7 +402,7 @@ public class MyJFrame extends JFrame {
      */
     public JTextField getInputQuarantinePath() {
 
-        inputQuarantinePath.setPreferredSize(textFieldSize);
+        inputQuarantinePath.setPreferredSize(DIMENSION_TEXTFIELD_SIZE);
         return inputQuarantinePath;
     }
 
