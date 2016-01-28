@@ -68,7 +68,7 @@ public class NetSpy {
             if (!emailHandler.getMailContainer().getMails().isEmpty()) {
                 emailHandler.putMailsIntoQuarantine();
                 // TODO: do we need this if we give an option in menu to re-scan the inbox manually?
-                // EmailHandler.getInstance().reset();
+                // new EmailHandler().reset();
             }
         } catch (final IOException e) {
             e.printStackTrace();

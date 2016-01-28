@@ -131,7 +131,7 @@ public class FileManager {
 	public void write(String line) {
 //		TODO: add relative path of logfile as first parameter
 //		get logfile path from constants from this filemanager here
-//		TextWriter.getInstance().write(line);
+//		new TextWriter().write(line);
 	}
 
 	/**
