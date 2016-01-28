@@ -1,4 +1,4 @@
-package netspy;
+package netspy.components.filehandling.manager;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import util.DateHelper;
-import util.TextReader;
+import netspy.components.filehandling.io.TextReader;
+import netspy.components.util.DateHelper;
 
 /**
  * The Class FileManager.

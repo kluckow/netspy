@@ -1,4 +1,4 @@
-package netspy;
+package netspy.components.gui.frame;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

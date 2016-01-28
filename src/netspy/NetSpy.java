@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import netspy.components.mailing.Email;
+import netspy.components.mailing.EmailHandler;
+
 /**
  * The Class NetSpy.
  */

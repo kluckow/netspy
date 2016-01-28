@@ -1,4 +1,4 @@
-package netspy;
+package netspy.components.mailing;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,7 +9,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import util.StringHelper;
+import netspy.components.filehandling.lists.Blacklist;
+import netspy.components.filehandling.manager.FileManager;
+import netspy.components.logging.LogManager;
+import netspy.components.logging.ScanResult;
+import netspy.components.util.StringHelper;
 
 /**
  * The Class EmailHandler.

@@ -1,4 +1,4 @@
-package netspy;
+package netspy.components.filehandling.lists;
 
 import java.util.List;
 

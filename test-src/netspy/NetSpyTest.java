@@ -1,5 +1,7 @@
 package netspy;
 
+import netspy.components.gui.frame.MyJFrame;
+
 /**
  * Class NetSpyTest.
  *

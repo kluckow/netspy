@@ -1,7 +1,9 @@
-package netspy;
+package netspy.components.logging;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import netspy.components.mailing.Email;
 
 /**
  * The Class ScanResult.

@@ -1,8 +1,10 @@
-package netspy;
+package netspy.components.logging;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
+
+import netspy.components.filehandling.manager.FileManager;
 
 /**
  * The Class LogManager.

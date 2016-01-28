@@ -1,4 +1,4 @@
-package netspy;
+package netspy.components.mailing;
 
 import java.util.List;
 
