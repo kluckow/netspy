@@ -28,7 +28,7 @@ public class TextWriter {
 			fWriter.write(line + "\n");
 			fWriter.close();
 		} catch (IOException e) {
-			ConsolePrinter.getInstance().printLine(WRITE_ERROR_MSG);
+			new ConsolePrinter().printLine(WRITE_ERROR_MSG);
 		}
 	}
 }
