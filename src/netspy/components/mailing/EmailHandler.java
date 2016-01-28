@@ -77,7 +77,7 @@ public class EmailHandler {
 		
 		// avoid reading over and over again
 		if (this.emlFiles == null) {
-			this.emlFiles = FileManager.getInstance().getFilesByExtension(EML_FILE_EXTENSION);
+			this.emlFiles = new FileManager().getFilesByExtension(EML_FILE_EXTENSION);
 		}
 		return this.emlFiles;
 	}
@@ -230,7 +230,7 @@ public class EmailHandler {
 	 */
 	private void putMailIntoQuarantine(Email email) {
 		
-		FileManager.getInstance().moveFile(email.getRelativePath(), FileManager.QUARANTINE_PATH);
+		new FileManager().moveFile(email.getRelativePath(), FileManager.QUARANTINE_PATH);
 	}
 	
 	/**
@@ -310,7 +310,7 @@ public class EmailHandler {
 		
 //		avoid reading the file over and over again
 		if (this.blacklist == null) {
-			this.blacklist = new Blacklist(FileManager.getInstance().getBlacklist());
+			this.blacklist = new Blacklist(new FileManager().getBlacklist());
 		}
 		return this.blacklist.getBlacklist();
 	}
@@ -324,7 +324,7 @@ public class EmailHandler {
 	 */
 	public List<String> getMailContent(File file) throws IOException {
 		
-		return FileManager.getInstance().readFile(file.getPath(), "Cp1252", HTML_MAIL_PART_START_IDENTIFIER);
+		return new FileManager().readFile(file.getPath(), "Cp1252", HTML_MAIL_PART_START_IDENTIFIER);
 	}
 
 	/**

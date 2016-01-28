@@ -16,9 +16,6 @@ import netspy.components.util.DateHelper;
  */
 public class FileManager {
 
-	/** The file manager. */
-	private static FileManager fileManager = null;
-	
 	/** The Constant INBOX_PATH. */
 	public static final String INBOX_PATH = "inbox/";
 	
@@ -51,24 +48,6 @@ public class FileManager {
 	
 	/** The Constant DATE_FORMAT_LOGFILE_SUFFIX. */
 	private final DateFormat DATE_FORMAT_LOGFILE_SUFFIX = new SimpleDateFormat("ddMMyyyy_HHmmss");
-	
-	/**
-	 * Instantiates a new file manager.
-	 */
-	private FileManager() {}
-	
-	/**
-	 * Gets the single instance of FileManager.
-	 *
-	 * @return single instance of FileManager
-	 */
-	public static FileManager getInstance() {
-		
-		if (fileManager == null) {
-			fileManager = new FileManager();
-		}
-		return fileManager;
-	}
 	
 	/**
 	 * Gets the files by file extension.

@@ -31,7 +31,7 @@ public class LogManager {
 		String logLine = "";
 		// TODO: Format of logline of this mail object:
 		// TODO: create method in filemanager and textwriter
-		FileManager.getInstance().write(logLine);
+		new FileManager().write(logLine);
 	}
 	public void log(ScanResult scanResult) {
 		
