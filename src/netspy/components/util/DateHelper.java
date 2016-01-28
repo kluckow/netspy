@@ -19,6 +19,13 @@ public class DateHelper {
 		
 		return dateFormat.format(date);
 	}
+
+/**
+ * Convert to generalized date format.
+ *
+ * @param date the date
+ * @return the string
+ */
 //	TODO: implement (check if you can delete this todo)
 	public String convertToGeneralizedDateFormat(Date date) {
 		

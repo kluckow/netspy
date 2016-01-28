@@ -47,6 +47,7 @@ public class EmailHandler {
 	/** The mail containers. */
 	private EmailContainer mailContainer = new EmailContainer();
 		
+	/** The eml files. */
 	private List<File> emlFiles = null;
 	
 	/** The blacklist. */
@@ -86,7 +87,7 @@ public class EmailHandler {
 	 * Extract email properties.
 	 *
 	 * @param email the email
-	 * @return 
+	 * @return the email
 	 */
 	private Email extractEmailProperties(Email email) {
 		
@@ -182,6 +183,8 @@ public class EmailHandler {
 
 	/**
 	 * Scan mails.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public void scanMails() throws IOException {
 		try {
@@ -293,6 +296,9 @@ public class EmailHandler {
 		return email;
 	}
 	
+	/**
+	 * Log results.
+	 */
 	public void logResults() {
 		
 		new LogManager().log(this.scanResults);

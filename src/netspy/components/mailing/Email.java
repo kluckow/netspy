@@ -179,11 +179,21 @@ public class Email {
 		this.filename = filename.substring(filename.indexOf("\\") + 1);
 	}
 
+	/**
+	 * Gets the relative path.
+	 *
+	 * @return the relative path
+	 */
 	public String getRelativePath() {
 		
 		return relativePath;
 	}
 
+	/**
+	 * Sets the relative path.
+	 *
+	 * @param relativePath the new relative path
+	 */
 	public void setRelativePath(String relativePath) {
 		
 		this.setFilename(relativePath);

@@ -104,6 +104,8 @@ public class FileManager {
 	
 	/**
 	 * Creates the logfile.
+	 *
+	 * @return the string
 	 */
 	// TODO: use this before logging
 	public String createLogfile() {

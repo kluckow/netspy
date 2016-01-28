@@ -39,6 +39,15 @@ public class TextReader {
 		return lines;
 	}
 	
+	/**
+	 * Read file.
+	 *
+	 * @param relativePathOfFile the relative path of file
+	 * @param encoding the encoding
+	 * @param stopper the stopper
+	 * @return the list
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public List<String> readFile(String relativePathOfFile, String encoding, String stopper) throws IOException {
 		
 		List<String> lines = new ArrayList<>();

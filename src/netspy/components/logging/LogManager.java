@@ -33,6 +33,12 @@ public class LogManager {
 		// TODO: create method in filemanager and textwriter
 		new FileManager().write(logLine);
 	}
+	
+	/**
+	 * Log.
+	 *
+	 * @param scanResult the scan result
+	 */
 	public void log(ScanResult scanResult) {
 		
 		// TODO: implement logging for single result
