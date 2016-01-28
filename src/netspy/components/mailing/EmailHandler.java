@@ -117,7 +117,7 @@ public class EmailHandler {
 	@SuppressWarnings("deprecation")
 	private String extractSendingDate(String line) {
 		
-		String date = StringHelper.getInstance().splitString(line, ": ").get(1).trim();
+		String date = new StringHelper().splitString(line, ": ").get(1).trim();
 		return new Date(date).toLocaleString();
 	}
 
@@ -129,7 +129,7 @@ public class EmailHandler {
 	 */
 	private String extractSubject(String line) {
 		
-		return StringHelper.getInstance().splitString(line, ": ").get(1).trim();
+		return new StringHelper().splitString(line, ": ").get(1).trim();
 	}
 
 	/**
@@ -140,7 +140,7 @@ public class EmailHandler {
 	 */
 	private String extractSender(String line) {
 		
-		String sender = StringHelper.getInstance().splitString(line, ": ").get(1).trim();
+		String sender = new StringHelper().splitString(line, ": ").get(1).trim();
 		sender = sender.substring(sender.indexOf("<") + 1, sender.indexOf(">"));
 		
 		return sender;
@@ -154,7 +154,7 @@ public class EmailHandler {
 	 */
 	private String extractReceiver(String line) {
 		
-		String receiver = StringHelper.getInstance().splitString(line, ": ").get(1).trim();
+		String receiver = new StringHelper().splitString(line, ": ").get(1).trim();
 		receiver = receiver.substring(receiver.indexOf("<") + 1, receiver.indexOf(">"));
 		
 		return receiver;
@@ -191,7 +191,7 @@ public class EmailHandler {
 				mailContent = email.getLines();
 				
 //				replace ascii, then to lower case
-				mailContent = StringHelper.getInstance().toLowerCase(StringHelper.getInstance().replaceAscii(mailContent));
+				mailContent = new StringHelper().toLowerCase(new StringHelper().replaceAscii(mailContent));
 				email.setLines(mailContent);
 				
 				email = this.checkAgainstBlacklist(email);
@@ -257,7 +257,7 @@ public class EmailHandler {
 				if (line.contains(blacklistWord)) {
 					
 					// count hits in current line
-					hitsInLine = StringHelper.getInstance().countOccurrences(line, blacklistWord);
+					hitsInLine = new StringHelper().countOccurrences(line, blacklistWord);
 					
 					// add it to total hits
 					totalHits += hitsInLine;

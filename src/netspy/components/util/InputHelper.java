@@ -7,27 +7,6 @@ import java.util.Scanner;
  */
 public class InputHelper {
 	
-	/** The input helper. */
-	private static InputHelper inputHelper = null;
-	
-	/**
-	 * Instantiates a new input helper.
-	 */
-	private InputHelper() {}
-	
-	/**
-	 * Gets the single instance of InputHelper.
-	 *
-	 * @return single instance of InputHelper
-	 */
-	public static InputHelper getInstance() {
-		
-		if (InputHelper.inputHelper == null) {
-			inputHelper = new InputHelper();
-		}
-		return inputHelper;
-	}
-
 	/**
 	 * Expect string.
 	 *
