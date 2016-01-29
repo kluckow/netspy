@@ -6,12 +6,10 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -61,7 +59,7 @@ public class MyJFrame extends JFrame {
 	private static final Dimension DIMENSION_LABEL_SIZE = new Dimension(50, 25);
 
 	/** The Constant DIMENSION_BUTTON_SIZE. */
-	private static final Dimension DIMENSION_BUTTON_SIZE = new Dimension(30, 25);
+	private static final Dimension DIMENSION_BUTTON_SIZE = new Dimension(110, 25);
 
 	
 	/** The Input mail path. */
@@ -95,6 +93,7 @@ public class MyJFrame extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("NetSpy 2.0");
         this.setBounds(400, 300, 400, 600);
+        this.setResizable(false);
         this.setLayout(new BorderLayout());
 
         this.setTitlePanel();
@@ -113,7 +112,7 @@ public class MyJFrame extends JFrame {
 
         final JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-        titlePanel.add(new JLabel("NetSpy 2.0v"));
+        titlePanel.add(new JLabel("NetSpy 2.0"));
 
         this.add(titlePanel, BorderLayout.NORTH);
     }
@@ -157,8 +156,10 @@ public class MyJFrame extends JFrame {
         bgc.weightx = -0.5;
         bgc.gridx = 6;
         bgc.gridy = 0;
-        final JButton btn_MailPath = new JButton(("..."));
+        final JButton btn_MailPath = new JButton("Durchsuchen");
         btn_MailPath.setName(BUTTON_ID_MAIL_PATH);
+        btn_MailPath.setToolTipText("Wähle eine konkrete .eml-Datei oder ein"
+        		+ " Verzeichnis, in dem alle .eml-Dateien durchsucht werden sollen.");
         // TODO: Wir brauchen unseren eigenen MyActionListener der auf button clicks reagiert, je nach button in switch
         // case unterschiedlich, am besten die btn names benutzen, public static und so
         btn_MailPath.addActionListener(new FileChooserActionListener(this));
@@ -166,12 +167,11 @@ public class MyJFrame extends JFrame {
         formPanel.add(btn_MailPath, bgc);
         // Beispiel für bilder laden
         // TODO: Lass mal paar lustige bildchen mit rein tun :D
-//        final JLabel bild;
-//        final Icon icon1;
-//        final Icon icon2;
-//        icon1 = new ImageIcon(getClass().getResource("img/de.png"));
-//        bild = new JLabel(icon1);
-//        formPanel.add(bild);
+        Icon icon1 = new ImageIcon(getClass().getResource("../../../resources/img/info.png"));
+        JLabel bild = new JLabel(icon1);
+        bild.setToolTipText("Wähle eine konkrete .eml-Datei oder ein"
+        		+ " Verzeichnis, in dem alle .eml-Dateien durchsucht werden sollen.");
+        formPanel.add(bild);
 
         bgc = new GridBagConstraints();
         bgc.fill = GridBagConstraints.HORIZONTAL;
