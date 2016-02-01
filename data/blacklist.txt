@@ -1,13 +1,13 @@
 Mikroprozessor
-µP
+ÂµP
 Waver
 Hyper-Threading
 Vanderpool
 YieldRate
 LaGrande
-Übergabe
+Ãœbergabe
 Anschlag
 Schnee
 Koks
-Überfall
+Ãœberfall
 Einbruch
