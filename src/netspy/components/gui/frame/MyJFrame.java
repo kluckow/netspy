@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import netspy.components.gui.listeners.FileChooserActionListener;
+import netspy.components.gui.listeners.NetSpyActionListener;
 
 /**
  * The Class MyJFrame.
@@ -162,7 +162,7 @@ public class MyJFrame extends JFrame {
         		+ " Verzeichnis, in dem alle .eml-Dateien durchsucht werden sollen.");
         // TODO: Wir brauchen unseren eigenen MyActionListener der auf button clicks reagiert, je nach button in switch
         // case unterschiedlich, am besten die btn names benutzen, public static und so
-        btn_MailPath.addActionListener(new FileChooserActionListener(this));
+        btn_MailPath.addActionListener(new NetSpyActionListener(this));
         btn_MailPath.setPreferredSize(DIMENSION_BUTTON_SIZE);
         formPanel.add(btn_MailPath, bgc);
         // Beispiel für bilder laden

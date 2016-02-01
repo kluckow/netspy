@@ -20,7 +20,7 @@ import netspy.components.gui.frame.MyJFrame;
  *
  * @see FileChooserActionEvent
  */
-public class FileChooserActionListener implements ActionListener {
+public class NetSpyActionListener implements ActionListener {
 
 	/** The owner. Used for accessing the text fields. */
 	private MyJFrame owner;
@@ -30,7 +30,7 @@ public class FileChooserActionListener implements ActionListener {
 	 *
 	 * @param owner the owner
 	 */
-	public FileChooserActionListener(MyJFrame owner) {
+	public NetSpyActionListener(MyJFrame owner) {
 		this.owner = owner;
 	}
 
@@ -41,7 +41,9 @@ public class FileChooserActionListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		switch ( ((JButton) e.getSource()).getName() ) {
+		
 		case MyJFrame.BUTTON_ID_MAIL_PATH:
+			
 			final JFileChooser mailPathChooser = new JFileChooser();
             mailPathChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
             final int returnVal = mailPathChooser.showOpenDialog(null);
@@ -62,19 +64,27 @@ public class FileChooserActionListener implements ActionListener {
                 System.out.println("Error!");
             }
 			break;
+			
 		case MyJFrame.BUTTON_ID_QUARANTINE_PATH:
+			
 			// TODO: implement choosers
 			// TODO: directory only
 			break;
+			
 		case MyJFrame.BUTTON_ID_BLACKWORD_PATH:
+			
 			// TODO: implement choosers
 			// TODO: .txt file only
 			break;
+			
 		case MyJFrame.BUTTON_ID_LOG_PATH:
+			
 			// TODO: implement choosers
 			// TODO: directory only
 			break;
+			
 		case MyJFrame.BUTTON_ID_START_SCAN:
+			
 			// TODO: implement choosers
 			// TODO: check if everything is ok before starting
 			break;
