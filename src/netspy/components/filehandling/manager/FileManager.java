@@ -17,28 +17,28 @@ import netspy.components.util.DateHelper;
 public class FileManager {
 
 	/** The Constant INBOX_PATH. */
-	public static final String INBOX_PATH = "inbox/";
+	public static String INBOX_PATH = "inbox/";
 	
 	/** The Constant QUARANTINE_PATH. */
-	public static final String QUARANTINE_PATH = "quarantine/";
+	public static String QUARANTINE_PATH = "quarantine/";
 	
 	/** The Constant BLACKLIST_FILE. */
 	private static final String BLACKLIST_FILE = "blacklist.txt";
 	
 	/** The Constant BLACKLIST_PATH. */
-	private static final String BLACKLIST_PATH = "data/" + BLACKLIST_FILE;
+	private static String BLACKLIST_PATH = "data/" + BLACKLIST_FILE;
 	
 	/** The Constant BLACKLSIT_ENCODING. */
-	private static final String BLACKLSIT_ENCODING = "Cp1252";
+	private static final String BLACKLIST_ENCODING = "Cp1252";
 	
 	/** The Constant WHITELIST_FILE. */
 	private static final String WHITELIST_FILE = "whitelist.txt"; 
 	
 	/** The Constant WHITELIST_PATH. */
-	private static final String WHITELIST_PATH = "data/" + WHITELIST_FILE;
+	private static String WHITELIST_PATH = "data/" + WHITELIST_FILE;
 	
 	/** The Constant LOG_PATH. */
-	private static final String LOG_PATH = "logs/";
+	private static String LOG_PATH = "logs/";
 
 	/** The Constant LOG_FILE_PREFIX. */
 	private static final String LOG_FILE_PREFIX = "log_";
@@ -144,7 +144,7 @@ public class FileManager {
 	 */
 	public List<String> getBlacklist() throws IOException {
 		
-		return new TextReader().readFile(BLACKLIST_PATH, BLACKLSIT_ENCODING);
+		return new TextReader().readFile(BLACKLIST_PATH, BLACKLIST_ENCODING);
 	}
 
 	/**
