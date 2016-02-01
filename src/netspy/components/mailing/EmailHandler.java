@@ -3,7 +3,6 @@ package netspy.components.mailing;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.Map;
 import netspy.components.filehandling.lists.Blacklist;
 import netspy.components.filehandling.manager.FileManager;
 import netspy.components.logging.LogManager;
-import netspy.components.logging.ScanResult;
+import netspy.components.util.ConsolePrinter;
 import netspy.components.util.StringHelper;
 
 /**
@@ -28,9 +27,6 @@ public class EmailHandler {
 
 	/** The Constant HTML_MAIL_PART_START_IDENTIFIER. */
 	private static final String HTML_MAIL_PART_START_IDENTIFIER = "Content-Type: text/html;";
-	
-//	/** The Constant PLAIN_MAIL_PART_START_IDENTIFIER. */
-//	private static final String PLAIN_MAIL_PART_START_IDENTIFIER = "content-type: text/plain;";
 	
 	/** The Constant MAIL_SENDER_IDENTIFIER. */
 	private static final String MAIL_SENDER_IDENTIFIER = "from:";
@@ -53,11 +49,8 @@ public class EmailHandler {
 	/** The blacklist. */
 	private Blacklist blacklist;
 	
-	/** The scan result. */
-	private List<ScanResult> scanResults = new ArrayList<>();
-	
-//	/** The date format mail. */
-//	private final DateFormat DATE_FORMAT_MAIL = new SimpleDateFormat("d m yyyy HH:mm:ss");	
+	/** The index list of non suspicious emails. */
+	private List<Integer> indexListOfNonSuspiciousEmails = new ArrayList<>();
 	
 	/**
 	 * Check mailbox.
@@ -117,7 +110,7 @@ public class EmailHandler {
 	 */
 	@SuppressWarnings("deprecation")
 	private String extractSendingDate(String line) {
-		
+		// TODO: default string if data unknown (see extractSender)
 		String date = new StringHelper().splitString(line, ": ").get(1).trim();
 		return new Date(date).toLocaleString();
 	}
@@ -129,7 +122,7 @@ public class EmailHandler {
 	 * @return the string
 	 */
 	private String extractSubject(String line) {
-		
+		// TODO: default string if data unknown (see extractSender)
 		return new StringHelper().splitString(line, ": ").get(1).trim();
 	}
 
@@ -144,6 +137,9 @@ public class EmailHandler {
 		String sender = new StringHelper().splitString(line, ": ").get(1).trim();
 		sender = sender.substring(sender.indexOf("<") + 1, sender.indexOf(">"));
 		
+		if (sender.length() <= 0 || sender == null) {
+			return "Nicht definiert";
+		}
 		return sender;
 	}
 	
@@ -158,6 +154,9 @@ public class EmailHandler {
 		String receiver = new StringHelper().splitString(line, ": ").get(1).trim();
 		receiver = receiver.substring(receiver.indexOf("<") + 1, receiver.indexOf(">"));
 		
+		if (receiver.length() <= 0 || receiver == null) {
+			return "Nicht definiert";
+		}
 		return receiver;
 	}
 
@@ -187,29 +186,33 @@ public class EmailHandler {
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public void scanMails() throws IOException {
-		try {
-			for (Email email: this.getMailContainer().getMails()) {
+		
+		int index = -1;
+		for (Email email: this.getMailContainer().getMails()) {
+			
+			List<String> mailContent = null;
+			mailContent = email.getLines();
+			
+//			replace ascii, then to lower case
+			mailContent = new StringHelper().toLowerCase(new StringHelper().replaceAscii(mailContent));
+			email.setLines(mailContent);
+			
+			email = this.checkAgainstBlacklist(email);
+			email = this.extractEmailProperties(email);
+			new ConsolePrinter().print(email);
+			// just if mail is suspicious, get its properties,
+			// else remove mail and go to next mail
+			if (!email.isSuspicious()) {
 				
-				List<String> mailContent = null;
-				mailContent = email.getLines();
-				
-//				replace ascii, then to lower case
-				mailContent = new StringHelper().toLowerCase(new StringHelper().replaceAscii(mailContent));
-				email.setLines(mailContent);
-				
-				email = this.checkAgainstBlacklist(email);
-				
-				// just if mail is suspicious, get its properties,
-				// else remove mail and go to next mail
-				if (!email.isSuspicious()) {
-					// remove unnecessary emails from the container,
-					// since all emails are moved into quarantine later on 
-					this.getMailContainer().getMails().remove(email);
-					continue;
-				}
-				email = this.extractEmailProperties(email);
-			}	
-		} catch (ConcurrentModificationException ignored){};
+//				safe indices of emails, that does not need to be moved
+//				into quarantine and safe it inside email handler
+				index = mailContainer.getMails().indexOf(email);
+				indexListOfNonSuspiciousEmails.add(index);
+				continue;
+			} else {
+//				System.out.println("Email with subject " + email.getSubject() + " is suspicious");
+			}
+		}	
 		
 	}
 	
@@ -220,20 +223,16 @@ public class EmailHandler {
 		
 		for (Email email: this.getMailContainer().getMails()) {
 			
-			this.putMailIntoQuarantine(email);
+//			System.out.println("Index of email: " + email.getIndex());
+//			System.out.println("Liste der Indices der mails, die verschoben werden sollen: " + indexListOfNonSuspiciousEmails.toString());
+			
+			if (!indexListOfNonSuspiciousEmails.contains(email.getIndex())) {
+				new LogManager().log(email);
+				new FileManager().moveFile(email.getRelativePath(), FileManager.QUARANTINE_PATH);
+			}
 		}
-		// clear mail container after files are moved
+//		clear mail container after files are moved
 		this.mailContainer = null;
-	}
-	
-	/**
-	 * Put into quarantine.
-	 *
-	 * @param email the email
-	 */
-	private void putMailIntoQuarantine(Email email) {
-		
-		new FileManager().moveFile(email.getRelativePath(), FileManager.QUARANTINE_PATH);
 	}
 	
 	/**
@@ -280,19 +279,12 @@ public class EmailHandler {
 			}
 			// set suspicious flag to an email if amount of hits
 			// has passed a specific limit
-			if (totalHits >= SECURITY_LEVEL) {
+			if (totalHits >= SECURITY_LEVEL && !email.isSuspicious()) {
 				email.setSuspicious(true);
 			}
 		}
-		this.scanResults.add(new ScanResult(email, hitMap));
-		
-//		System.out.println("-----------------------------------");
-//		System.out.println("Report of found words: ");
-//		System.out.println("Email-Datei: " + email.getFilename());
-//		System.out.println("-----------------------------------");
-//		for (String foundWord: hitMap.keySet()) {
-//			System.out.println(foundWord + " (" + hitMap.get(foundWord) + ")");
-//		}
+		email.setHitMap(hitMap);
+
 		return email;
 	}
 	
@@ -300,10 +292,6 @@ public class EmailHandler {
 	 * Log results.
 	 */
 	public void logResults() {
-		
-		new LogManager().log(this.scanResults);
-		// reset, just in case you want to re-scan inbox within single runtime
-		this.scanResults = null;
 	}
 
 	/**
@@ -330,27 +318,7 @@ public class EmailHandler {
 	 */
 	public List<String> getMailContent(File file) throws IOException {
 		
-		return new FileManager().readFile(file.getPath(), "Cp1252", HTML_MAIL_PART_START_IDENTIFIER);
-	}
-
-	/**
-	 * Gets the scan results.
-	 *
-	 * @return the scan results
-	 */
-	public List<ScanResult> getScanResults() {
-		
-		return this.scanResults;
-	}
-
-	/**
-	 * Sets the scan results.
-	 *
-	 * @param scanResults the new scan results
-	 */
-	public void setScanResults(List<ScanResult> scanResults) {
-		
-		this.scanResults = scanResults;
+		return new FileManager().readFile(file.getPath(), "UTF-8", HTML_MAIL_PART_START_IDENTIFIER);
 	}
 
 	/**
