@@ -2,14 +2,18 @@ package netspy.components.logging;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import netspy.components.filehandling.manager.FileManager;
+import netspy.components.mailing.Email;
+import netspy.components.util.DateHelper;
 
 /**
  * The Class LogManager.
  */
 public class LogManager {
+	
 	/** The date format logging. */
 	public final DateFormat DATE_FORMAT_LOGGING = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 	
@@ -21,27 +25,22 @@ public class LogManager {
 	
 	/** The Constant LOG_PATH. */
 	public final String LOG_PATH = "log/";
-	/**
-	 * Log.
-	 *
-	 * @param scanResults the email
-	 */
-	public void log(List<ScanResult> scanResults) {
-		
-		String logLine = "";
-		// TODO: Format of logline of this mail object:
-		// TODO: create method in filemanager and textwriter
-		new FileManager().write(logLine);
-	}
+	
+	/** The Constant LOG_ENTRY_SEPARATOR. */
+	private static final String LOG_ENTRY_SEPARATOR = " | ";
 	
 	/**
 	 * Log.
 	 *
 	 * @param scanResult the scan result
 	 */
-	public void log(ScanResult scanResult) {
+	public void log(Email email) {
+		String logLine = "Gesendet am: " + email.getSendingDate();
+		logLine += LOG_ENTRY_SEPARATOR;
+		logLine += "Betreff: " + email.getSubject();
 		
-		// TODO: implement logging for single result
+		new FileManager().createLogfile();
+		new FileManager().log(FileManager.LOG_FILE, logLine);
 	}
 	
 	/**
