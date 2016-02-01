@@ -1,5 +1,7 @@
 package netspy.components.filehandling.io;
 
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -11,7 +13,7 @@ import netspy.components.util.ConsolePrinter;
 public class TextWriter {
 	
 	/** The Constant WRITE_ERROR_MSG. */
-	private static final String WRITE_ERROR_MSG = "Schreiben der Datei ist nicht möglich!";
+	private static final String WRITE_ERROR_MSG = "Schreiben der Datei ist nicht mÃ¶glich!";
 	
 	/**
 	 * Write.
@@ -24,10 +26,12 @@ public class TextWriter {
 		FileWriter fWriter;
 		
 		try {
-			fWriter = new FileWriter(relativePathOfFile);
-			fWriter.write(line + "\n");
-			fWriter.close();
+			fWriter = new FileWriter(new File(relativePathOfFile).getAbsolutePath(), true);
+			BufferedWriter out = new BufferedWriter(fWriter);
+			out.write(line + "\n");
+			out.close();
 		} catch (IOException e) {
+//			TODO: ErrorNotificationPopup 
 			new ConsolePrinter().printLine(WRITE_ERROR_MSG);
 		}
 	}
