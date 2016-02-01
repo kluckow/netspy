@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 
 import netspy.NetSpy;
+import netspy.components.gui.components.LogBox;
 import netspy.components.gui.frame.NetSpyFrame;
 
 /**
@@ -90,7 +91,17 @@ public class NetSpyActionListener implements ActionListener {
 			NetSpy.run();
 			// TODO: check if everything is ok before starting
 			break;
-
+			
+		case NetSpyFrame.BUTTON_ID_TOGGLE_LOGBOX:
+			
+			this.owner.getLogBox().toggleDisplay();
+			break;
+			
+		case NetSpyFrame.BUTTON_ID_CLEAR_LOGBOX:
+			
+			this.owner.getLogBox().clear();
+			break;
+			
 		default:
 			break;
 		}

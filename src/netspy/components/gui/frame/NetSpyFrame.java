@@ -5,25 +5,36 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import netspy.components.gui.components.LogBox;
 import netspy.components.gui.listeners.NetSpyActionListener;
 
 /**
  * The Class MyJFrame.
  */
 public class NetSpyFrame extends JFrame {
-	
+
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2357381332647405895L;
+	
+	/** The Constant INPUT_ID_LOG_PATH. */
+	private static final String INPUT_ID_LOG_PATH = "input_log_path";
+	
+	/** The Constant INPUT_ID_MAIL_PATH. */
+	private static final String INPUT_ID_MAIL_PATH = "input_mail_path";
+	
+	/** The Constant INPUT_ID_BLACKWORD_PATH. */
+	private static final String INPUT_ID_BLACKWORD_PATH = "input_blackword_path";
+	
+	/** The Constant INPUT_ID_QUARANTINE_PATH. */
+	private static final String INPUT_ID_QUARANTINE_PATH = "input_quarantine_path";
 
     /** The Constant LABEL_QUARANTAENE_PATH. */
     private static final String LABEL_QUARANTAENE_PATH = "Quarantäne-Verzeichnis:";
@@ -36,6 +47,21 @@ public class NetSpyFrame extends JFrame {
 
 	/** The Constant LABEL_MAIL_PATH. */
 	private static final String LABEL_MAIL_PATH = "Mail-Verzeichnis:";
+	
+	/** The Constant BUTTON_LABEL_HIDE_LOG_BOX. */
+	public static final String BUTTON_LABEL_HIDE_LOGBOX = "Log ausblenden";
+	
+	/** The Constant BUTTON_LABEL_CLEAR_LOGBOX. */
+	private static final String BUTTON_LABEL_CLEAR_LOGBOX = "Log leeren";
+	
+	/** The Constant BUTTON_LABEL_SHOW_LOG_BOX. */
+	public static final String BUTTON_LABEL_SHOW_LOGBOX = "Log einblenden";
+	
+	/** The Constant BUTTON_LABEL_START_SCAN. */
+	private static final String BUTTON_LABEL_START_SCAN = "Start scan";
+	
+	/** The Constant BUTTON_LABEL_SEARCH_FILE. */
+	private static final String BUTTON_LABEL_SEARCH_FILE = "Durchsuchen";
 
     /** The Constant BUTTON_ID_MAIL_PATH. */
     public static final String BUTTON_ID_MAIL_PATH = "button_mail_path";
@@ -51,6 +77,12 @@ public class NetSpyFrame extends JFrame {
 
     /** The Constant BUTTON_ID_START_SCAN. */
     public static final String BUTTON_ID_START_SCAN = "button_start_scan";
+    
+    /** The Constant BUTTON_ID_TOGGLE_LOG_BOX. */
+    public static final String BUTTON_ID_TOGGLE_LOGBOX = "toggle_logbox";
+    
+    /** The Constant BUTTON_ID_CLEAR_LOGBOX. */
+    public static final String BUTTON_ID_CLEAR_LOGBOX = "clear_logbox";
     
     /** The Constant DIMENSION_TEXTFIELD_SIZE. */
     private static final Dimension DIMENSION_TEXTFIELD_SIZE = new Dimension(250, 25);
@@ -76,6 +108,9 @@ public class NetSpyFrame extends JFrame {
 	
 	/** The Output info box. */
 	private JTextField outputInfoBox;
+
+	/** The log box. */
+	private LogBox logBox;
 	
     /**
      * Instantiates a new my j frame.
@@ -140,7 +175,7 @@ public class NetSpyFrame extends JFrame {
         formPanel.add(labelMailPath, bgc);
 
         setInputMailPath(new JTextField());
-        getInputMailPath().setName("InputMailPath");
+        getInputMailPath().setName(INPUT_ID_MAIL_PATH);
         
         bgc = new GridBagConstraints();
         bgc.fill = GridBagConstraints.HORIZONTAL;
@@ -156,15 +191,15 @@ public class NetSpyFrame extends JFrame {
         bgc.weightx = -0.5;
         bgc.gridx = 6;
         bgc.gridy = 0;
-        final JButton btn_MailPath = new JButton("Durchsuchen");
-        btn_MailPath.setName(BUTTON_ID_MAIL_PATH);
-        btn_MailPath.setToolTipText("Wähle eine konkrete .eml-Datei oder ein"
+        final JButton btnOpenMailPathChooser = new JButton(BUTTON_LABEL_SEARCH_FILE);
+        btnOpenMailPathChooser.setName(BUTTON_ID_MAIL_PATH);
+        btnOpenMailPathChooser.setToolTipText("Wähle eine konkrete .eml-Datei oder ein"
         		+ " Verzeichnis, in dem alle .eml-Dateien durchsucht werden sollen.");
         // TODO: Wir brauchen unseren eigenen MyActionListener der auf button clicks reagiert, je nach button in switch
         // case unterschiedlich, am besten die btn names benutzen, public static und so
-        btn_MailPath.addActionListener(new NetSpyActionListener(this));
-        btn_MailPath.setPreferredSize(DIMENSION_BUTTON_SIZE);
-        formPanel.add(btn_MailPath, bgc);
+        btnOpenMailPathChooser.addActionListener(new NetSpyActionListener(this));
+        btnOpenMailPathChooser.setPreferredSize(DIMENSION_BUTTON_SIZE);
+        formPanel.add(btnOpenMailPathChooser, bgc);
         // Beispiel für bilder laden
         // TODO: Lass mal paar lustige bildchen mit rein tun :D
 //        Icon icon1 = new ImageIcon(getClass().getResource("../../../resources/img/info.png"));
@@ -179,9 +214,9 @@ public class NetSpyFrame extends JFrame {
         bgc.weighty = 0.1;
         bgc.gridx = 1;
         bgc.gridy = 1;
-        final JLabel lbl_blackword = new JLabel(LABEL_BLACKWORD_PATH);
-        lbl_blackword.setSize(DIMENSION_LABEL_SIZE);
-        formPanel.add(lbl_blackword, bgc);
+        final JLabel lblBlackword = new JLabel(LABEL_BLACKWORD_PATH);
+        lblBlackword.setSize(DIMENSION_LABEL_SIZE);
+        formPanel.add(lblBlackword, bgc);
 
         bgc = new GridBagConstraints();
         bgc.fill = GridBagConstraints.HORIZONTAL;
@@ -190,7 +225,7 @@ public class NetSpyFrame extends JFrame {
         bgc.gridy = 1;
         bgc.gridwidth = 4;
         setInputBlackwordPath(new JTextField());
-        getInputBlackwordPath().setName("InputBlackwordPath");
+        getInputBlackwordPath().setName(INPUT_ID_BLACKWORD_PATH);
         formPanel.add(getInputBlackwordPath(), bgc);
 
         bgc = new GridBagConstraints();
@@ -199,10 +234,10 @@ public class NetSpyFrame extends JFrame {
         bgc.gridx = 6;
         bgc.gridy = 1;
         // TODO: add JFileChooser
-        final JButton btn_BlackwordPath = new JButton(("..."));
-        btn_BlackwordPath.setName(BUTTON_ID_BLACKWORD_PATH);
-        btn_BlackwordPath.setPreferredSize(DIMENSION_BUTTON_SIZE);
-        formPanel.add(btn_BlackwordPath, bgc);
+        final JButton btnOpenBlackwordPathChooser = new JButton((BUTTON_LABEL_SEARCH_FILE));
+        btnOpenBlackwordPathChooser.setName(BUTTON_ID_BLACKWORD_PATH);
+        btnOpenBlackwordPathChooser.setPreferredSize(DIMENSION_BUTTON_SIZE);
+        formPanel.add(btnOpenBlackwordPathChooser, bgc);
 
         bgc = new GridBagConstraints();
         bgc.fill = GridBagConstraints.HORIZONTAL;
@@ -210,8 +245,8 @@ public class NetSpyFrame extends JFrame {
         bgc.weighty = 0.1;
         bgc.gridx = 1;
         bgc.gridy = 2;
-        final JLabel lbl_logPath = new JLabel(LABEL_LOG_PATH);
-        formPanel.add(lbl_logPath, bgc);
+        final JLabel lblLogPath = new JLabel(LABEL_LOG_PATH);
+        formPanel.add(lblLogPath, bgc);
 
         bgc = new GridBagConstraints();
         bgc.fill = GridBagConstraints.HORIZONTAL;
@@ -220,7 +255,7 @@ public class NetSpyFrame extends JFrame {
         bgc.gridy = 2;
         bgc.gridwidth = 4;
         setInputLogPath(new JTextField());
-        getInputLogPath().setName("InputLogPath");
+        getInputLogPath().setName(INPUT_ID_LOG_PATH);
         formPanel.add(getInputLogPath(), bgc);
 
         bgc = new GridBagConstraints();
@@ -229,10 +264,10 @@ public class NetSpyFrame extends JFrame {
         bgc.gridx = 6;
         bgc.gridy = 2;
         // TODO: add JFileChooser
-        final JButton btn_LogPath = new JButton("...");
-        btn_LogPath.setName(BUTTON_ID_LOG_PATH);
-        btn_LogPath.setPreferredSize(DIMENSION_BUTTON_SIZE);
-        formPanel.add(btn_LogPath, bgc);
+        final JButton btnOpenLogPathChooser = new JButton(BUTTON_LABEL_SEARCH_FILE);
+        btnOpenLogPathChooser.setName(BUTTON_ID_LOG_PATH);
+        btnOpenLogPathChooser.setPreferredSize(DIMENSION_BUTTON_SIZE);
+        formPanel.add(btnOpenLogPathChooser, bgc);
 
         bgc = new GridBagConstraints();
         bgc.fill = GridBagConstraints.HORIZONTAL;
@@ -240,8 +275,8 @@ public class NetSpyFrame extends JFrame {
         bgc.weighty = 0.1;
         bgc.gridx = 1;
         bgc.gridy = 3;
-        final JLabel lbl_Quarantine = new JLabel(LABEL_QUARANTAENE_PATH);
-        formPanel.add(lbl_Quarantine, bgc);
+        final JLabel lblQuarantine = new JLabel(LABEL_QUARANTAENE_PATH);
+        formPanel.add(lblQuarantine, bgc);
 
         bgc = new GridBagConstraints();
         bgc.fill = GridBagConstraints.HORIZONTAL;
@@ -250,7 +285,7 @@ public class NetSpyFrame extends JFrame {
         bgc.gridy = 3;
         bgc.gridwidth = 4;
         setInputQuarantinePath(new JTextField());
-        getInputQuarantinePath().setName("InputQuarantinePath");
+        getInputQuarantinePath().setName(INPUT_ID_QUARANTINE_PATH);
         formPanel.add(getInputQuarantinePath(), bgc);
 
         bgc = new GridBagConstraints();
@@ -259,20 +294,38 @@ public class NetSpyFrame extends JFrame {
         bgc.gridx = 6;
         bgc.gridy = 3;
         // TODO: add JFileChooser
-        final JButton btn_QuarantinePath = new JButton(("..."));
-        btn_QuarantinePath.setName(BUTTON_ID_QUARANTINE_PATH);
-        btn_QuarantinePath.setPreferredSize(DIMENSION_BUTTON_SIZE);
-        formPanel.add(btn_QuarantinePath, bgc);
+        final JButton btnOpenQuarantinePathChooser = new JButton((BUTTON_LABEL_SEARCH_FILE));
+        btnOpenQuarantinePathChooser.setName(BUTTON_ID_QUARANTINE_PATH);
+        btnOpenQuarantinePathChooser.setPreferredSize(DIMENSION_BUTTON_SIZE);
+        formPanel.add(btnOpenQuarantinePathChooser, bgc);
 
         bgc = new GridBagConstraints();
         bgc.fill = GridBagConstraints.HORIZONTAL;
         bgc.gridx = 2;
         bgc.gridy = 4;
-        bgc.weighty = 0.1;
-        final JButton btn_Start = new JButton("Start");
-        btn_Start.setName(BUTTON_ID_START_SCAN);
-        btn_Start.addActionListener(new NetSpyActionListener(this));
-        formPanel.add(btn_Start, bgc);
+        final JButton btnStartScan = new JButton(BUTTON_LABEL_START_SCAN);
+        btnStartScan.setName(BUTTON_ID_START_SCAN);
+        btnStartScan.addActionListener(new NetSpyActionListener(this));
+        formPanel.add(btnStartScan, bgc);
+        
+        bgc = new GridBagConstraints();
+        bgc.fill = GridBagConstraints.HORIZONTAL;
+        bgc.gridx = 5;
+        bgc.gridy = 4;
+        final JButton btnToggleLogBox = new JButton(BUTTON_LABEL_HIDE_LOGBOX);
+        btnToggleLogBox.setName(BUTTON_ID_TOGGLE_LOGBOX);
+        btnToggleLogBox.addActionListener(new NetSpyActionListener(this));
+        formPanel.add(btnToggleLogBox, bgc);
+        
+        bgc = new GridBagConstraints();
+        bgc.fill = GridBagConstraints.HORIZONTAL;
+        bgc.gridx = 6;
+        bgc.gridy = 4;
+        bgc.gridwidth = 1;
+        final JButton btnClearLogBox = new JButton(BUTTON_LABEL_CLEAR_LOGBOX);
+        btnClearLogBox.setName(BUTTON_ID_CLEAR_LOGBOX);
+        btnClearLogBox.addActionListener(new NetSpyActionListener(this));
+        formPanel.add(btnClearLogBox, bgc);
 
         this.add(formPanel, BorderLayout.CENTER);
     }
@@ -291,18 +344,14 @@ public class NetSpyFrame extends JFrame {
     /**
      * Sets the info box.
      */
-    // TODO: Neu implementieren, sodass hier jeglicher Output gepostet werden kann.
-    // Zum Beispiel: new Reporter(Reporter.INFO/DEBUG/WARNING/ERROR).report(SOME_STATIC_FINAL_MESSAGE)
-    // Wäre auch nicht schlecht einen clear-Button zu haben
     private void setInfoBox() {
 
         final JPanel InfoBox = new JPanel();
-        InfoBox.setLayout(new GridLayout(1, 7));
-        setInfoBoxText(new JTextField());
-        getInfoBoxText().setName("Infobox");
+        InfoBox.setLayout(new FlowLayout());
+        setLogBox(new LogBox());
 
-        InfoBox.setPreferredSize(new Dimension(600, 200));
-        InfoBox.add(getInfoBoxText());
+        
+        InfoBox.add(getLogBox());
 
         this.add(InfoBox, BorderLayout.SOUTH);
     }
@@ -410,4 +459,12 @@ public class NetSpyFrame extends JFrame {
 
         return outputInfoBox;
     }
+
+	public LogBox getLogBox() {
+		return logBox;
+	}
+
+	public void setLogBox(LogBox logBox) {
+		this.logBox = logBox;
+	}
 }
