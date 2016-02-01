@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import netspy.components.filehandling.io.TextReader;
+import netspy.components.filehandling.io.TextWriter;
 import netspy.components.util.DateHelper;
 
 /**
@@ -29,16 +30,10 @@ public class FileManager {
 	private static String BLACKLIST_PATH = "data/" + BLACKLIST_FILE;
 	
 	/** The Constant BLACKLSIT_ENCODING. */
-	private static final String BLACKLIST_ENCODING = "Cp1252";
-	
-	/** The Constant WHITELIST_FILE. */
-	private static final String WHITELIST_FILE = "whitelist.txt"; 
-	
-	/** The Constant WHITELIST_PATH. */
-	private static String WHITELIST_PATH = "data/" + WHITELIST_FILE;
+	private static final String BLACKLIST_ENCODING = "UTF-8";
 	
 	/** The Constant LOG_PATH. */
-	private static String LOG_PATH = "logs/";
+	public static String LOG_PATH = "logs/";
 
 	/** The Constant LOG_FILE_PREFIX. */
 	private static final String LOG_FILE_PREFIX = "log_";
@@ -47,7 +42,12 @@ public class FileManager {
 	private static final String LOG_FILE_EXTENSION = ".txt";
 	
 	/** The Constant DATE_FORMAT_LOGFILE_SUFFIX. */
-	private final DateFormat DATE_FORMAT_LOGFILE_SUFFIX = new SimpleDateFormat("ddMMyyyy_HHmmss");
+	public final static DateFormat DATE_FORMAT_LOGFILE_SUFFIX = new SimpleDateFormat("ddMMyyyy_HHmmss");
+	
+	/** The log file. */
+//	public static String LOG_FILE = LOG_PATH + LOG_FILE_PREFIX + new DateHelper().dateToString(new Date(), DATE_FORMAT_LOGFILE_SUFFIX) + LOG_FILE_EXTENSION;  
+	
+	public static String LOG_FILE = LOG_PATH + "log.txt";  
 	
 	/**
 	 * Gets the files by file extension.
@@ -107,34 +107,20 @@ public class FileManager {
 	 *
 	 * @return the string
 	 */
-	// TODO: use this before logging
 	public String createLogfile() {
 		
-		File file = new File(LOG_PATH 
-							+ LOG_FILE_PREFIX
-							// TODO: adjust after resolving todo concerned to getFormattedDate(), also fix warning
-							+ new DateHelper().dateToString(new Date(), DATE_FORMAT_LOGFILE_SUFFIX)
-							+ LOG_FILE_EXTENSION
-		);
+		File file = new File(LOG_FILE);
+		File absPathFile = new File(file.getAbsolutePath());
 		try {
+			new File(file.getParent()).mkdirs();
 			file.createNewFile();
 		} catch (IOException e) {
+			// TODO: ErrorNotificationPopup
 			System.out.println("Could not create file: " + file.getName() + " in " + file.getParent() + "!");
 		}
 		return file.getPath();
 	}
 
-
-	/**
-	 * Write.
-	 *
-	 * @param line the line
-	 */
-	public void write(String line) {
-//		TODO: add relative path of logfile as first parameter
-//		get logfile path from constants from this filemanager here
-//		new TextWriter().write(line);
-	}
 
 	/**
 	 * Gets the blacklist.
@@ -159,10 +145,57 @@ public class FileManager {
 		File destFile = new File(dest + srcFile.getName());
 		
 		if (!srcFile.renameTo(destFile)) {
+			// TODO: ErrorNotificationPopup
 			System.out.println(destFile.getName() + " existiert bereits im " + destFile.getParent() + "-Verzeichnis!");
 		} else {
 			System.out.println(srcFile.getName() + " wurde nach " + destFile.getParent() + " verschoben!");
 		}
+	}
+	
+	/**
+	 * Sets the inbox path.
+	 *
+	 * @param absolutePath the new inbox path
+	 */
+	public void setInboxPath(String absolutePath) {
+		INBOX_PATH = absolutePath;
+	}
+	
+	/**
+	 * Sets the quarantine path.
+	 *
+	 * @param absolutePath the new quarantine path
+	 */
+	public void setQuarantinePath(String absolutePath) {
+		QUARANTINE_PATH = absolutePath;
+	}
+	
+	/**
+	 * Sets the blacklist path.
+	 *
+	 * @param absolutePath the new blacklist path
+	 */
+	public void setBlacklistPath(String absolutePath) {
+		BLACKLIST_PATH = absolutePath;
+	}
+	
+	/**
+	 * Sets the log path.
+	 *
+	 * @param absolutePath the new log path
+	 */
+	public void setLogPath(String absolutePath) {
+		LOG_PATH = absolutePath;
+	}
+
+	public void write(String relPath, String line) {
+
+		new TextWriter().write(relPath, line);
+	}
+
+	public void log(String relPath, String logLine) {
+		
+		new TextWriter().write(relPath, logLine);
 	}
 	
 }
