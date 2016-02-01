@@ -1,6 +1,8 @@
 package netspy.components.mailing;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The Class Mail.
@@ -30,6 +32,12 @@ public class Email {
 
 	/** The relative path. */
 	private String relativePath;
+
+	/** The index. */
+	private int index;
+
+	/** The hit map. */
+	private Map<String, Integer> hitMap = new HashMap<>();
 	
 	/**
 	 * Instantiates a new mail.
@@ -197,5 +205,43 @@ public class Email {
 	public void setRelativePath(String relativePath) {
 		
 		this.setFilename(relativePath);
+	}
+
+	/**
+	 * Gets the index.
+	 *
+	 * @return the index
+	 */
+	public int getIndex() {
+		return index;
+	}
+
+	/**
+	 * Sets the index.
+	 *
+	 * @param index the new index
+	 */
+	public void setIndex(int index) {
+		this.index = index;
+	}
+
+	/**
+	 * Sets the hit map.
+	 *
+	 * @param hitMap the hit map
+	 */
+	public void setHitMap(Map<String, Integer> hitMap) {
+		
+		this.hitMap = hitMap;
+	}
+	
+	/**
+	 * Gets the hit map.
+	 *
+	 * @return the hit map
+	 */
+	public Map<String, Integer> getHitMap() {
+		
+		return this.hitMap;
 	}
 }
