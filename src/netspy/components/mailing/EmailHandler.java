@@ -19,6 +19,7 @@ import netspy.components.util.StringHelper;
  */
 public class EmailHandler {
 	
+//	TODO: make security lvl configurable or not?
 	/** The Constant SECURITY_LEVEL. */
 	public static final int SECURITY_LEVEL = 6;
 	

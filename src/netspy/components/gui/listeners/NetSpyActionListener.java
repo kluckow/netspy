@@ -7,7 +7,8 @@ import java.io.File;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 
-import netspy.components.gui.frame.MyJFrame;
+import netspy.NetSpy;
+import netspy.components.gui.frame.NetSpyFrame;
 
 /**
  * The listener interface for receiving fileChooserAction events.
@@ -23,14 +24,14 @@ import netspy.components.gui.frame.MyJFrame;
 public class NetSpyActionListener implements ActionListener {
 
 	/** The owner. Used for accessing the text fields. */
-	private MyJFrame owner;
+	private NetSpyFrame owner;
 	
 	/**
 	 * Instantiates a new file chooser action listener.
 	 *
 	 * @param owner the owner
 	 */
-	public NetSpyActionListener(MyJFrame owner) {
+	public NetSpyActionListener(NetSpyFrame owner) {
 		this.owner = owner;
 	}
 
@@ -42,7 +43,7 @@ public class NetSpyActionListener implements ActionListener {
 		
 		switch ( ((JButton) e.getSource()).getName() ) {
 		
-		case MyJFrame.BUTTON_ID_MAIL_PATH:
+		case NetSpyFrame.BUTTON_ID_MAIL_PATH:
 			
 			final JFileChooser mailPathChooser = new JFileChooser();
             mailPathChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
@@ -65,27 +66,28 @@ public class NetSpyActionListener implements ActionListener {
             }
 			break;
 			
-		case MyJFrame.BUTTON_ID_QUARANTINE_PATH:
+		case NetSpyFrame.BUTTON_ID_QUARANTINE_PATH:
 			
 			// TODO: implement choosers
 			// TODO: directory only
 			break;
 			
-		case MyJFrame.BUTTON_ID_BLACKWORD_PATH:
+		case NetSpyFrame.BUTTON_ID_BLACKWORD_PATH:
 			
 			// TODO: implement choosers
 			// TODO: .txt file only
 			break;
 			
-		case MyJFrame.BUTTON_ID_LOG_PATH:
+		case NetSpyFrame.BUTTON_ID_LOG_PATH:
 			
 			// TODO: implement choosers
 			// TODO: directory only
 			break;
 			
-		case MyJFrame.BUTTON_ID_START_SCAN:
+		case NetSpyFrame.BUTTON_ID_START_SCAN:
 			
 			// TODO: implement choosers
+			NetSpy.run();
 			// TODO: check if everything is ok before starting
 			break;
 

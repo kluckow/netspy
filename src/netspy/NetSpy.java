@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import netspy.components.gui.frame.NetSpyFrame;
 import netspy.components.mailing.Email;
 import netspy.components.mailing.EmailHandler;
 
@@ -21,11 +22,15 @@ public class NetSpy {
      * @param args the arguments
      */
     public static void main(final String[] args) {
+    	
+        final NetSpyFrame mainFrame = new NetSpyFrame();
+    }
 
-        if (checkInboxForMails()) {
+	public static void run() {
+		if (checkInboxForMails()) {
             processMailsInInbox();
         }
-    }
+	}
 
     /**
      * Process mails in inbox.

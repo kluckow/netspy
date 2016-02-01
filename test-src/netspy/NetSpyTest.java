@@ -1,6 +1,6 @@
 package netspy;
 
-import netspy.components.gui.frame.MyJFrame;
+import netspy.components.gui.frame.NetSpyFrame;
 
 /**
  * Class NetSpyTest.
@@ -19,7 +19,7 @@ public class NetSpyTest {
     public static void main(final String[] args) {
 
         // Show the main window
-        final MyJFrame mainFrame = new MyJFrame();
+//        final NetSpyFrame mainFrame = new NetSpyFrame();
     }
 
 }

@@ -20,7 +20,7 @@ import netspy.components.gui.listeners.NetSpyActionListener;
 /**
  * The Class MyJFrame.
  */
-public class MyJFrame extends JFrame {
+public class NetSpyFrame extends JFrame {
 	
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2357381332647405895L;
@@ -80,7 +80,7 @@ public class MyJFrame extends JFrame {
     /**
      * Instantiates a new my j frame.
      */
-    public MyJFrame() {
+    public NetSpyFrame() {
         super();
         initialize();
     }
@@ -91,7 +91,7 @@ public class MyJFrame extends JFrame {
     private void initialize() {
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setTitle("NetSpy 2.0");
+        this.setTitle("NetSpy 2");
         this.setBounds(400, 300, 400, 600);
         this.setResizable(false);
         this.setLayout(new BorderLayout());
@@ -112,7 +112,7 @@ public class MyJFrame extends JFrame {
 
         final JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-        titlePanel.add(new JLabel("NetSpy 2.0"));
+        titlePanel.add(new JLabel("NetSpy 2"));
 
         this.add(titlePanel, BorderLayout.NORTH);
     }
@@ -167,11 +167,11 @@ public class MyJFrame extends JFrame {
         formPanel.add(btn_MailPath, bgc);
         // Beispiel für bilder laden
         // TODO: Lass mal paar lustige bildchen mit rein tun :D
-        Icon icon1 = new ImageIcon(getClass().getResource("../../../resources/img/info.png"));
-        JLabel bild = new JLabel(icon1);
-        bild.setToolTipText("Wähle eine konkrete .eml-Datei oder ein"
-        		+ " Verzeichnis, in dem alle .eml-Dateien durchsucht werden sollen.");
-        formPanel.add(bild);
+//        Icon icon1 = new ImageIcon(getClass().getResource("../../../resources/img/info.png"));
+//        JLabel bild = new JLabel(icon1);
+//        bild.setToolTipText("Wähle eine konkrete .eml-Datei oder ein"
+//        		+ " Verzeichnis, in dem alle .eml-Dateien durchsucht werden sollen.");
+//        formPanel.add(bild);
 
         bgc = new GridBagConstraints();
         bgc.fill = GridBagConstraints.HORIZONTAL;
@@ -271,13 +271,14 @@ public class MyJFrame extends JFrame {
         bgc.weighty = 0.1;
         final JButton btn_Start = new JButton("Start");
         btn_Start.setName(BUTTON_ID_START_SCAN);
+        btn_Start.addActionListener(new NetSpyActionListener(this));
         formPanel.add(btn_Start, bgc);
 
         this.add(formPanel, BorderLayout.CENTER);
     }
 
     /**
-     * Sets the extra space.
+     * Sets the insets.
      */
     private void setInsets() {
 
