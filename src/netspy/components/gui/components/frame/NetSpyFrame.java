@@ -1,7 +1,7 @@
 /**
  * (c) Copyrights 2016 by Kevin Schorn, Markus Kluckow
  */
-package netspy.components.gui.frame;
+package netspy.components.gui.components.frame;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -15,8 +15,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import netspy.components.gui.frame.components.LogBox;
-import netspy.components.gui.listeners.NetSpyActionListener;
+import netspy.components.gui.components.frame.components.LogBox;
+import netspy.components.gui.components.listeners.NetSpyActionListener;
 
 /**
  * The Class MyJFrame.

@@ -1,7 +1,7 @@
 /**
  * (c) Copyrights 2016 by Kevin Schorn, Markus Kluckow
  */
-package netspy.components.gui.listeners;
+package netspy.components.gui.components.listeners;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,9 +11,9 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 
 import netspy.NetSpy;
+import netspy.components.gui.components.frame.NetSpyFrame;
 import netspy.components.gui.components.popups.ErrorNotificationPopup;
 import netspy.components.gui.components.popups.InfoNotificationPopup;
-import netspy.components.gui.frame.NetSpyFrame;
 import netspy.components.mailing.EmailHandler;
 
 /**

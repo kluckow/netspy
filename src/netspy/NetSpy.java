@@ -7,9 +7,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import netspy.components.gui.components.frame.NetSpyFrame;
 import netspy.components.gui.components.popups.ErrorNotificationPopup;
 import netspy.components.gui.components.popups.InfoNotificationPopup;
-import netspy.components.gui.frame.NetSpyFrame;
 import netspy.components.mailing.Email;
 import netspy.components.mailing.EmailHandler;
 
