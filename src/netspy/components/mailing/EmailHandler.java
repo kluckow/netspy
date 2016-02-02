@@ -237,7 +237,7 @@ public class EmailHandler {
 		}
 		
 //		clear mail container after files are moved
-		this.mailContainer = null;
+		this.mailContainer = new EmailContainer();
 		
 		String msg = "Es wurden " + counterSuspiciousMails + " verdächtige Emails gefunden.";
 		if (counterSuspiciousMails >= 1) {
