@@ -51,7 +51,7 @@ public class NetSpyFrame extends JFrame {
 	private static final String LABEL_LOG_PATH = "Log-Verzeichnis:";
 
 	/** The Constant LABEL_BLACKWORD_PATH. */
-    private static final String LABEL_BLACKWORD_PATH = "Blackword-Verzeichnis:";
+    private static final String LABEL_BLACKWORD_PATH = "Blackword-Datei:";
 
 	/** The Constant LABEL_MAIL_PATH. */
 	private static final String LABEL_MAIL_PATH = "Mail-Verzeichnis:";

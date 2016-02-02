@@ -114,13 +114,54 @@ public class NetSpyActionListener implements ActionListener {
 			break;
 			
 		case NetSpyFrame.BUTTON_ID_BLACKWORD_PATH:
-			
+			 
+		    final JFileChooser blackwordPathChooser = new JFileChooser();
+		    blackwordPathChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		    final int returnValBlackword = blackwordPathChooser.showOpenDialog(null);
+		    final File fileBlackwordPath = blackwordPathChooser.getSelectedFile();
+		    
+		    // Verhindert exception wenn keine dir ausgewählt wird
+		    if (returnValBlackword == JFileChooser.APPROVE_OPTION) {
+		        
+		        // change text field accordingly after choosing a folder
+		        this.owner.getInputBlackwordPath().setText(fileBlackwordPath.getPath());
+		        System.out.println(fileBlackwordPath.getPath() + " sollte nun im Textfeld für den Blackword pfad stehen.");
+		        
+		    } else if (returnValBlackword == JFileChooser.CANCEL_OPTION) {
+		        
+		        new InfoNotificationPopup("Keine Datei ausgewählt", "Sie müssen eine Datei "
+		            + " für die BlackwordListe auswaehlen!");
+		        
+		    } else if (returnValBlackword == JFileChooser.ERROR_OPTION) {
+		        
+		        new ErrorNotificationPopup("Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
+		    }
 			// TODO: implement choosers
 			// TODO: .txt file only
 			break;
 			
 		case NetSpyFrame.BUTTON_ID_LOG_PATH:
-			
+			final JFileChooser logPathChooser = new JFileChooser();
+		    logPathChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		    final int returnValLog = logPathChooser.showOpenDialog(null);
+		    final File fileLogPath = logPathChooser.getSelectedFile();
+		    
+		    // Verhindert exception wenn keine dir ausgewählt wird
+		    if (returnValLog == JFileChooser.APPROVE_OPTION) {
+		        
+		        // change text field accordingly after choosing a folder
+		        this.owner.getInputLogPath().setText(fileLogPath.getPath());
+		        System.out.println(fileLogPath.getPath() + " sollte nun im Textfeld für den Log pfad stehen.");
+		        
+		    } else if (returnValLog == JFileChooser.CANCEL_OPTION) {
+		        
+		        new InfoNotificationPopup("Kein Verzeichnis ausgewählt", "Sie müssen ein Verzeichnis"
+			            + " für die Log-Datei angeben!");
+		        
+		    } else if (returnValLog == JFileChooser.ERROR_OPTION) {
+		        
+		        new ErrorNotificationPopup("Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
+		    }
 			// TODO: implement choosers
 			// TODO: directory only
 			break;
