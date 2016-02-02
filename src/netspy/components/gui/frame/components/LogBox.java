@@ -1,7 +1,7 @@
 /**
  * (c) Copyrights 2016 by Kevin Schorn, Markus Kluckow
  */
-package netspy.components.gui.components;
+package netspy.components.gui.frame.components;
 
 import java.awt.Color;
 import java.awt.Dimension;

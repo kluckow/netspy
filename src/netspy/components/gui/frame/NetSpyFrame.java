@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import netspy.components.gui.components.LogBox;
+import netspy.components.gui.frame.components.LogBox;
 import netspy.components.gui.listeners.NetSpyActionListener;
 
 /**
