@@ -1,25 +1,20 @@
 package netspy;
 
-import netspy.components.gui.frame.NetSpyFrame;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
 
 /**
  * Class NetSpyTest.
- *
- * <p>
- * Class for testing some functionality of the NetSpy
- * </p>
  *
  * @author kluckow
  */
 public class NetSpyTest {
 
-    /**
-     * @param args
-     */
-    public static void main(final String[] args) {
+    @Test
+    public void test() {
 
-        // Show the main window
-//        final NetSpyFrame mainFrame = new NetSpyFrame();
+        assertTrue(true);
     }
 
 }
