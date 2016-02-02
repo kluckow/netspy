@@ -11,7 +11,6 @@ import java.util.Map;
 import netspy.components.filehandling.lists.Blacklist;
 import netspy.components.filehandling.manager.FileManager;
 import netspy.components.logging.LogManager;
-import netspy.components.util.ConsolePrinter;
 import netspy.components.util.StringHelper;
 
 /**
@@ -24,7 +23,7 @@ public class EmailHandler {
 	public static final int SECURITY_LEVEL = 6;
 	
 	/** The Constant EML_FILE_EXTENSION. */
-	private static final String EML_FILE_EXTENSION = ".eml";
+	public static final String EML_FILE_EXTENSION = ".eml";
 
 	/** The Constant HTML_MAIL_PART_START_IDENTIFIER. */
 	private static final String HTML_MAIL_PART_START_IDENTIFIER = "Content-Type: text/html;";
@@ -186,7 +185,7 @@ public class EmailHandler {
 	 *
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	public void scanMails() throws IOException {
+	public void scanMails() {
 		
 		int index = -1;
 		for (Email email: this.getMailContainer().getMails()) {
@@ -200,7 +199,6 @@ public class EmailHandler {
 			
 			email = this.checkAgainstBlacklist(email);
 			email = this.extractEmailProperties(email);
-			new ConsolePrinter().print(email);
 			// just if mail is suspicious, get its properties,
 			// else remove mail and go to next mail
 			if (!email.isSuspicious()) {
@@ -224,9 +222,6 @@ public class EmailHandler {
 		
 		for (Email email: this.getMailContainer().getMails()) {
 			
-//			System.out.println("Index of email: " + email.getIndex());
-//			System.out.println("Liste der Indices der mails, die verschoben werden sollen: " + indexListOfNonSuspiciousEmails.toString());
-			
 			if (!indexListOfNonSuspiciousEmails.contains(email.getIndex())) {
 				new LogManager().log(email);
 				new FileManager().moveFile(email.getRelativePath(), FileManager.QUARANTINE_PATH);
@@ -243,7 +238,7 @@ public class EmailHandler {
 	 * @return the email
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	private Email checkAgainstBlacklist(Email email) throws IOException {
+	private Email checkAgainstBlacklist(Email email) {
 		
 		Map<String, Integer> hitMap = new HashMap<>();
 		int hitsInLine = 0;
@@ -301,11 +296,15 @@ public class EmailHandler {
 	 * @return the blacklist
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	private List<String> getBlacklist() throws IOException {
+	private List<String> getBlacklist() {
 		
 //		avoid reading the file over and over again
 		if (this.blacklist == null) {
-			this.blacklist = new Blacklist(new FileManager().getBlacklist());
+		    try {
+		        this.blacklist = new Blacklist(new FileManager().getBlacklist());
+		    } catch (IOException e) {
+		        
+		    }
 		}
 		return this.blacklist.getBlacklist();
 	}
