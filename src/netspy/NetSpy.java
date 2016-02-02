@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import netspy.components.gui.components.popups.ErrorNotificationPopup;
+import netspy.components.gui.components.popups.InfoNotificationPopup;
 import netspy.components.gui.frame.NetSpyFrame;
 import netspy.components.mailing.Email;
 import netspy.components.mailing.EmailHandler;
@@ -15,6 +17,9 @@ public class NetSpy {
 
     /** The email handler. */
     static EmailHandler emailHandler = new EmailHandler();
+    
+    /** The main frame. */
+    private static NetSpyFrame mainFrame;
 
     /**
      * The main method.
@@ -23,10 +28,12 @@ public class NetSpy {
      */
     public static void main(final String[] args) {
     	
-        final NetSpyFrame mainFrame = new NetSpyFrame();
+        mainFrame = new NetSpyFrame();
     }
 
 	public static void run() {
+	    // Eigentlich wird die Überprüfung schon beim Auswählen des Pfades durchgeführt,
+	    // aber nochmal überprüfen kann nicht schaden.
 		if (checkInboxForMails()) {
             processMailsInInbox();
         }
@@ -37,15 +44,9 @@ public class NetSpy {
      */
     private static void processMailsInInbox() {
 
-        try {
-            emailHandler.scanMails();
-            if (!emailHandler.getMailContainer().getMails().isEmpty()) {
-                emailHandler.putMailsIntoQuarantine();
-                // TODO: do we need this if we give an option in menu to re-scan the inbox manually?
-                // new EmailHandler().reset();
-            }
-        } catch (final IOException e) {
-            e.printStackTrace();
+        emailHandler.scanMails();
+        if (!emailHandler.getMailContainer().getMails().isEmpty()) {
+            emailHandler.putMailsIntoQuarantine();
         }
     }
 
@@ -57,10 +58,12 @@ public class NetSpy {
     private static boolean checkInboxForMails() {
 
         if (!emailHandler.checkMailbox()) {
-        	// TODO: implement ErrorNotificationPopup
-            System.out.println("Keine Emails in der Mailbox gefunden. Keine �berpr�fung notwendig.");
+            
+            new InfoNotificationPopup("Keine Emails vorhanden", "Keine Emails in der Mailbox gefunden. Keine Überprüfung notwendig.");
             return false;
+            
         } else {
+            
             // get emails as files
             final List<File> mailFiles = emailHandler.getEmlFiles();
 
@@ -72,7 +75,7 @@ public class NetSpy {
                     // add email object to email container
                     emailHandler.getMailContainer().getMails().add(email);
                 } catch (final IOException e) {
-                	// TODO: implement ErrorNotificationPopup
+                    new ErrorNotificationPopup("Datei-Lesefehler", "Es ist ein Problem beim Lesen der Email-Datei aufgetreten!");
                 }
             }
             // set indices of emails
