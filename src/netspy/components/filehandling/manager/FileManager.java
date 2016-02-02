@@ -10,6 +10,7 @@ import java.util.List;
 
 import netspy.components.filehandling.io.TextReader;
 import netspy.components.filehandling.io.TextWriter;
+import netspy.components.gui.components.popups.ErrorNotificationPopup;
 import netspy.components.util.DateHelper;
 
 /**
@@ -115,8 +116,8 @@ public class FileManager {
 			new File(file.getParent()).mkdirs();
 			file.createNewFile();
 		} catch (IOException e) {
-			// TODO: ErrorNotificationPopup
-			System.out.println("Could not create file: " + file.getName() + " in " + file.getParent() + "!");
+		    new ErrorNotificationPopup("Datei konnnte nicht erstellt werden", file.getName() + " konnte nicht erstellt werden in "
+		        + "in " + file.getParent() + "!");
 		}
 		return file.getPath();
 	}
@@ -145,7 +146,8 @@ public class FileManager {
 		File destFile = new File(dest + srcFile.getName());
 		
 		if (!srcFile.renameTo(destFile)) {
-			// TODO: ErrorNotificationPopup
+		    new ErrorNotificationPopup("Datei existiert bereits", destFile.getAbsolutePath() + " existiert bereits im Ziel-Verzeichnis! "
+		        + "Daher findet keine Verschiebung statt!");
 			System.out.println(destFile.getName() + " existiert bereits im " + destFile.getParent() + "-Verzeichnis!");
 		} else {
 			System.out.println(srcFile.getName() + " wurde nach " + destFile.getParent() + " verschoben!");
