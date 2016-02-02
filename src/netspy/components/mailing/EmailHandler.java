@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import netspy.NetSpy;
 import netspy.components.filehandling.lists.Blacklist;
 import netspy.components.filehandling.manager.FileManager;
 import netspy.components.logging.LogManager;
@@ -221,19 +222,26 @@ public class EmailHandler {
 	/**
 	 * Put mails into quarantine.
 	 */
-	public int putMailsIntoQuarantine() {
+	public void putMailsIntoQuarantine() {
+		
 		int counterSuspiciousMails = 0;
+		
 		for (Email email: this.getMailContainer().getMails()) {
 			
 			if (!indexListOfNonSuspiciousEmails.contains(email.getIndex())) {
+				
 				new LogManager().log(email);
 				new FileManager().moveFile(email.getRelativePath(), FileManager.QUARANTINE_PATH);
 				counterSuspiciousMails++;
 			}
 		}
+		
 //		clear mail container after files are moved
 		this.mailContainer = null;
-		return counterSuspiciousMails;
+		NetSpy.mainFrame.getLogBox().append("Es wurden "
+				+ counterSuspiciousMails
+        		+ " verdächtige Emails gefunden. "
+        		+ "Weitere Details dazu befinden sich in der Logdatei.");
 	}
 	
 	/**

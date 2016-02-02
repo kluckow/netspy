@@ -22,7 +22,7 @@ public class NetSpy {
     static EmailHandler emailHandler = new EmailHandler();
     
     /** The main frame. */
-    private static NetSpyFrame mainFrame;
+    public static NetSpyFrame mainFrame;
 
     /**
      * The main method.
@@ -49,10 +49,7 @@ public class NetSpy {
 
         emailHandler.scanMails();
         if (!emailHandler.getMailContainer().getMails().isEmpty()) {
-            int counterSuspiciousMails = emailHandler.putMailsIntoQuarantine();
-            mainFrame.getLogBox().append("Es wurden " + counterSuspiciousMails
-            		+ " verdächtige Emails gefunden. "
-            		+ "Weitere Details dazu befinden sich der Logdatei.");
+            emailHandler.putMailsIntoQuarantine();
         }
     }
 
