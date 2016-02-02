@@ -5,15 +5,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import netspy.components.util.ConsolePrinter;
+import netspy.components.gui.components.popups.ErrorNotificationPopup;
 
 /**
  * The Class TextWriter.
  */
 public class TextWriter {
-	
-	/** The Constant WRITE_ERROR_MSG. */
-	private static final String WRITE_ERROR_MSG = "Schreiben der Datei ist nicht möglich!";
 	
 	/**
 	 * Write.
@@ -31,8 +28,8 @@ public class TextWriter {
 			out.write(line + "\n");
 			out.close();
 		} catch (IOException e) {
-//			TODO: ErrorNotificationPopup 
-			new ConsolePrinter().printLine(WRITE_ERROR_MSG);
+		    new ErrorNotificationPopup("Datei-Schreibfehler", "Fehler beim Schreiben in "
+		        + new File(relativePathOfFile).getAbsolutePath() + " aufgetreten!");
 		}
 	}
 }
