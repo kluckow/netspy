@@ -176,6 +176,7 @@ public class NetSpyFrame extends JFrame {
         formPanel.add(labelMailPath, bgc);
 
         setInputMailPath(new JTextField());
+        this.inputMailPath.setEditable(false);
         getInputMailPath().setName(INPUT_ID_MAIL_PATH);
         
         bgc = new GridBagConstraints();
@@ -225,6 +226,7 @@ public class NetSpyFrame extends JFrame {
         bgc.gridy = 1;
         bgc.gridwidth = 4;
         setInputBlackwordPath(new JTextField());
+        this.inputBlackwordPath.setEditable(false);
         getInputBlackwordPath().setName(INPUT_ID_BLACKWORD_PATH);
         formPanel.add(getInputBlackwordPath(), bgc);
 
@@ -255,6 +257,7 @@ public class NetSpyFrame extends JFrame {
         bgc.gridy = 2;
         bgc.gridwidth = 4;
         setInputLogPath(new JTextField());
+        this.inputLogPath.setEditable(false);
         getInputLogPath().setName(INPUT_ID_LOG_PATH);
         formPanel.add(getInputLogPath(), bgc);
 
@@ -285,6 +288,7 @@ public class NetSpyFrame extends JFrame {
         bgc.gridy = 3;
         bgc.gridwidth = 4;
         setInputQuarantinePath(new JTextField());
+        this.inputQuarantinePath.setEditable(false);
         getInputQuarantinePath().setName(INPUT_ID_QUARANTINE_PATH);
         formPanel.add(getInputQuarantinePath(), bgc);
 
@@ -308,14 +312,14 @@ public class NetSpyFrame extends JFrame {
         btnStartScan.addActionListener(new NetSpyActionListener(this));
         formPanel.add(btnStartScan, bgc);
         
-        bgc = new GridBagConstraints();
-        bgc.fill = GridBagConstraints.HORIZONTAL;
-        bgc.gridx = 5;
-        bgc.gridy = 4;
-        final JButton btnToggleLogBox = new JButton(BUTTON_LABEL_HIDE_LOGBOX);
-        btnToggleLogBox.setName(BUTTON_ID_TOGGLE_LOGBOX);
-        btnToggleLogBox.addActionListener(new NetSpyActionListener(this));
-        formPanel.add(btnToggleLogBox, bgc);
+//        bgc = new GridBagConstraints();
+//        bgc.fill = GridBagConstraints.HORIZONTAL;
+//        bgc.gridx = 5;
+//        bgc.gridy = 4;
+//        final JButton btnToggleLogBox = new JButton(BUTTON_LABEL_HIDE_LOGBOX);
+//        btnToggleLogBox.setName(BUTTON_ID_TOGGLE_LOGBOX);
+//        btnToggleLogBox.addActionListener(new NetSpyActionListener(this));
+//        formPanel.add(btnToggleLogBox, bgc);
         
         bgc = new GridBagConstraints();
         bgc.fill = GridBagConstraints.HORIZONTAL;
