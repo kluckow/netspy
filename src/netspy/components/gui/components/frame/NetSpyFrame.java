@@ -23,6 +23,9 @@ import netspy.components.gui.components.listeners.NetSpyActionListener;
  */
 public class NetSpyFrame extends JFrame {
 
+	/** The Constant APPLICATION_TITLE. */
+	public static final String APPLICATION_TITLE = "NetSpy 2";
+
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2357381332647405895L;
 	
@@ -125,7 +128,7 @@ public class NetSpyFrame extends JFrame {
     private void initialize() {
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setTitle("NetSpy 2");
+        this.setTitle(APPLICATION_TITLE);
         this.setBounds(400, 300, 400, 600);
         this.setResizable(false);
         this.setLayout(new BorderLayout());
@@ -146,7 +149,7 @@ public class NetSpyFrame extends JFrame {
 
         final JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-        titlePanel.add(new JLabel("NetSpy 2"));
+        titlePanel.add(new JLabel(APPLICATION_TITLE));
 
         this.add(titlePanel, BorderLayout.NORTH);
     }
