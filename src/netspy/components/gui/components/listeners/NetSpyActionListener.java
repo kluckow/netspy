@@ -66,7 +66,6 @@ public class NetSpyActionListener implements ActionListener {
 //                         new InfoNotificationPopup("Info", fileMailPath.getPath() + " contains eml file(s)!");
                      }
                     
-                    
                     // check with file-names
                 } else if (fileMailPath.isFile() && !fileMailPath.getName().endsWith(EmailHandler.EML_FILE_EXTENSION)) {
                     new ErrorNotificationPopup("Ungültige Dateierweiterung", "Es sind nur .eml-Dateien erlaubt!");
@@ -77,8 +76,9 @@ public class NetSpyActionListener implements ActionListener {
                 }
                 
             } else if (returnValMailPath == JFileChooser.CANCEL_OPTION) {
-                new InfoNotificationPopup("Kein Verzeichnis oder Datei ausgewählt", "Sie müssen ein Verzeichnis"
-                                + " oder eine Datei für die zu überprüfenden Emails angeben!");
+                new InfoNotificationPopup("Kein Verzeichnis oder Datei ausgewählt",
+                		"Sie müssen ein Verzeichnis oder eine Datei für die zu "
+                		+ "überprüfenden Emails angeben!");
             } else if (returnValMailPath == JFileChooser.ERROR_OPTION) {
                 new ErrorNotificationPopup("Unbekannter Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
             }
@@ -109,7 +109,6 @@ public class NetSpyActionListener implements ActionListener {
 		        new ErrorNotificationPopup("Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
 		    }
 			
-			// TODO: implement choosers
 			// TODO: directory only
 			break;
 			
@@ -120,27 +119,29 @@ public class NetSpyActionListener implements ActionListener {
 		    final int returnValBlackword = blackwordPathChooser.showOpenDialog(null);
 		    final File fileBlackwordPath = blackwordPathChooser.getSelectedFile();
 		    
-		    // Verhindert exception wenn keine dir ausgewählt wird
+		    // Verhindert exception wenn keine dir/file ausgewählt wird
 		    if (returnValBlackword == JFileChooser.APPROVE_OPTION) {
 		        
+		    	// TODO: .txt file only
+		    	
 		        // change text field accordingly after choosing a folder
 		        this.owner.getInputBlackwordPath().setText(fileBlackwordPath.getPath());
-		        System.out.println(fileBlackwordPath.getPath() + " sollte nun im Textfeld für den Blackword pfad stehen.");
+		        System.out.println(fileBlackwordPath.getPath() + " sollte nun"
+		        		+ " im Textfeld für den Blackword-Pfad stehen.");
 		        
 		    } else if (returnValBlackword == JFileChooser.CANCEL_OPTION) {
 		        
-		        new InfoNotificationPopup("Keine Datei ausgewählt", "Sie müssen eine Datei "
-		            + " für die BlackwordListe auswaehlen!");
+		        new InfoNotificationPopup("Keine Datei ausgewählt", "Sie müssen eine Datei"
+		            + " für die Blackword-Liste auswählen!");
 		        
 		    } else if (returnValBlackword == JFileChooser.ERROR_OPTION) {
 		        
 		        new ErrorNotificationPopup("Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
 		    }
-			// TODO: implement choosers
-			// TODO: .txt file only
 			break;
 			
 		case NetSpyFrame.BUTTON_ID_LOG_PATH:
+			
 			final JFileChooser logPathChooser = new JFileChooser();
 		    logPathChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		    final int returnValLog = logPathChooser.showOpenDialog(null);
@@ -149,9 +150,11 @@ public class NetSpyActionListener implements ActionListener {
 		    // Verhindert exception wenn keine dir ausgewählt wird
 		    if (returnValLog == JFileChooser.APPROVE_OPTION) {
 		        
+		    	// TODO: directory only && no weird special character directory
+		    	
 		        // change text field accordingly after choosing a folder
 		        this.owner.getInputLogPath().setText(fileLogPath.getPath());
-		        System.out.println(fileLogPath.getPath() + " sollte nun im Textfeld für den Log pfad stehen.");
+		        System.out.println(fileLogPath.getPath() + " sollte nun im Textfeld für den Log-Pfad stehen.");
 		        
 		    } else if (returnValLog == JFileChooser.CANCEL_OPTION) {
 		        
@@ -162,13 +165,10 @@ public class NetSpyActionListener implements ActionListener {
 		        
 		        new ErrorNotificationPopup("Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
 		    }
-			// TODO: implement choosers
-			// TODO: directory only
 			break;
 			
 		case NetSpyFrame.BUTTON_ID_START_SCAN:
 			
-			// TODO: implement choosers
 			this.owner.getLogBox().append("Scan wurde gestartet...");
 			NetSpy.run();
 			// TODO: check if everything is ok before starting
