@@ -7,6 +7,9 @@ import javax.swing.JTextArea;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
+import netspy.components.gui.components.popups.ErrorNotificationPopup;
+import netspy.components.gui.components.popups.InfoNotificationPopup;
+
 /**
  * The Class LogBox.
  */
@@ -39,16 +42,19 @@ public class LogBox extends JTextArea {
             try {
                 this.doc.insertString(this.doc.getLength(), str, null);
             } catch (BadLocationException e) {
+                new ErrorNotificationPopup("BadLocationException", e.getMessage());
             }
         }
 	}
 	
 	public void clear() {
 		setText("");
+		new InfoNotificationPopup("", "Reportfenster wurde geleert!");
 	}
 	/**
 	 * Toggle display.
 	 */
+	// TODO: wollen wir die funktion haben?
 	public void toggleDisplay() {
 		setVisible(!isVisible());
 	}
