@@ -9,14 +9,16 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Insets;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.plaf.ColorUIResource;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 
 import netspy.components.gui.components.frame.components.LogBox;
 import netspy.components.gui.components.listeners.NetSpyActionListener;
@@ -386,15 +388,12 @@ public class NetSpyFrame extends JFrame {
      */
     private void setInfoBox() {
 
-        final JPanel infoBox = new JPanel();
-        infoBox.setLayout(new FlowLayout());
-        infoBox.setBackground(Color.WHITE);
-        setLogBox(new LogBox());
-
+    	this.logBox = new LogBox();
+        final JScrollPane infoBoxScrollable = new JScrollPane(this.logBox);
+        infoBoxScrollable.setPreferredSize(new Dimension(600, 200));
+        infoBoxScrollable.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         
-        infoBox.add(getLogBox());
-
-        this.add(infoBox, BorderLayout.SOUTH);
+        this.add(infoBoxScrollable, BorderLayout.SOUTH);
     }
 
     /**
