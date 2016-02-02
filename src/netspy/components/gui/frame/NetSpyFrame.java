@@ -7,6 +7,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -201,12 +202,11 @@ public class NetSpyFrame extends JFrame {
         btnOpenMailPathChooser.setPreferredSize(DIMENSION_BUTTON_SIZE);
         formPanel.add(btnOpenMailPathChooser, bgc);
         // Beispiel für bilder laden
-        // TODO: Lass mal paar lustige bildchen mit rein tun :D
-//        Icon icon1 = new ImageIcon(getClass().getResource("../../../resources/img/info.png"));
-//        JLabel bild = new JLabel(icon1);
-//        bild.setToolTipText("Wähle eine konkrete .eml-Datei oder ein"
-//        		+ " Verzeichnis, in dem alle .eml-Dateien durchsucht werden sollen.");
-//        formPanel.add(bild);
+        Icon icon1 = new ImageIcon(this.getClass().getResource("../components/resources/img/info.png"));
+        JLabel bild = new JLabel(icon1);
+        bild.setToolTipText("Wähle eine konkrete .eml-Datei oder ein"
+        		+ " Verzeichnis, in dem alle .eml-Dateien durchsucht werden sollen.");
+        formPanel.add(bild);
 
         bgc = new GridBagConstraints();
         bgc.fill = GridBagConstraints.HORIZONTAL;
