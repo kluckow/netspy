@@ -1,3 +1,6 @@
+/**
+ * (c) Copyrights 2016 by Kevin Schorn, Markus Kluckow
+ */
 package netspy.components.filehandling.io;
 
 import java.io.BufferedWriter;

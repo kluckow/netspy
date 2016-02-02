@@ -1,3 +1,6 @@
+/**
+ * (c) Copyrights 2016 by Kevin Schorn, Markus Kluckow
+ */
 package netspy.components.logging;
 
 import java.text.DateFormat;
