@@ -4,16 +4,19 @@
 package netspy.components.gui.components.frame;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.plaf.ColorUIResource;
 
 import netspy.components.gui.components.frame.components.LogBox;
 import netspy.components.gui.components.listeners.NetSpyActionListener;
@@ -129,10 +132,12 @@ public class NetSpyFrame extends JFrame {
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle(APPLICATION_TITLE);
-        this.setBounds(400, 300, 400, 600);
+//        this.getContentPane().setBackground(Color.RED);
+        this.setBackground(Color.RED);
+        this.setBounds(400, 100, 400, 600);
         this.setResizable(false);
         this.setLayout(new BorderLayout());
-
+        
         this.setTitlePanel();
         this.setInsets();
         this.setFormLayout();
@@ -149,6 +154,7 @@ public class NetSpyFrame extends JFrame {
 
         final JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        titlePanel.setBackground(Color.WHITE);
         titlePanel.add(new JLabel(APPLICATION_TITLE));
 
         this.add(titlePanel, BorderLayout.NORTH);
@@ -162,6 +168,7 @@ public class NetSpyFrame extends JFrame {
 
         final JPanel formPanel = new JPanel(new GridBagLayout());
         formPanel.setPreferredSize(new Dimension(600, 200));
+        formPanel.setBackground(Color.WHITE);
         GridBagConstraints bgc = new GridBagConstraints();
         
         
@@ -367,7 +374,9 @@ public class NetSpyFrame extends JFrame {
     private void setInsets() {
 
         final JPanel insetEast = new JPanel();
+        insetEast.setBackground(Color.WHITE);
         final JPanel insetWest = new JPanel();
+        insetWest.setBackground(Color.WHITE);
         this.add(insetWest, BorderLayout.WEST);
         this.add(insetEast, BorderLayout.EAST);
     }
@@ -377,14 +386,15 @@ public class NetSpyFrame extends JFrame {
      */
     private void setInfoBox() {
 
-        final JPanel InfoBox = new JPanel();
-        InfoBox.setLayout(new FlowLayout());
+        final JPanel infoBox = new JPanel();
+        infoBox.setLayout(new FlowLayout());
+        infoBox.setBackground(Color.WHITE);
         setLogBox(new LogBox());
 
         
-        InfoBox.add(getLogBox());
+        infoBox.add(getLogBox());
 
-        this.add(InfoBox, BorderLayout.SOUTH);
+        this.add(infoBox, BorderLayout.SOUTH);
     }
 
     /**

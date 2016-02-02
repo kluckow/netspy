@@ -31,7 +31,8 @@ public class LogBox extends JTextArea {
 		super();
         setEditable(false);
         setPreferredSize(new Dimension(600, 200));
-        setBackground(Color.WHITE);
+        setBackground(Color.BLACK);
+        setForeground(Color.WHITE);
 	}
 	
 	@Override

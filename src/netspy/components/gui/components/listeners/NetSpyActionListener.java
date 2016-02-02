@@ -128,6 +128,7 @@ public class NetSpyActionListener implements ActionListener {
 		case NetSpyFrame.BUTTON_ID_START_SCAN:
 			
 			// TODO: implement choosers
+			this.owner.getLogBox().append("Scan wurde gestartet...");
 			NetSpy.run();
 			// TODO: check if everything is ok before starting
 			break;

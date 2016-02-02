@@ -238,10 +238,12 @@ public class EmailHandler {
 		
 //		clear mail container after files are moved
 		this.mailContainer = null;
-		NetSpy.mainFrame.getLogBox().append("Es wurden "
-				+ counterSuspiciousMails
-        		+ " verdächtige Emails gefunden. "
-        		+ "Weitere Details dazu befinden sich in der Logdatei.");
+		
+		String msg = "Es wurden " + counterSuspiciousMails + " verdächtige Emails gefunden.";
+		if (counterSuspiciousMails >= 1) {
+			msg += " Weitere Details dazu befinden sich in der Logdatei.";
+		}
+		NetSpy.mainFrame.getLogBox().append(msg);
 	}
 	
 	/**
