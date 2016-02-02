@@ -2,12 +2,9 @@ package netspy.components.logging;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 
 import netspy.components.filehandling.manager.FileManager;
 import netspy.components.mailing.Email;
-import netspy.components.util.DateHelper;
 
 /**
  * The Class LogManager.
@@ -35,6 +32,7 @@ public class LogManager {
 	 * @param scanResult the scan result
 	 */
 	public void log(Email email) {
+	    // TODO: implement detailed logging, this is just an example
 		String logLine = "Gesendet am: " + email.getSendingDate();
 		logLine += LOG_ENTRY_SEPARATOR;
 		logLine += "Betreff: " + email.getSubject();
