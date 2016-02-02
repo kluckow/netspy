@@ -221,17 +221,19 @@ public class EmailHandler {
 	/**
 	 * Put mails into quarantine.
 	 */
-	public void putMailsIntoQuarantine() {
-		
+	public int putMailsIntoQuarantine() {
+		int counterSuspiciousMails = 0;
 		for (Email email: this.getMailContainer().getMails()) {
 			
 			if (!indexListOfNonSuspiciousEmails.contains(email.getIndex())) {
 				new LogManager().log(email);
 				new FileManager().moveFile(email.getRelativePath(), FileManager.QUARANTINE_PATH);
+				counterSuspiciousMails++;
 			}
 		}
 //		clear mail container after files are moved
 		this.mailContainer = null;
+		return counterSuspiciousMails;
 	}
 	
 	/**

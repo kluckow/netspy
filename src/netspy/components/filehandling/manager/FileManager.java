@@ -153,7 +153,7 @@ public class FileManager {
 		        + "Daher findet keine Verschiebung statt!");
 			System.out.println(destFile.getName() + " existiert bereits im " + destFile.getParent() + "-Verzeichnis!");
 		} else {
-			System.out.println(srcFile.getName() + " wurde nach " + destFile.getParent() + " verschoben!");
+//			System.out.println(srcFile.getName() + " wurde nach " + destFile.getParent() + " verschoben!");
 		}
 	}
 	

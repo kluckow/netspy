@@ -32,9 +32,6 @@ public class LogBox extends JTextArea {
         setEditable(false);
         setPreferredSize(new Dimension(600, 200));
         setBackground(Color.WHITE);
-        // TODO: remove
-        append("This is the first line!");
-        append("Second line alallalallallal!");
 	}
 	
 	@Override

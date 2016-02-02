@@ -49,7 +49,10 @@ public class NetSpy {
 
         emailHandler.scanMails();
         if (!emailHandler.getMailContainer().getMails().isEmpty()) {
-            emailHandler.putMailsIntoQuarantine();
+            int counterSuspiciousMails = emailHandler.putMailsIntoQuarantine();
+            mainFrame.getLogBox().append("Es wurden " + counterSuspiciousMails
+            		+ " verdächtige Emails gefunden. "
+            		+ "Weitere Details dazu befinden sich der Logdatei.");
         }
     }
 
