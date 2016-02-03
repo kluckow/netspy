@@ -6,9 +6,9 @@ package netspy.components.gui.components.frame;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,8 +17,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.TitledBorder;
 
 import netspy.components.gui.components.frame.components.LogBox;
 import netspy.components.gui.components.listeners.NetSpyActionListener;
@@ -101,7 +99,7 @@ public class NetSpyFrame extends JFrame {
 	private static final Dimension DIMENSION_LABEL_SIZE = new Dimension(50, 25);
 
 	/** The Constant DIMENSION_BUTTON_SIZE. */
-	private static final Dimension DIMENSION_BUTTON_SIZE = new Dimension(110, 25);
+	private static final Dimension DIMENSION_BUTTON_SIZE = new Dimension(120, 25);
 
 	
 	/** The Input mail path. */
@@ -119,6 +117,15 @@ public class NetSpyFrame extends JFrame {
 	/** The log box. */
 	private LogBox logBox;
 	
+	/** The main panel. */
+	private JPanel mainPanel = new JPanel();
+	
+	/** The empty row. */
+	private JPanel emptyRow = new JPanel();
+	
+	/** The gbc. */
+	private GridBagConstraints gbc = new GridBagConstraints();
+	
     /**
      * Instantiates a new my j frame.
      */
@@ -134,17 +141,21 @@ public class NetSpyFrame extends JFrame {
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle(APPLICATION_TITLE);
-//        this.getContentPane().setBackground(Color.RED);
         this.setBackground(Color.RED);
-        this.setBounds(400, 100, 400, 600);
+        this.setBounds(500, 200, 1024, 768);
         this.setResizable(false);
-        this.setLayout(new BorderLayout());
+        
+        this.mainPanel.setLayout(new GridBagLayout());
+        this.mainPanel.setBackground(Color.WHITE);
+        
+        gbc.insets = new Insets(5, 5, 5, 5);
         
         this.setTitlePanel();
-        this.setInsets();
         this.setFormLayout();
         this.setInfoBox();
-
+        
+        this.add(this.mainPanel);
+        
         this.pack();
         this.setVisible(true);
     }
@@ -154,246 +165,256 @@ public class NetSpyFrame extends JFrame {
      */
     private void setTitlePanel() {
 
+    	// y = 0, x = 0-7
+    	gbc.gridx = 0;
+    	gbc.gridy = 0;
+    	gbc.gridwidth = 8;
+    	gbc.anchor = GridBagConstraints.CENTER;
+    	gbc.fill = GridBagConstraints.HORIZONTAL;
+    	
         final JPanel titlePanel = new JPanel();
-        titlePanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         titlePanel.setBackground(Color.WHITE);
         titlePanel.add(new JLabel(APPLICATION_TITLE));
-
-        this.add(titlePanel, BorderLayout.NORTH);
+        
+        this.mainPanel.add(titlePanel, gbc);
     }
 
     /**
      * Sets the form layout.
      */
-    // TODO: FormPanel extends JPanel erstellen und jegliche configuration da reinpacken.
     private void setFormLayout() {
 
-        final JPanel formPanel = new JPanel(new GridBagLayout());
-        formPanel.setPreferredSize(new Dimension(600, 200));
-        formPanel.setBackground(Color.WHITE);
-        GridBagConstraints bgc = new GridBagConstraints();
-        
         
 //        MAIL PATH
         
 //        LABEL
-        bgc.fill = GridBagConstraints.HORIZONTAL;
-        bgc.weightx = 0.1;
-        bgc.weighty = 0.1;
-        bgc.gridx = 1;
-        bgc.gridy = 0;
+    	// y = 1, x = 0-1, fill none
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.LINE_START;
+        gbc.fill = GridBagConstraints.NONE;
         final JLabel labelMailPath = new JLabel(LABEL_MAIL_PATH);
         labelMailPath.setSize(DIMENSION_LABEL_SIZE);
-        formPanel.add(labelMailPath, bgc);
+        this.mainPanel.add(labelMailPath, gbc);
 
         
 //        INPUT
-        bgc = new GridBagConstraints();
-        bgc.fill = GridBagConstraints.HORIZONTAL;
-        bgc.weightx = 0.5;
-        bgc.gridx = 2;
-        bgc.gridy = 0;
-        bgc.gridwidth = 4;
+        // y = 1, x = 2-5, fill horizontal
+        gbc.gridx = 2;
+        gbc.gridy = 1;
+        gbc.gridwidth = 4;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         this.inputMailPath = new JTextField();
         this.inputMailPath.setPreferredSize(DIMENSION_TEXTFIELD_SIZE);
         this.inputMailPath.setEditable(false);
         this.inputMailPath.setName(INPUT_ID_MAIL_PATH);
-        formPanel.add(this.inputMailPath, bgc);
+        this.mainPanel.add(this.inputMailPath, gbc);
 
 //        BUTTON FOR CHOOSER
-        bgc = new GridBagConstraints();
-        bgc.fill = GridBagConstraints.HORIZONTAL;
-        bgc.weightx = -0.5;
-        bgc.gridx = 6;
-        bgc.gridy = 0;
+        // y = 1, x = 6-7, fill horizontal
+        gbc.gridx = 6;
+        gbc.gridy = 1;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         final JButton btnOpenMailPathChooser = new JButton(BUTTON_LABEL_SEARCH_FILE);
         btnOpenMailPathChooser.setName(BUTTON_ID_MAIL_PATH);
 //        btnOpenMailPathChooser.setToolTipText("Wähle eine konkrete .eml-Datei oder ein"
 //        		+ " Verzeichnis, in dem alle .eml-Dateien durchsucht werden sollen.");
         btnOpenMailPathChooser.addActionListener(new NetSpyActionListener(this));
         btnOpenMailPathChooser.setPreferredSize(DIMENSION_BUTTON_SIZE);
-        formPanel.add(btnOpenMailPathChooser, bgc);
+        this.mainPanel.add(btnOpenMailPathChooser, gbc);
         // Beispiel für bilder laden
 //        Icon icon1 = new ImageIcon(this.getClass().getResource("../components/resources/img/info.png"));
 //        JLabel bild = new JLabel(icon1);
 //        bild.setToolTipText("Wähle eine konkrete .eml-Datei oder ein"
 //        		+ " Verzeichnis, in dem alle .eml-Dateien durchsucht werden sollen.");
-//        formPanel.add(bild);
+//        this.mainPanel.add(bild);
 
         
 //        BLACKWORD PATH
         
 //        LABEL
-        bgc = new GridBagConstraints();
-        bgc.fill = GridBagConstraints.HORIZONTAL;
-        bgc.weightx = 0.1;
-        bgc.weighty = 0.1;
-        bgc.gridx = 1;
-        bgc.gridy = 1;
+        // y = 2, x = 0-1, fill none
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.NONE;
         final JLabel lblBlackword = new JLabel(LABEL_BLACKWORD_PATH);
         lblBlackword.setSize(DIMENSION_LABEL_SIZE);
-        formPanel.add(lblBlackword, bgc);
+        this.mainPanel.add(lblBlackword, gbc);
 
 //        INPUT
-        bgc = new GridBagConstraints();
-        bgc.fill = GridBagConstraints.HORIZONTAL;
-        bgc.weightx = 0.5;
-        bgc.gridx = 2;
-        bgc.gridy = 1;
-        bgc.gridwidth = 4;
+        // y = 2, x = 2-5, fill horizontal
+        gbc.gridx = 2;
+        gbc.gridy = 2;
+        gbc.gridwidth = 4;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         this.inputBlackwordPath = new JTextField();
         this.inputBlackwordPath.setPreferredSize(DIMENSION_TEXTFIELD_SIZE);
         this.inputBlackwordPath.setEditable(false);
         this.inputBlackwordPath.setName(INPUT_ID_BLACKWORD_PATH);
-        formPanel.add(this.inputBlackwordPath, bgc);
+        this.mainPanel.add(this.inputBlackwordPath, gbc);
 
 //        BUTTON FOR CHOOSER
-        bgc = new GridBagConstraints();
-        bgc.fill = GridBagConstraints.HORIZONTAL;
-        bgc.weightx = -0.5;
-        bgc.gridx = 6;
-        bgc.gridy = 1;
+        // y = 2, x = 6-7, fill horizontal
+        gbc.gridx = 6;
+        gbc.gridy = 2;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         final JButton btnOpenBlackwordPathChooser = new JButton((BUTTON_LABEL_SEARCH_FILE));
         btnOpenBlackwordPathChooser.setName(BUTTON_ID_BLACKWORD_PATH);
         btnOpenBlackwordPathChooser.addActionListener(new NetSpyActionListener(this));
         btnOpenBlackwordPathChooser.setPreferredSize(DIMENSION_BUTTON_SIZE);
-        formPanel.add(btnOpenBlackwordPathChooser, bgc);
+        this.mainPanel.add(btnOpenBlackwordPathChooser, gbc);
 
 //        LOG PATH
         
 //        LABEL
-        bgc = new GridBagConstraints();
-        bgc.fill = GridBagConstraints.HORIZONTAL;
-        bgc.weightx = 0.1;
-        bgc.weighty = 0.1;
-        bgc.gridx = 1;
-        bgc.gridy = 2;
+        // y = 3, x = 0-1, fill none
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.NONE;
         final JLabel lblLogPath = new JLabel(LABEL_LOG_PATH);
         lblLogPath.setSize(DIMENSION_LABEL_SIZE);
-        formPanel.add(lblLogPath, bgc);
+        this.mainPanel.add(lblLogPath, gbc);
 
 //        INPUT
-        bgc = new GridBagConstraints();
-        bgc.fill = GridBagConstraints.HORIZONTAL;
-        bgc.weightx = 0.5;
-        bgc.gridx = 2;
-        bgc.gridy = 2;
-        bgc.gridwidth = 4;
+        // y = 3, x = 2-5, fill horizontal
+        gbc.gridx = 2;
+        gbc.gridy = 3;
+        gbc.gridwidth = 4;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         this.inputLogPath = new JTextField();
         this.inputLogPath.setEditable(false);
         this.inputLogPath.setName(INPUT_ID_LOG_PATH);
         this.inputLogPath.setPreferredSize(DIMENSION_TEXTFIELD_SIZE);
-        formPanel.add(getInputLogPath(), bgc);
+        this.mainPanel.add(this.inputLogPath, gbc);
 
 //        BUTTON FOR CHOOSER
-        bgc = new GridBagConstraints();
-        bgc.fill = GridBagConstraints.HORIZONTAL;
-        bgc.weightx = -0.5;
-        bgc.gridx = 6;
-        bgc.gridy = 2;
+        // y = 3, x = 6-7, fill horizontal
+        gbc.gridx = 6;
+        gbc.gridy = 3;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         final JButton btnOpenLogPathChooser = new JButton(BUTTON_LABEL_SEARCH_FILE);
         btnOpenLogPathChooser.setName(BUTTON_ID_LOG_PATH);
         btnOpenLogPathChooser.addActionListener(new NetSpyActionListener(this));
         btnOpenLogPathChooser.setPreferredSize(DIMENSION_BUTTON_SIZE);
-        formPanel.add(btnOpenLogPathChooser, bgc);
+        this.mainPanel.add(btnOpenLogPathChooser, gbc);
 
 //        QUARANTINE PATH
         
 //        LABEL
-        bgc = new GridBagConstraints();
-        bgc.fill = GridBagConstraints.HORIZONTAL;
-        bgc.weightx = 0.1;
-        bgc.weighty = 0.1;
-        bgc.gridx = 1;
-        bgc.gridy = 3;
+    	// y = 4, x = 0-1, fill none
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.NONE;
         final JLabel lblQuarantine = new JLabel(LABEL_QUARANTAENE_PATH);
         lblQuarantine.setSize(DIMENSION_LABEL_SIZE);
-        formPanel.add(lblQuarantine, bgc);
+        this.mainPanel.add(lblQuarantine, gbc);
 
 //        INPUT
-        bgc = new GridBagConstraints();
-        bgc.fill = GridBagConstraints.HORIZONTAL;
-        bgc.weightx = 0.5;
-        bgc.gridx = 2;
-        bgc.gridy = 3;
-        bgc.gridwidth = 4;
+        // y = 4, x = 2-5, fill horizontal
+        gbc.gridx = 2;
+        gbc.gridy = 4;
+        gbc.gridwidth = 4;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         this.inputQuarantinePath = new JTextField();
         this.inputQuarantinePath.setPreferredSize(DIMENSION_TEXTFIELD_SIZE);
         this.inputQuarantinePath.setEditable(false);
         this.inputQuarantinePath.setName(INPUT_ID_QUARANTINE_PATH);
-        formPanel.add(this.inputQuarantinePath, bgc);
+        this.mainPanel.add(this.inputQuarantinePath, gbc);
 
 //        BUTTON FOR CHOOSER
-        bgc = new GridBagConstraints();
-        bgc.fill = GridBagConstraints.HORIZONTAL;
-        bgc.weightx = -0.5;
-        bgc.gridx = 6;
-        bgc.gridy = 3;
+        // y = 4, x = 6-7, fill horizontal
+        gbc.gridx = 6;
+        gbc.gridy = 4;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         final JButton btnOpenQuarantinePathChooser = new JButton((BUTTON_LABEL_SEARCH_FILE));
         btnOpenQuarantinePathChooser.setName(BUTTON_ID_QUARANTINE_PATH);
         btnOpenQuarantinePathChooser.addActionListener(new NetSpyActionListener(this));
         btnOpenQuarantinePathChooser.setPreferredSize(DIMENSION_BUTTON_SIZE);
-        formPanel.add(btnOpenQuarantinePathChooser, bgc);
+        this.mainPanel.add(btnOpenQuarantinePathChooser, gbc);
 
-//        BUTTON START SCAN
-        bgc = new GridBagConstraints();
-        bgc.fill = GridBagConstraints.HORIZONTAL;
-        bgc.gridx = 2;
-        bgc.gridy = 4;
-        final JButton btnStartScan = new JButton(BUTTON_LABEL_START_SCAN);
-        btnStartScan.setName(BUTTON_ID_START_SCAN);
-        btnStartScan.setPreferredSize(DIMENSION_BUTTON_SIZE);
-        btnStartScan.addActionListener(new NetSpyActionListener(this));
-        formPanel.add(btnStartScan, bgc);
+        // EMPTY ROW
+        // let row with index 5 empty: workaround
+        // y = 5, x = undefined, fill horizontal
+        gbc.gridy = 5;
+        gbc.fill = GridBagConstraints.NONE;
+        this.emptyRow = new JPanel();
+        emptyRow.setBackground(Color.WHITE);
+        this.mainPanel.add(emptyRow, gbc);
         
-//        bgc = new GridBagConstraints();
-//        bgc.fill = GridBagConstraints.HORIZONTAL;
-//        bgc.gridx = 5;
-//        bgc.gridy = 4;
-//        final JButton btnToggleLogBox = new JButton(BUTTON_LABEL_HIDE_LOGBOX);
-//        btnToggleLogBox.setName(BUTTON_ID_TOGGLE_LOGBOX);
-//        btnToggleLogBox.addActionListener(new NetSpyActionListener(this));
-//        formPanel.add(btnToggleLogBox, bgc);
+        // EMPTY CELL BLOCK
+        // y = 6, x = 0-3, fill horizontal
+//        gbc.gridx = 0;
+//        gbc.gridy = 6;
+//        gbc.gridwidth = 4;
+//        gbc.anchor = GridBagConstraints.WEST;
+//        gbc.fill = GridBagConstraints.NONE;
+//        JPanel emptyCellBlock = new JPanel();
+//        emptyCellBlock.setBackground(Color.WHITE);
+//        this.mainPanel.add(emptyCellBlock, gbc);
         
 //        BUTTON CLEAR LOGBOX
-        bgc = new GridBagConstraints();
-        bgc.fill = GridBagConstraints.HORIZONTAL;
-        bgc.gridx = 6;
-        bgc.gridy = 4;
-        bgc.gridwidth = 1;
+        // y = 6, x = 4-5, fill horizontal
+        gbc.gridx = 1;
+        gbc.gridy = 6;
+        gbc.gridwidth = 3;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         final JButton btnClearLogBox = new JButton(BUTTON_LABEL_CLEAR_LOGBOX);
         btnClearLogBox.setName(BUTTON_ID_CLEAR_LOGBOX);
         btnClearLogBox.setPreferredSize(DIMENSION_BUTTON_SIZE);
         btnClearLogBox.addActionListener(new NetSpyActionListener(this));
-        formPanel.add(btnClearLogBox, bgc);
-
-        this.add(formPanel, BorderLayout.CENTER);
+        this.mainPanel.add(btnClearLogBox, gbc);
+        
+//        BUTTON START SCAN
+        // y = 6, x = 6-7, fill horizontal
+        gbc.gridx = 6;
+        gbc.gridy = 6;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        final JButton btnStartScan = new JButton(BUTTON_LABEL_START_SCAN);
+        btnStartScan.setName(BUTTON_ID_START_SCAN);
+        btnStartScan.addActionListener(new NetSpyActionListener(this));
+        btnStartScan.setPreferredSize(DIMENSION_BUTTON_SIZE);
+        this.mainPanel.add(btnStartScan, gbc);
+        
+//        bgc.gridx = 5;
+//        bgc.gridy = 4;
+//        bgc.fill = GridBagConstraints.HORIZONTAL;
+//        final JButton btnToggleLogBox = new JButton(BUTTON_LABEL_HIDE_LOGBOX);
+//        btnToggleLogBox.setName(BUTTON_ID_TOGGLE_LOGBOX);
+//        btnToggleLogBox.addActionListener(new NetSpyActionListener(this));
+//        this.mainPanel.add(btnToggleLogBox, bgc);
+        
     }
-
-    /**
-     * Sets the insets.
-     */
-    private void setInsets() {
-
-        final JPanel insetEast = new JPanel();
-        insetEast.setBackground(Color.WHITE);
-        final JPanel insetWest = new JPanel();
-        insetWest.setBackground(Color.WHITE);
-        this.add(insetWest, BorderLayout.WEST);
-        this.add(insetEast, BorderLayout.EAST);
-    }
-
+    
     /**
      * Sets the info box.
      */
     private void setInfoBox() {
 
+    	
+    	// y = 7-12, x = 0-7, fill both
+    	gbc.gridy = 7;
+    	gbc.gridx = 1;
+    	gbc.gridwidth = 8;
+    	gbc.gridheight = 6;
+    	gbc.anchor = GridBagConstraints.LINE_START;
+    	gbc.fill = GridBagConstraints.BOTH;
+    	
     	this.logBox = new LogBox();
         final JScrollPane infoBoxScrollable = new JScrollPane(this.logBox);
-        infoBoxScrollable.setPreferredSize(new Dimension(600, 200));
+        infoBoxScrollable.setPreferredSize(new Dimension(500, 200));
         infoBoxScrollable.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        infoBoxScrollable.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         
-        this.add(infoBoxScrollable, BorderLayout.SOUTH);
+        this.mainPanel.add(infoBoxScrollable, gbc);
     }
 
     /**
@@ -492,5 +513,31 @@ public class NetSpyFrame extends JFrame {
 	 */
 	public void setLogBox(LogBox logBox) {
 		this.logBox = logBox;
+	}
+
+	/**
+	 * Gets the main panel.
+	 *
+	 * @return the main panel
+	 */
+	public JPanel getMainPanel() {
+		return mainPanel;
+	}
+
+	/**
+	 * Sets the main panel.
+	 *
+	 * @param mainPanel the new main panel
+	 */
+	public void setMainPanel(JPanel mainPanel) {
+		this.mainPanel = mainPanel;
+	}
+
+	public GridBagConstraints getGbc() {
+		return gbc;
+	}
+
+	public void setGbc(GridBagConstraints gbc) {
+		this.gbc = gbc;
 	}
 }
