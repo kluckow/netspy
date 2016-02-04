@@ -48,6 +48,9 @@ public class LogManager {
 		logLine += "Empfänger: " + email.getReceiver();
 		logLine += LOG_ENTRY_SEPARATOR;
 		logLine += "Dateiname: " + email.getFilename();
+		logLine += LOG_ENTRY_SEPARATOR;
+		logLine += "Gefundene Wörter: " + email.getHitMap().entrySet().toString();
+		
 		
 		new FileManager().createLogfile();
 		new FileManager().log(FileManager.LOG_FILE, logLine);
