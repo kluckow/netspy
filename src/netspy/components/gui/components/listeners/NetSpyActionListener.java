@@ -108,8 +108,6 @@ public class NetSpyActionListener implements ActionListener {
 		        
 		        new ErrorNotificationPopup("Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
 		    }
-			
-			// TODO: directory only
 			break;
 			
 		case NetSpyFrame.BUTTON_ID_BLACKWORD_PATH:
@@ -122,7 +120,7 @@ public class NetSpyActionListener implements ActionListener {
 		    // Verhindert exception wenn keine dir/file ausgewählt wird
 		    if (returnValBlackword == JFileChooser.APPROVE_OPTION) {
 		        
-		    	// TODO: .txt file only
+		    	// TODO: blacklist.txt file only
 		    	
 		        // change text field accordingly after choosing a folder
 		        this.owner.getInputBlackwordPath().setText(fileBlackwordPath.getPath());
@@ -150,8 +148,6 @@ public class NetSpyActionListener implements ActionListener {
 		    // Verhindert exception wenn keine dir ausgewählt wird
 		    if (returnValLog == JFileChooser.APPROVE_OPTION) {
 		        
-		    	// TODO: directory only && no weird special character directory
-		    	
 		        // change text field accordingly after choosing a folder
 		        this.owner.getInputLogPath().setText(fileLogPath.getPath());
 		        System.out.println(fileLogPath.getPath() + " sollte nun im Textfeld für den Log-Pfad stehen.");
@@ -171,12 +167,7 @@ public class NetSpyActionListener implements ActionListener {
 			
 			this.owner.getLogBox().append("Scan wurde gestartet...");
 			NetSpy.run();
-			// TODO: check if everything is ok before starting
-			break;
-			
-		case NetSpyFrame.BUTTON_ID_TOGGLE_LOGBOX:
-			
-			this.owner.getLogBox().toggleDisplay();
+			// TODO: check if all text fields are set
 			break;
 			
 		case NetSpyFrame.BUTTON_ID_CLEAR_LOGBOX:
