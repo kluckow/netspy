@@ -73,11 +73,7 @@ public class EmailHandler {
 	 */
 	public List<File> getEmlFiles() {
 		
-		// avoid reading over and over again
-		if (this.emlFiles == null) {
-			this.emlFiles = new FileManager().getFilesByExtension(EML_FILE_EXTENSION);
-		}
-		return this.emlFiles;
+		return new FileManager().getFilesByExtension(EML_FILE_EXTENSION);
 	}
 	
 	/**
