@@ -9,6 +9,8 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -222,6 +224,8 @@ public class NetSpyFrame extends JFrame {
 //        btnOpenMailPathChooser.setToolTipText("Wähle eine konkrete .eml-Datei oder ein"
 //        		+ " Verzeichnis, in dem alle .eml-Dateien durchsucht werden sollen.");
         btnOpenMailPathChooser.addActionListener(new NetSpyActionListener(this));
+        // TODO: impl
+//        btnOpenMailPathChooser.addActionListener(e -> openMailPathChooser());
         btnOpenMailPathChooser.setPreferredSize(DIMENSION_BUTTON_SIZE);
         this.mainPanel.add(btnOpenMailPathChooser, gbc);
         // Beispiel für bilder laden
@@ -394,6 +398,15 @@ public class NetSpyFrame extends JFrame {
         
     }
     
+    /**
+     * @return
+     */
+    private Object openMailPathChooser() {
+
+        // TODO Auto-generated method stub
+        return null;
+    }
+
     /**
      * Sets the info box.
      */
