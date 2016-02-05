@@ -6,3 +6,4 @@
 	<li>Run NetSpy.java "as Application". 2 of the 3 .eml-files should then pop up in the quarantine directory</li>
 	<li>There is also some information inside the black log box in the lower section of the window. Additionally there should now pop up a log.txt inside the logs folder, which contains some information about the suspicious emails.</li>
 </ol>
+<h3>Abgabetermin: Freitag, 4. März 2016, 11:00</h3>
