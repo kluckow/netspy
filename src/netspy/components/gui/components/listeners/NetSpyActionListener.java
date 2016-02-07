@@ -57,10 +57,10 @@ public class NetSpyActionListener implements ActionListener {
                 if (fileMailPath.isDirectory()) {
                     
                     // directory must contain .eml files
-                     if (!containsDirEmlFiles(fileMailPath)) {
-                         new ErrorNotificationPopup("Keine Emaildateien", "Das Verzeichnis und die Unterverzeichnisse enthalten keine .eml-Dateien");
-                         break;
-                     }
+//                     if (!containsDirEmlFiles(fileMailPath)) {
+//                         new ErrorNotificationPopup("Keine Emaildateien", "Das Verzeichnis und die Unterverzeichnisse enthalten keine .eml-Dateien");
+//                         break;
+//                     }
                      this.owner.getInputMailPath().setText(fileMailPath.getPath());
                     
                     // check with file-names
