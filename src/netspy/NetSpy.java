@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import netspy.components.filehandling.manager.FileManager;
 import netspy.components.gui.components.frame.NetSpyFrame;
 import netspy.components.gui.components.popups.ErrorNotificationPopup;
 import netspy.components.gui.components.popups.InfoNotificationPopup;
@@ -48,7 +49,7 @@ public class NetSpy {
     private static void processMailsInInbox() {
 
         emailHandler.scanMails();
-        if (!emailHandler.getMailContainer().getMails().isEmpty()) {
+        if (!emailHandler.getMailContainer().getMails().isEmpty() && !new FileManager().getBlacklist().isEmpty()) {
             emailHandler.putMailsIntoQuarantine();
         }
     }
