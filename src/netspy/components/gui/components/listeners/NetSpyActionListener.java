@@ -14,7 +14,6 @@ import netspy.NetSpy;
 import netspy.components.filehandling.manager.FileManager;
 import netspy.components.gui.components.frame.NetSpyFrame;
 import netspy.components.gui.components.popups.ErrorNotificationPopup;
-import netspy.components.gui.components.popups.InfoNotificationPopup;
 import netspy.components.mailing.EmailHandler;
 
 /**
@@ -47,8 +46,10 @@ public class NetSpyActionListener implements ActionListener {
 			
 			final JFileChooser mailPathChooser = new JFileChooser();
             mailPathChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+            mailPathChooser.setCurrentDirectory(new File(this.owner.getInputMailPath().getText()));
             final int returnValMailPath = mailPathChooser.showOpenDialog(null);
             final File fileMailPath = mailPathChooser.getSelectedFile();
+            
             // Verhindert exception wenn keine file/dir ausgewählt wird
             if (returnValMailPath == JFileChooser.APPROVE_OPTION) {
                 
@@ -56,26 +57,14 @@ public class NetSpyActionListener implements ActionListener {
                 // but first check if file/folder is valid:
                 if (fileMailPath.isDirectory()) {
                     
-                    // directory must contain .eml files
-//                     if (!containsDirEmlFiles(fileMailPath)) {
-//                         new ErrorNotificationPopup("Keine Emaildateien", "Das Verzeichnis und die Unterverzeichnisse enthalten keine .eml-Dateien");
-//                         break;
-//                     }
-                     this.owner.getInputMailPath().setText(fileMailPath.getPath());
+                	this.owner.getInputMailPath().setText(fileMailPath.getPath());
+
                     
                     // check with file-names
                 } else if (fileMailPath.isFile() && !fileMailPath.getName().endsWith(EmailHandler.EML_FILE_EXTENSION)) {
                     new ErrorNotificationPopup("Ungültige Dateierweiterung", "Es sind nur .eml-Dateien erlaubt!");
-//                    TODO: Do we need this?
-//                    if (fileMailPath.getName().matches("[^\\p{Punct}&&[.-_]]")) {
-//                        new ErrorNotificationPopup("Ungültiger Dateiname", "Dateien dürfen keine Sonderzeichen (außer - und _) enthalten!");
-//                    } 
                 }
                 
-            } else if (returnValMailPath == JFileChooser.CANCEL_OPTION) {
-                new InfoNotificationPopup("Kein Verzeichnis oder Datei ausgewählt",
-                		"Sie müssen ein Verzeichnis oder eine Datei für die zu "
-                		+ "überprüfenden Emails angeben!");
             } else if (returnValMailPath == JFileChooser.ERROR_OPTION) {
                 new ErrorNotificationPopup("Unbekannter Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
             }
@@ -86,6 +75,7 @@ public class NetSpyActionListener implements ActionListener {
 		    
 		    final JFileChooser quarantinePathChooser = new JFileChooser();
 		    quarantinePathChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		    quarantinePathChooser.setCurrentDirectory(new File(this.owner.getInputQuarantinePath().getText()));
 		    final int returnValQuarantine = quarantinePathChooser.showOpenDialog(null);
 		    final File fileQuarantinePath = quarantinePathChooser.getSelectedFile();
 		    
@@ -94,12 +84,7 @@ public class NetSpyActionListener implements ActionListener {
 		        
 		        // change text field accordingly after choosing a folder
 		        this.owner.getInputQuarantinePath().setText(fileQuarantinePath.getPath());
-		        
-		    } else if (returnValQuarantine == JFileChooser.CANCEL_OPTION) {
-		        
-		        new InfoNotificationPopup("Kein Verzeichnis ausgewählt", "Sie müssen ein Verzeichnis"
-		            + " für den Quarantäne-Ordner angeben!");
-		        
+
 		    } else if (returnValQuarantine == JFileChooser.ERROR_OPTION) {
 		        
 		        new ErrorNotificationPopup("Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
@@ -110,6 +95,7 @@ public class NetSpyActionListener implements ActionListener {
 			 
 		    final JFileChooser blackwordPathChooser = new JFileChooser();
 		    blackwordPathChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		    blackwordPathChooser.setCurrentDirectory(new File(this.owner.getInputBlackwordPath().getText()));
 		    final int returnValBlackword = blackwordPathChooser.showOpenDialog(null);
 		    final File fileBlackwordPath = blackwordPathChooser.getSelectedFile();
 		    
@@ -125,11 +111,6 @@ public class NetSpyActionListener implements ActionListener {
 		        // change text field accordingly after choosing a folder
 		        this.owner.getInputBlackwordPath().setText(fileBlackwordPath.getPath());
 		        
-		    } else if (returnValBlackword == JFileChooser.CANCEL_OPTION) {
-		        
-		        new InfoNotificationPopup("Keine Datei ausgewählt", "Sie müssen eine Datei"
-		            + " für die Blackword-Liste auswählen!");
-		        
 		    } else if (returnValBlackword == JFileChooser.ERROR_OPTION) {
 		        
 		        new ErrorNotificationPopup("Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
@@ -140,6 +121,7 @@ public class NetSpyActionListener implements ActionListener {
 			
 			final JFileChooser logPathChooser = new JFileChooser();
 		    logPathChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		    logPathChooser.setCurrentDirectory(new File(this.owner.getInputLogPath().getText()));
 		    final int returnValLog = logPathChooser.showOpenDialog(null);
 		    final File fileLogPath = logPathChooser.getSelectedFile();
 		    
@@ -148,11 +130,6 @@ public class NetSpyActionListener implements ActionListener {
 		        
 		        // change text field accordingly after choosing a folder
 		        this.owner.getInputLogPath().setText(fileLogPath.getPath());
-		        
-		    } else if (returnValLog == JFileChooser.CANCEL_OPTION) {
-		        
-		        new InfoNotificationPopup("Kein Verzeichnis ausgewählt", "Sie müssen ein Verzeichnis"
-			            + " für die Log-Datei angeben!");
 		        
 		    } else if (returnValLog == JFileChooser.ERROR_OPTION) {
 		        
@@ -210,7 +187,8 @@ public class NetSpyActionListener implements ActionListener {
      * @param dir the dir
      * @return true, if successful
      */
-    private boolean containsDirEmlFiles(File dir) {
+    @SuppressWarnings("unused")
+	private boolean containsDirEmlFiles(File dir) {
         
         if (!dir.isDirectory()) {
             return false;

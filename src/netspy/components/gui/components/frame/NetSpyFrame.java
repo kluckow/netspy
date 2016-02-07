@@ -229,6 +229,7 @@ public class NetSpyFrame extends JFrame {
         gbc.gridwidth = 4;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         this.inputMailPath = new JTextField();
+        this.inputMailPath.setText(propConf.getInboxPath());
         this.inputMailPath.setPreferredSize(DIMENSION_TEXTFIELD_SIZE);
         this.inputMailPath.setEditable(false);
         this.inputMailPath.setName(INPUT_ID_MAIL_PATH);
@@ -270,6 +271,7 @@ public class NetSpyFrame extends JFrame {
         gbc.gridwidth = 4;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         this.inputBlackwordPath = new JTextField();
+        this.inputBlackwordPath.setText(propConf.getBlackwordPath());
         this.inputBlackwordPath.setPreferredSize(DIMENSION_TEXTFIELD_SIZE);
         this.inputBlackwordPath.setEditable(false);
         this.inputBlackwordPath.setName(INPUT_ID_BLACKWORD_PATH);
@@ -308,6 +310,7 @@ public class NetSpyFrame extends JFrame {
         gbc.gridwidth = 4;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         this.inputLogPath = new JTextField();
+        this.inputLogPath.setText(propConf.getLogPath());
         this.inputLogPath.setEditable(false);
         this.inputLogPath.setName(INPUT_ID_LOG_PATH);
         this.inputLogPath.setPreferredSize(DIMENSION_TEXTFIELD_SIZE);
@@ -346,6 +349,7 @@ public class NetSpyFrame extends JFrame {
         gbc.gridwidth = 4;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         this.inputQuarantinePath = new JTextField();
+        this.inputQuarantinePath.setText(propConf.getQuarantinePath());
         this.inputQuarantinePath.setEditable(false);
         this.inputQuarantinePath.setName(INPUT_ID_QUARANTINE_PATH);
         this.inputQuarantinePath.setPreferredSize(DIMENSION_TEXTFIELD_SIZE);
