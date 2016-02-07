@@ -18,6 +18,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
+import netspy.components.config.ConfigPropertiesManager;
 import netspy.components.gui.components.frame.components.LogBox;
 import netspy.components.gui.components.listeners.NetSpyActionListener;
 
@@ -128,15 +129,27 @@ public class NetSpyFrame extends JFrame {
 	/** The gbc. */
 	private GridBagConstraints gbc = new GridBagConstraints();
 	
+	/** The prop conf. */
+	ConfigPropertiesManager propConf = new ConfigPropertiesManager();
+	
     /**
      * Instantiates a new my j frame.
      */
     public NetSpyFrame() {
         super();
+        initConf();
         initialize();
     }
 
     /**
+     * Inits the conf.
+     */
+    private void initConf() {
+    	
+    	propConf.init();
+	}
+
+	/**
      * Initialize.
      */
     private void initialize() {

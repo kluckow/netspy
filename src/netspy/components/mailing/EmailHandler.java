@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import netspy.NetSpy;
+import netspy.components.config.ConfigPropertiesManager;
 import netspy.components.filehandling.lists.Blacklist;
 import netspy.components.filehandling.manager.FileManager;
 import netspy.components.logging.LogManager;
@@ -66,8 +67,8 @@ public class EmailHandler {
 	 * @return the eml files
 	 */
 	public List<File> getEmlFiles() {
-		
-		return new FileManager().getFilesByExtension(EML_FILE_EXTENSION);
+		return new FileManager().getFilesByExtension(EML_FILE_EXTENSION,
+			new ConfigPropertiesManager().getInboxPath());
 	}
 	
 	/**

@@ -3,10 +3,10 @@
  */
 package netspy.components.logging;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import netspy.components.config.ConfigPropertiesManager;
 import netspy.components.filehandling.manager.FileManager;
 import netspy.components.mailing.Email;
 
@@ -16,16 +16,7 @@ import netspy.components.mailing.Email;
 public class LogManager {
 	
 	/** The date format logging. */
-	public final String LOG_FORMAT = "dd-MM-yyyy HH:mm:ss";
-	
-	/** The Constant LOG_FILE_PREFIX. */
-	public final String LOG_FILE_PREFIX = "log_";
-	
-	/** The Constant LOG_FILE_EXTENSION. */
-	public final String LOG_FILE_EXTENSION = ".txt";
-	
-	/** The Constant LOG_PATH. */
-	public final String LOG_PATH = "log/";
+	private final String LOG_FORMAT = "dd-MM-yyyy HH:mm:ss";
 	
 	/** The Constant LOG_ENTRY_SEPARATOR. */
 	private static final String LOG_ENTRY_SEPARATOR = " | ";
@@ -52,7 +43,7 @@ public class LogManager {
 		
 		
 		new FileManager().createLogfile();
-		new FileManager().log(FileManager.LOG_FILE, logLine);
+		new FileManager().log(new ConfigPropertiesManager().getLogPath(), logLine);
 	}
 	
 	/**
