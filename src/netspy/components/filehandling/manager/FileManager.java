@@ -46,9 +46,6 @@ public class FileManager {
 	/** The Constant DATE_FORMAT_LOGFILE_SUFFIX. */
 	public final static DateFormat DATE_FORMAT_LOGFILE_SUFFIX = new SimpleDateFormat("ddMMyyyy_HHmmss");
 	
-	/** The log file. */
-//	public static String LOG_FILE = LOG_PATH + LOG_FILE_PREFIX + new DateHelper().dateToString(new Date(), DATE_FORMAT_LOGFILE_SUFFIX) + LOG_FILE_EXTENSION;  
-	
 	public static String LOG_FILE = LOG_PATH + "log.txt";  
 	
 	/**
@@ -130,9 +127,15 @@ public class FileManager {
 	 * @return the blacklist
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	public List<String> getBlacklist() throws IOException {
+	public List<String> getBlacklist() {
 		
-		return new TextReader().readFile(BLACKLIST_PATH, BLACKLIST_ENCODING);
+		try {
+			return new TextReader().readFile(BLACKLIST_PATH, BLACKLIST_ENCODING);
+		} catch (IOException e) {
+			new ErrorNotificationPopup("Datei-Lesefehler", "Es ist ein Problem "
+					+ "beim Lesen der Blacklist-Datei aufgetreten!");
+		}
+		return null;
 	}
 
 	/**
