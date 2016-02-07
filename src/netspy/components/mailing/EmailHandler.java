@@ -47,12 +47,6 @@ public class EmailHandler {
 	/** The mail containers. */
 	private EmailContainer mailContainer = new EmailContainer();
 		
-	/** The eml files. */
-	private List<File> emlFiles = null;
-	
-	/** The blacklist. */
-	private Blacklist blacklist;
-	
 	/** The index list of non suspicious emails. */
 	private List<Integer> indexListOfNonSuspiciousEmails = new ArrayList<>();
 	
@@ -182,8 +176,6 @@ public class EmailHandler {
 
 	/**
 	 * Scan mails.
-	 *
-	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public void scanMails() {
 		
@@ -248,7 +240,6 @@ public class EmailHandler {
 	 *
 	 * @param email the email
 	 * @return the email
-	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	private Email checkAgainstBlacklist(Email email) {
 		
@@ -306,19 +297,10 @@ public class EmailHandler {
 	 * Gets the blacklist.
 	 *
 	 * @return the blacklist
-	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	private List<String> getBlacklist() {
 		
-//		avoid reading the file over and over again
-		if (this.blacklist == null) {
-		    try {
-		        this.blacklist = new Blacklist(new FileManager().getBlacklist());
-		    } catch (IOException e) {
-		        
-		    }
-		}
-		return this.blacklist.getBlacklist();
+        return new Blacklist(new FileManager().getBlacklist()).getBlacklist();
 	}
 
 	/**
@@ -333,13 +315,4 @@ public class EmailHandler {
 		return new FileManager().readFile(file.getPath(), "UTF-8", HTML_MAIL_PART_START_IDENTIFIER);
 	}
 
-	/**
-	 * Sets the eml files.
-	 *
-	 * @param emlFiles the new eml files
-	 */
-	public void setEmlFiles(List<File> emlFiles) {
-		
-		this.emlFiles = emlFiles;
-	}
 }
