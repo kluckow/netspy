@@ -9,6 +9,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -140,17 +141,25 @@ public class NetSpyFrame extends JFrame {
      */
     private void initialize() {
 
+    	// general configuration of frame
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle(APPLICATION_TITLE);
         this.setBackground(Color.RED);
         this.setBounds(500, 200, 1024, 768);
         this.setResizable(false);
         
-        this.mainPanel.setLayout(new GridBagLayout());
-        this.mainPanel.setBackground(Color.WHITE);
+        // Application Icon
+        ImageIcon appIcon = new ImageIcon(System.getProperty("user.dir") + "/resources/img/system_search.png");        
+        this.setIconImage(appIcon.getImage());
         
+        // Layout
+        this.mainPanel.setLayout(new GridBagLayout());
         gbc.insets = new Insets(5, 5, 5, 5);
         
+        // Background color
+        this.mainPanel.setBackground(Color.WHITE);
+        
+        // create content
         this.setTitlePanel();
         this.setFormLayout();
         this.setInfoBox();
@@ -210,6 +219,8 @@ public class NetSpyFrame extends JFrame {
         this.inputMailPath.setPreferredSize(DIMENSION_TEXTFIELD_SIZE);
         this.inputMailPath.setEditable(false);
         this.inputMailPath.setName(INPUT_ID_MAIL_PATH);
+        this.inputMailPath.setToolTipText("Wähle eine konkrete .eml-Datei oder ein\n"
+        		+ " Verzeichnis, in dem alle .eml-Dateien durchsucht werden sollen.");
         this.mainPanel.add(this.inputMailPath, gbc);
 
 //        BUTTON FOR CHOOSER
@@ -220,19 +231,11 @@ public class NetSpyFrame extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         final JButton btnOpenMailPathChooser = new JButton(BUTTON_LABEL_SEARCH_FILE);
         btnOpenMailPathChooser.setName(BUTTON_ID_MAIL_PATH);
-//        btnOpenMailPathChooser.setToolTipText("Wähle eine konkrete .eml-Datei oder ein"
-//        		+ " Verzeichnis, in dem alle .eml-Dateien durchsucht werden sollen.");
         btnOpenMailPathChooser.addActionListener(actionListener);
         // TODO: impl
 //        btnOpenMailPathChooser.addActionListener(e -> openMailPathChooser());
         btnOpenMailPathChooser.setPreferredSize(DIMENSION_BUTTON_SIZE);
         this.mainPanel.add(btnOpenMailPathChooser, gbc);
-        // Beispiel für bilder laden
-//        Icon icon1 = new ImageIcon(this.getClass().getResource("../components/resources/img/info.png"));
-//        JLabel bild = new JLabel(icon1);
-//        bild.setToolTipText("Wähle eine konkrete .eml-Datei oder ein"
-//        		+ " Verzeichnis, in dem alle .eml-Dateien durchsucht werden sollen.");
-//        this.mainPanel.add(bild);
 
         
 //        BLACKWORD PATH
@@ -257,6 +260,8 @@ public class NetSpyFrame extends JFrame {
         this.inputBlackwordPath.setPreferredSize(DIMENSION_TEXTFIELD_SIZE);
         this.inputBlackwordPath.setEditable(false);
         this.inputBlackwordPath.setName(INPUT_ID_BLACKWORD_PATH);
+        this.inputBlackwordPath.setToolTipText("Wähle die blacklist.txt-Datei aus, anhand "
+        		+ "welcher die Emails überprüft werden sollen.");
         this.mainPanel.add(this.inputBlackwordPath, gbc);
 
 //        BUTTON FOR CHOOSER
@@ -293,6 +298,8 @@ public class NetSpyFrame extends JFrame {
         this.inputLogPath.setEditable(false);
         this.inputLogPath.setName(INPUT_ID_LOG_PATH);
         this.inputLogPath.setPreferredSize(DIMENSION_TEXTFIELD_SIZE);
+        this.inputLogPath.setToolTipText("Wähle das Log-Verzeichnis aus. "
+        		+ "Dort werden die Informationen über verdächtige Emails gespeichert.");
         this.mainPanel.add(this.inputLogPath, gbc);
 
 //        BUTTON FOR CHOOSER
@@ -326,9 +333,11 @@ public class NetSpyFrame extends JFrame {
         gbc.gridwidth = 4;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         this.inputQuarantinePath = new JTextField();
-        this.inputQuarantinePath.setPreferredSize(DIMENSION_TEXTFIELD_SIZE);
         this.inputQuarantinePath.setEditable(false);
         this.inputQuarantinePath.setName(INPUT_ID_QUARANTINE_PATH);
+        this.inputQuarantinePath.setPreferredSize(DIMENSION_TEXTFIELD_SIZE);
+        this.inputQuarantinePath.setToolTipText("Wähle das Quarantäne-Verzeichnis aus, "
+        		+ "in welches die verdächtigen Emails gespeichert werden.");
         this.mainPanel.add(this.inputQuarantinePath, gbc);
 
 //        BUTTON FOR CHOOSER
@@ -345,23 +354,13 @@ public class NetSpyFrame extends JFrame {
 
         // EMPTY ROW
         // let row with index 5 empty: workaround
-        // y = 5, x = undefined, fill horizontal
+        // y = 5, x = undefined, fill none
         gbc.gridy = 5;
         gbc.fill = GridBagConstraints.NONE;
         this.emptyRow = new JPanel();
         emptyRow.setBackground(Color.WHITE);
         this.mainPanel.add(emptyRow, gbc);
         
-        // EMPTY CELL BLOCK
-        // y = 6, x = 0-3, fill horizontal
-//        gbc.gridx = 0;
-//        gbc.gridy = 6;
-//        gbc.gridwidth = 4;
-//        gbc.anchor = GridBagConstraints.WEST;
-//        gbc.fill = GridBagConstraints.NONE;
-//        JPanel emptyCellBlock = new JPanel();
-//        emptyCellBlock.setBackground(Color.WHITE);
-//        this.mainPanel.add(emptyCellBlock, gbc);
         
 //        BUTTON CLEAR LOGBOX
         // y = 6, x = 4-5, fill horizontal
@@ -386,14 +385,6 @@ public class NetSpyFrame extends JFrame {
         btnStartScan.addActionListener(actionListener);
         btnStartScan.setPreferredSize(DIMENSION_BUTTON_SIZE);
         this.mainPanel.add(btnStartScan, gbc);
-        
-//        bgc.gridx = 5;
-//        bgc.gridy = 4;
-//        bgc.fill = GridBagConstraints.HORIZONTAL;
-//        final JButton btnToggleLogBox = new JButton(BUTTON_LABEL_HIDE_LOGBOX);
-//        btnToggleLogBox.setName(BUTTON_ID_TOGGLE_LOGBOX);
-//        btnToggleLogBox.addActionListener(new NetSpyActionListener(this));
-//        this.mainPanel.add(btnToggleLogBox, bgc);
         
     }
     
@@ -515,7 +506,7 @@ public class NetSpyFrame extends JFrame {
 	 * @return the log box
 	 */
 	public LogBox getLogBox() {
-		return logBox;
+		return this.logBox;
 	}
 
 	/**
@@ -533,7 +524,7 @@ public class NetSpyFrame extends JFrame {
 	 * @return the main panel
 	 */
 	public JPanel getMainPanel() {
-		return mainPanel;
+		return this.mainPanel;
 	}
 
 	/**
@@ -546,7 +537,7 @@ public class NetSpyFrame extends JFrame {
 	}
 
 	public GridBagConstraints getGbc() {
-		return gbc;
+		return this.gbc;
 	}
 
 	public void setGbc(GridBagConstraints gbc) {
