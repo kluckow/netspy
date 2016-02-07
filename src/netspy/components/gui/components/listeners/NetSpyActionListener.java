@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 
 import netspy.NetSpy;
+import netspy.components.filehandling.manager.FileManager;
 import netspy.components.gui.components.frame.NetSpyFrame;
 import netspy.components.gui.components.popups.ErrorNotificationPopup;
 import netspy.components.gui.components.popups.InfoNotificationPopup;
@@ -24,7 +25,7 @@ public class NetSpyActionListener implements ActionListener {
 
 	/** The owner. Used for accessing the text fields. */
 	private NetSpyFrame owner;
-	
+    
 	/**
 	 * Instantiates a new file chooser action listener.
 	 *
@@ -48,7 +49,6 @@ public class NetSpyActionListener implements ActionListener {
             mailPathChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
             final int returnValMailPath = mailPathChooser.showOpenDialog(null);
             final File fileMailPath = mailPathChooser.getSelectedFile();
-            
             // Verhindert exception wenn keine file/dir ausgewählt wird
             if (returnValMailPath == JFileChooser.APPROVE_OPTION) {
                 
@@ -60,11 +60,8 @@ public class NetSpyActionListener implements ActionListener {
                      if (!containsDirEmlFiles(fileMailPath)) {
                          new ErrorNotificationPopup("Keine Emaildateien", "Das Verzeichnis und die Unterverzeichnisse enthalten keine .eml-Dateien");
                          break;
-                     } else {
-                         this.owner.getInputMailPath().setText(fileMailPath.getPath());
-                         System.out.println(fileMailPath.getPath() + " sollte nun im text feld für den mail pfad stehen");
-//                         new InfoNotificationPopup("Info", fileMailPath.getPath() + " contains eml file(s)!");
                      }
+                     this.owner.getInputMailPath().setText(fileMailPath.getPath());
                     
                     // check with file-names
                 } else if (fileMailPath.isFile() && !fileMailPath.getName().endsWith(EmailHandler.EML_FILE_EXTENSION)) {
@@ -90,14 +87,13 @@ public class NetSpyActionListener implements ActionListener {
 		    final JFileChooser quarantinePathChooser = new JFileChooser();
 		    quarantinePathChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		    final int returnValQuarantine = quarantinePathChooser.showOpenDialog(null);
-		    final File filequarantinePath = quarantinePathChooser.getSelectedFile();
+		    final File fileQuarantinePath = quarantinePathChooser.getSelectedFile();
 		    
 		    // Verhindert exception wenn keine dir ausgewählt wird
 		    if (returnValQuarantine == JFileChooser.APPROVE_OPTION) {
 		        
 		        // change text field accordingly after choosing a folder
-		        this.owner.getInputQuarantinePath().setText(filequarantinePath.getPath());
-		        System.out.println(filequarantinePath.getPath() + " sollte nun im Textfeld für den Mail pfad stehen.");
+		        this.owner.getInputQuarantinePath().setText(fileQuarantinePath.getPath());
 		        
 		    } else if (returnValQuarantine == JFileChooser.CANCEL_OPTION) {
 		        
@@ -120,12 +116,14 @@ public class NetSpyActionListener implements ActionListener {
 		    // Verhindert exception wenn keine dir/file ausgewählt wird
 		    if (returnValBlackword == JFileChooser.APPROVE_OPTION) {
 		        
-		    	// TODO: blacklist.txt file only
+		    	// only blacklist.txt file accepted
+		        if (!fileBlackwordPath.getName().equals(FileManager.BLACKLIST_FILE_NAME)) {
+		            new ErrorNotificationPopup("Falsche Datei", "Datei muss '" + FileManager.BLACKLIST_FILE_NAME + "' heißen!");
+		            break;
+		        }
 		    	
 		        // change text field accordingly after choosing a folder
 		        this.owner.getInputBlackwordPath().setText(fileBlackwordPath.getPath());
-		        System.out.println(fileBlackwordPath.getPath() + " sollte nun"
-		        		+ " im Textfeld für den Blackword-Pfad stehen.");
 		        
 		    } else if (returnValBlackword == JFileChooser.CANCEL_OPTION) {
 		        
@@ -150,7 +148,6 @@ public class NetSpyActionListener implements ActionListener {
 		        
 		        // change text field accordingly after choosing a folder
 		        this.owner.getInputLogPath().setText(fileLogPath.getPath());
-		        System.out.println(fileLogPath.getPath() + " sollte nun im Textfeld für den Log-Pfad stehen.");
 		        
 		    } else if (returnValLog == JFileChooser.CANCEL_OPTION) {
 		        
@@ -165,9 +162,13 @@ public class NetSpyActionListener implements ActionListener {
 			
 		case NetSpyFrame.BUTTON_ID_START_SCAN:
 			
-			this.owner.getLogBox().append("Scan wurde gestartet...");
-			NetSpy.run();
-			// TODO: check if all text fields are set
+			if (!allPathsAreSet()) {
+			    this.owner.getLogBox().append("Scan konnte nicht gestartet werden!");
+			    new ErrorNotificationPopup("Fehlende Pfadangaben", "Bitte überprüfen Sie Ihre Eingaben bezüglich der Pfade!");
+			    break;
+			} else {
+			    NetSpy.run();
+			}
 			break;
 			
 		case NetSpyFrame.BUTTON_ID_CLEAR_LOGBOX:
@@ -182,6 +183,28 @@ public class NetSpyActionListener implements ActionListener {
 	}
 
     /**
+     * All paths are set.
+     *
+     * @return true, if all paths are set
+     */
+    private boolean allPathsAreSet() {
+
+        if (this.owner.getInputMailPath().getText().equals("")) {
+            return false;
+        }
+        if (this.owner.getInputBlackwordPath().getText().equals("")) {
+            return false;
+        }
+        if (this.owner.getInputLogPath().getText().equals("")) {
+            return false;
+        }
+        if (this.owner.getInputQuarantinePath().getText().equals("")) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Contains dir eml files.
      *
      * @param dir the dir
@@ -190,24 +213,15 @@ public class NetSpyActionListener implements ActionListener {
     private boolean containsDirEmlFiles(File dir) {
         
         if (!dir.isDirectory()) {
-//            new ErrorNotificationPopup("Fehler", dir.getPath() + " is not a directory!");
             return false;
         }
         for (File fileInDir : dir.listFiles()) {
-            
             if (fileInDir.getName().endsWith(EmailHandler.EML_FILE_EXTENSION)) {
-                
-//                new InfoNotificationPopup("Info", fileInDir.getPath() + " is an eml file(s)!");
                 return true;    
-                
             } else if (containsDirEmlFiles(fileInDir)) {
-                
-//                new InfoNotificationPopup("Info", fileInDir.getPath() + " contains eml file(s)!");
                 return true;
             }
         }
-        
-//        new ErrorNotificationPopup("Fehler", "No .eml files found in " + dir.getPath());
         return false;
     }
 

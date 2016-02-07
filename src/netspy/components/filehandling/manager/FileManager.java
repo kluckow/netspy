@@ -8,13 +8,11 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import netspy.components.filehandling.io.TextReader;
 import netspy.components.filehandling.io.TextWriter;
 import netspy.components.gui.components.popups.ErrorNotificationPopup;
-import netspy.components.util.DateHelper;
 
 /**
  * The Class FileManager.
@@ -28,10 +26,10 @@ public class FileManager {
 	public static String QUARANTINE_PATH = "quarantine/";
 	
 	/** The Constant BLACKLIST_FILE. */
-	private static final String BLACKLIST_FILE = "blacklist.txt";
+	public static final String BLACKLIST_FILE_NAME = "blacklist.txt";
 	
 	/** The Constant BLACKLIST_PATH. */
-	private static String BLACKLIST_PATH = "data/" + BLACKLIST_FILE;
+	private static String BLACKLIST_PATH = "data/" + BLACKLIST_FILE_NAME;
 	
 	/** The Constant BLACKLSIT_ENCODING. */
 	private static final String BLACKLIST_ENCODING = "UTF-8";

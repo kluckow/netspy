@@ -16,7 +16,7 @@ import netspy.components.mailing.Email;
 public class LogManager {
 	
 	/** The date format logging. */
-	public final DateFormat DATE_FORMAT_LOGGING = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+	public final String LOG_FORMAT = "dd-MM-yyyy HH:mm:ss";
 	
 	/** The Constant LOG_FILE_PREFIX. */
 	public final String LOG_FILE_PREFIX = "log_";
@@ -35,9 +35,8 @@ public class LogManager {
 	 *
 	 * @param scanResult the scan result
 	 */
-	@SuppressWarnings("deprecation")
 	public void log(Email email) {
-		String logLine = "Scan vom: " + new Date().toLocaleString();
+		String logLine = "Scan vom: " + new SimpleDateFormat(LOG_FORMAT).format(new Date());
 		logLine += LOG_ENTRY_SEPARATOR;
 		logLine += "Gesendet am: " + email.getSendingDate();
 		logLine += LOG_ENTRY_SEPARATOR;

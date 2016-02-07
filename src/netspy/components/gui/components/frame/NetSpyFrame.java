@@ -3,7 +3,6 @@
  */
 package netspy.components.gui.components.frame;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -101,6 +100,8 @@ public class NetSpyFrame extends JFrame {
 	/** The Constant DIMENSION_BUTTON_SIZE. */
 	private static final Dimension DIMENSION_BUTTON_SIZE = new Dimension(120, 25);
 
+	/** The action listener. */
+	private NetSpyActionListener actionListener = new NetSpyActionListener(this);
 	
 	/** The Input mail path. */
 	private JTextField inputMailPath;
@@ -221,7 +222,9 @@ public class NetSpyFrame extends JFrame {
         btnOpenMailPathChooser.setName(BUTTON_ID_MAIL_PATH);
 //        btnOpenMailPathChooser.setToolTipText("Wähle eine konkrete .eml-Datei oder ein"
 //        		+ " Verzeichnis, in dem alle .eml-Dateien durchsucht werden sollen.");
-        btnOpenMailPathChooser.addActionListener(new NetSpyActionListener(this));
+        btnOpenMailPathChooser.addActionListener(actionListener);
+        // TODO: impl
+//        btnOpenMailPathChooser.addActionListener(e -> openMailPathChooser());
         btnOpenMailPathChooser.setPreferredSize(DIMENSION_BUTTON_SIZE);
         this.mainPanel.add(btnOpenMailPathChooser, gbc);
         // Beispiel für bilder laden
@@ -264,7 +267,7 @@ public class NetSpyFrame extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         final JButton btnOpenBlackwordPathChooser = new JButton((BUTTON_LABEL_SEARCH_FILE));
         btnOpenBlackwordPathChooser.setName(BUTTON_ID_BLACKWORD_PATH);
-        btnOpenBlackwordPathChooser.addActionListener(new NetSpyActionListener(this));
+        btnOpenBlackwordPathChooser.addActionListener(actionListener);
         btnOpenBlackwordPathChooser.setPreferredSize(DIMENSION_BUTTON_SIZE);
         this.mainPanel.add(btnOpenBlackwordPathChooser, gbc);
 
@@ -300,7 +303,7 @@ public class NetSpyFrame extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         final JButton btnOpenLogPathChooser = new JButton(BUTTON_LABEL_SEARCH_FILE);
         btnOpenLogPathChooser.setName(BUTTON_ID_LOG_PATH);
-        btnOpenLogPathChooser.addActionListener(new NetSpyActionListener(this));
+        btnOpenLogPathChooser.addActionListener(actionListener);
         btnOpenLogPathChooser.setPreferredSize(DIMENSION_BUTTON_SIZE);
         this.mainPanel.add(btnOpenLogPathChooser, gbc);
 
@@ -336,7 +339,7 @@ public class NetSpyFrame extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         final JButton btnOpenQuarantinePathChooser = new JButton((BUTTON_LABEL_SEARCH_FILE));
         btnOpenQuarantinePathChooser.setName(BUTTON_ID_QUARANTINE_PATH);
-        btnOpenQuarantinePathChooser.addActionListener(new NetSpyActionListener(this));
+        btnOpenQuarantinePathChooser.addActionListener(actionListener);
         btnOpenQuarantinePathChooser.setPreferredSize(DIMENSION_BUTTON_SIZE);
         this.mainPanel.add(btnOpenQuarantinePathChooser, gbc);
 
@@ -369,7 +372,7 @@ public class NetSpyFrame extends JFrame {
         final JButton btnClearLogBox = new JButton(BUTTON_LABEL_CLEAR_LOGBOX);
         btnClearLogBox.setName(BUTTON_ID_CLEAR_LOGBOX);
         btnClearLogBox.setPreferredSize(DIMENSION_BUTTON_SIZE);
-        btnClearLogBox.addActionListener(new NetSpyActionListener(this));
+        btnClearLogBox.addActionListener(actionListener);
         this.mainPanel.add(btnClearLogBox, gbc);
         
 //        BUTTON START SCAN
@@ -380,7 +383,7 @@ public class NetSpyFrame extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         final JButton btnStartScan = new JButton(BUTTON_LABEL_START_SCAN);
         btnStartScan.setName(BUTTON_ID_START_SCAN);
-        btnStartScan.addActionListener(new NetSpyActionListener(this));
+        btnStartScan.addActionListener(actionListener);
         btnStartScan.setPreferredSize(DIMENSION_BUTTON_SIZE);
         this.mainPanel.add(btnStartScan, gbc);
         
@@ -394,6 +397,15 @@ public class NetSpyFrame extends JFrame {
         
     }
     
+    /**
+     * @return
+     */
+    private Object openMailPathChooser() {
+
+        // TODO Auto-generated method stub
+        return null;
+    }
+
     /**
      * Sets the info box.
      */

@@ -68,6 +68,7 @@ public class NetSpy {
             
         } else {
             
+            mainFrame.getLogBox().append("Scan wurde gestartet...");
             // get emails as files
             final List<File> mailFiles = emailHandler.getEmlFiles();
 

@@ -237,7 +237,8 @@ public class EmailHandler {
 		
 		String msg = "Es wurden " + counterSuspiciousMails + " verdächtige Emails gefunden.";
 		if (counterSuspiciousMails >= 1) {
-			msg += " Weitere Details dazu befinden sich in der Logdatei.";
+		    msg += System.lineSeparator();
+			msg += "Weitere Details dazu befinden sich in der Logdatei.";
 		}
 		NetSpy.mainFrame.getLogBox().append(msg);
 	}
