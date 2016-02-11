@@ -5,8 +5,6 @@ package netspy.components.filehandling.manager;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,40 +18,42 @@ import netspy.components.gui.components.popups.ErrorNotificationPopup;
  */
 public class FileManager {
 
-	/** The Constant QUARANTINE_PATH. */
-	public static String QUARANTINE_PATH = "quarantine/";
-	
 	/** The Constant BLACKLIST_FILE. */
 	public static final String BLACKLIST_FILE_NAME = "blacklist.txt";
 	
 	/** The Constant BLACKLSIT_ENCODING. */
 	private static final String BLACKLIST_ENCODING = "UTF-8";
 	
-	/** The Constant DATE_FORMAT_LOGFILE_SUFFIX. */
-	public final static DateFormat DATE_FORMAT_LOGFILE_SUFFIX = new SimpleDateFormat("ddMMyyyy_HHmmss");
-	
 	/**
 	 * Gets the files by file extension.
 	 *
 	 * @param fileExtension the file extension
+	 * @param absPath the abs path
 	 * @return the files by file extension
 	 */
 	public List<File> getFilesByExtension(String fileExtension, String absPath) {
 		
 		File folder = new File(absPath);
-		File[] arrOfFiles = folder.listFiles();
 		List<File> listOfFiles = new ArrayList<>();
 		
-		if (arrOfFiles.length > 0) {
+		if (folder.isDirectory()) {
 			
-			for(int i = 0; i < arrOfFiles.length; i++) {
+			File[] arrOfFiles = folder.listFiles();
+			
+			if (arrOfFiles.length > 0) {
 				
-				// just get the .eml-files
-				if (arrOfFiles[i].getName().endsWith(fileExtension)) {
-					// add .eml-file to list of files
-					listOfFiles.add(arrOfFiles[i]);
+				for(int i = 0; i < arrOfFiles.length; i++) {
+					
+					// just get the .eml-files
+					if (arrOfFiles[i].getName().endsWith(fileExtension)) {
+						// add .eml-file to list of files
+						listOfFiles.add(arrOfFiles[i]);
+					}
 				}
 			}
+		// might be the case when user entered a single .eml-file
+		} else if (folder.isFile()) {
+			listOfFiles.add(folder);
 		}
 		return listOfFiles;
 	}
@@ -93,7 +93,6 @@ public class FileManager {
 	public String createLogfile() {
 		
 		File file = new File(new ConfigPropertiesManager().getLogPath());
-		File absPathFile = new File(file.getAbsolutePath());
 		try {
 			new File(file.getParent()).mkdirs();
 			file.createNewFile();
@@ -109,7 +108,6 @@ public class FileManager {
 	 * Gets the blacklist.
 	 *
 	 * @return the blacklist
-	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public List<String> getBlacklist() {
 		
@@ -130,25 +128,45 @@ public class FileManager {
 	 * @param dest the dest
 	 */
 	public void moveFile(String src, String dest) {
-		
+		// TODO: refactor
 		File srcFile = new File(src);
-		File destFile = new File(dest + srcFile.getName());
-		
-		if (!srcFile.renameTo(destFile)) {
-		    new ErrorNotificationPopup("Datei existiert bereits", destFile.getAbsolutePath() +
-	    		" existiert bereits im Ziel-Verzeichnis! "
-		        + "Daher findet keine Verschiebung statt!");
-			System.out.println(destFile.getName() + " existiert bereits im " + destFile.getParent() + "-Verzeichnis!");
-		} else {
-//			System.out.println(srcFile.getName() + " wurde nach " + destFile.getParent() + " verschoben!");
+		File destFile = new File(dest + File.separator + srcFile.getName());
+		if(srcFile.renameTo(destFile)) {
+			System.out.println(srcFile.getAbsolutePath() + " wurde nach " + destFile.getAbsolutePath() + " verschoben.");
+		} else if (destFile.exists()){
+			// TODO: mit kevin absprechen, was hier passieren soll
+			System.out.println("Datei existiert bereits im Quarantäne-Verzeichnis");
+			try {
+				List<String> srcLines = new FileManager().readFile(srcFile.getAbsolutePath(), "UTF-8");
+				List<String> destLines = new FileManager().readFile(destFile.getAbsolutePath(), "UTF-8");
+				if (srcLines.equals(destLines)) {
+					srcFile.delete();
+					System.out.println("content equals is true");
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
+		
 	}
 
+	/**
+	 * Write.
+	 *
+	 * @param relPath the rel path
+	 * @param line the line
+	 */
 	public void write(String relPath, String line) {
 
 		new TextWriter().write(relPath, line);
 	}
 
+	/**
+	 * Log.
+	 *
+	 * @param relPath the rel path
+	 * @param logLine the log line
+	 */
 	public void log(String relPath, String logLine) {
 		
 		new TextWriter().write(relPath, logLine);
