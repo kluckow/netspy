@@ -23,7 +23,6 @@ import netspy.components.util.StringHelper;
  */
 public class EmailHandler {
 	
-//	TODO: make security lvl configurable or not?
 	/** The Constant SECURITY_LEVEL. */
 	public static final int SECURITY_LEVEL = 6;
 	
@@ -216,7 +215,9 @@ public class EmailHandler {
 		int counterSuspiciousMails = 0;
 		
 		for (Email email: this.getMailContainer().getMails()) {
-			
+			if (email.isSuspicious()) {
+				System.out.println(email.getFilename() + " is suspicious!");
+			}
 			if (!indexListOfNonSuspiciousEmails.contains(email.getIndex())) {
 				
 				new LogManager().log(email);
