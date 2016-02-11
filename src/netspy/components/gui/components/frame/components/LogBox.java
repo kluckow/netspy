@@ -36,12 +36,5 @@ public class LogBox extends JTextArea {
 		setText("");
 		new InfoNotificationPopup("", "Reportfenster wurde geleert!");
 	}
-	/**
-	 * Toggle display.
-	 */
-	// TODO: wollen wir die funktion haben?
-	public void toggleDisplay() {
-		setVisible(!isVisible());
-	}
 
 }
