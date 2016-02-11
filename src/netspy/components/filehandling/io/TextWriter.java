@@ -28,7 +28,7 @@ public class TextWriter {
 		try {
 			fWriter = new FileWriter(new File(relativePathOfFile).getAbsolutePath(), true);
 			BufferedWriter out = new BufferedWriter(fWriter);
-			out.write(line + "\n");
+			out.write(line + System.lineSeparator());
 			out.close();
 		} catch (IOException e) {
 		    new ErrorNotificationPopup("Datei-Schreibfehler", "Fehler beim Schreiben in "
