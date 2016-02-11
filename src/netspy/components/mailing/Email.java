@@ -36,9 +36,6 @@ public class Email {
 	/** The relative path. */
 	private String relativePath;
 
-	/** The index. */
-	private int index;
-
 	/** The hit map. */
 	private Map<String, Integer> hitMap = new HashMap<>();
 	
@@ -208,24 +205,6 @@ public class Email {
 	public void setRelativePath(String relativePath) {
 		
 		this.setFilename(relativePath);
-	}
-
-	/**
-	 * Gets the index.
-	 *
-	 * @return the index
-	 */
-	public int getIndex() {
-		return index;
-	}
-
-	/**
-	 * Sets the index.
-	 *
-	 * @param index the new index
-	 */
-	public void setIndex(int index) {
-		this.index = index;
 	}
 
 	/**
