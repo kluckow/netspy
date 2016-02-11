@@ -25,7 +25,6 @@ public class ConsolePrinter {
 		System.out.println("Filename: " + email.getFilename());
 		System.out.println("Relative Path: " + email.getRelativePath());
 		System.out.println("Subject: " + email.getSubject());
-		System.out.println("Index: " + email.getIndex());
 		System.out.println("Sending Date: " + email.getSendingDate());
 		System.out.println("Sender: " + email.getSender());
 		System.out.println("Receiver: " + email.getReceiver());

@@ -83,10 +83,6 @@ public class NetSpy {
                     new ErrorNotificationPopup("Datei-Lesefehler", "Es ist ein Problem beim Lesen der Email-Datei aufgetreten!");
                 }
             }
-            // set indices of emails
-            for (Email email : emailHandler.getMailContainer().getMails()) {
-            	email.setIndex(emailHandler.getMailContainer().getMails().indexOf(email));
-            }
             return true;
         }
     }
