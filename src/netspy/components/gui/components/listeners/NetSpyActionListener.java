@@ -6,9 +6,12 @@ package netspy.components.gui.components.listeners;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.lang.reflect.Field;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JTextField;
+import javax.swing.plaf.metal.MetalFileChooserUI;
 
 import netspy.NetSpy;
 import netspy.components.config.ConfigPropertiesManager;
@@ -83,6 +86,27 @@ public class NetSpyActionListener implements ActionListener {
 		    final JFileChooser quarantinePathChooser = new JFileChooser();
 		    quarantinePathChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		    quarantinePathChooser.setCurrentDirectory(new File(this.owner.getInputQuarantinePath().getText()));
+		    MetalFileChooserUI ui = (MetalFileChooserUI)quarantinePathChooser.getUI();
+		    Field field = null;
+			try {
+				field = MetalFileChooserUI.class.getDeclaredField("fileNameTextField");
+				field.setAccessible(true);
+				JTextField tf = (JTextField) field.get(ui);
+				tf.setEditable(false);
+				tf.setEnabled(false);
+			} catch (NoSuchFieldException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SecurityException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IllegalArgumentException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IllegalAccessException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		    final int returnValQuarantine = quarantinePathChooser.showOpenDialog(null);
 		    final File fileQuarantinePath = quarantinePathChooser.getSelectedFile();
 		    
