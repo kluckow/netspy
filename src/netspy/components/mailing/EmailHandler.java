@@ -5,7 +5,6 @@ package netspy.components.mailing;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -47,9 +46,6 @@ public class EmailHandler {
 	/** The mail containers. */
 	private EmailContainer mailContainer = new EmailContainer();
 		
-	/** The index list of non suspicious emails. */
-	private List<Integer> indexListOfNonSuspiciousEmails = new ArrayList<>();
-	
 	/**
 	 * Check mailbox.
 	 *
@@ -179,7 +175,6 @@ public class EmailHandler {
 	 */
 	public void scanMails() {
 		
-		int index = -1;
 		for (Email email: this.getMailContainer().getMails()) {
 			
 			List<String> mailContent = null;
@@ -191,19 +186,14 @@ public class EmailHandler {
 			
 			email = this.checkAgainstBlacklist(email);
 			email = this.extractEmailProperties(email);
+			
 			// just if mail is suspicious, get its properties,
 			// else remove mail and go to next mail
 			if (!email.isSuspicious()) {
 				
-//				safe indices of emails, that does not need to be moved
-//				into quarantine and safe it inside email handler
-				index = mailContainer.getMails().indexOf(email);
-				indexListOfNonSuspiciousEmails.add(index);
 				continue;
-			} else {
-//				System.out.println("Email with subject " + email.getSubject() + " is suspicious");
 			}
-		}	
+		}
 		
 	}
 	
@@ -215,13 +205,11 @@ public class EmailHandler {
 		int counterSuspiciousMails = 0;
 		
 		for (Email email: this.getMailContainer().getMails()) {
+			
 			if (email.isSuspicious()) {
-				System.out.println(email.getFilename() + " is suspicious!");
-			}
-			if (!indexListOfNonSuspiciousEmails.contains(email.getIndex())) {
 				
 				new LogManager().log(email);
-				new FileManager().moveFile(email.getRelativePath(), FileManager.QUARANTINE_PATH);
+				new FileManager().moveFile(email.getRelativePath(), new ConfigPropertiesManager().getQuarantinePath());
 				counterSuspiciousMails++;
 			}
 		}
@@ -229,7 +217,7 @@ public class EmailHandler {
 //		clear mail container after files are moved
 		this.mailContainer = new EmailContainer();
 		
-		String msg = "Es wurden " + counterSuspiciousMails + " verdächtige Emails gefunden.";
+		String msg = "Es wurden " + counterSuspiciousMails + " verdächtige Email(s) gefunden.";
 		if (counterSuspiciousMails >= 1) {
 		    msg += System.lineSeparator();
 			msg += "Weitere Details dazu befinden sich in der Logdatei.";
