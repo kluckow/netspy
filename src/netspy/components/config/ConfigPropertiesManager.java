@@ -5,13 +5,13 @@ package netspy.components.config;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Properties;
 
+import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.configuration.PropertiesConfigurationLayout;
 
@@ -56,9 +56,10 @@ public class ConfigPropertiesManager implements NetSpyGlobals {
 				setupDefaultConfig();
 			} 
 		} catch (IOException e) {
-			new ErrorNotificationPopup("Fehler bei Dateierstellung",
-					"Die config.properties-Datei konnte nicht erstellt werden!");
-		}
+		    new ErrorNotificationPopup("Fehler bei Dateierstellung",
+		                    "Die config.properties-Datei konnte nicht erstellt werden!");
+		    
+        }
 	}
 
 	/**
@@ -74,6 +75,9 @@ public class ConfigPropertiesManager implements NetSpyGlobals {
 				PropertyDefaultValues.LOG_PATH_RELATIVE);
 		setProperty(PropertyKeys.QUARANTINE_PATH, System.getProperty("user.dir") +
 				PropertyDefaultValues.QUARANTINE_PATH_RELATIVE);
+		// TODO: set security level in default config.properties
+//		setProperty(PropertyKeys.SECURITY_LEVEL, System.getProperty("user.dir") +
+//		    PropertyDefaultValues.SECURITY_LEVEL);
 	}
 
 	/**
@@ -93,19 +97,24 @@ public class ConfigPropertiesManager implements NetSpyGlobals {
 	 */
 	private void setProperty(String propKey, String propValue) {
 		
-		try {
-			File file = new File(new ConfigPropertiesManager().getConfigPropertiesPath());
+	    File file = new File(new ConfigPropertiesManager().getConfigPropertiesPath());
+	    
+		try (InputStreamReader input = new InputStreamReader(new FileInputStream(file))) {
 
 			PropertiesConfiguration config = new PropertiesConfiguration();
 			PropertiesConfigurationLayout layout = new PropertiesConfigurationLayout(config);
-			layout.load(new InputStreamReader(new FileInputStream(file)));
+			layout.load(input);
+			
+			input.close();
 
 			config.setProperty(propKey, propValue);
 			layout.save(new FileWriter(file));
-		} catch (Exception e) {
-			new ErrorNotificationPopup("Fehler beim Konfigurieren",
-					"Es ist ein Problem beim Schreiben in" + " die Konfigurationsdatei aufgetreten!");
-		}
+		} catch (ConfigurationException e) {
+		    // TODO: ErrorNotif 
+        } catch (IOException e) {
+            // TODO: ErrorNotif
+        }
+		
 		// TODO: remove when 100% sure the org.apache.common way is working for us
 		/**
 		OutputStream output = null;
@@ -130,7 +139,7 @@ public class ConfigPropertiesManager implements NetSpyGlobals {
 					"Datei-Zugriffsfehler",
 					"Es ist ein Problem beim Zugriff auf die config.properties aufgetreten!");
 			}
-		}*/
+		}*/ 
 	}
 
 	/**
@@ -141,23 +150,16 @@ public class ConfigPropertiesManager implements NetSpyGlobals {
 	private Properties getProperties() {
 		
 		Properties prop = new Properties();
-		try {
-			InputStream input = new FileInputStream(configPropertiesPath);
-			if (input != null) {
-				try {
-					prop.load(input);
-				} catch (IOException e) {
-					new ErrorNotificationPopup(
-						"Datei-Lesefehler",
-						"Es ist ein Fehler beim Lesen der config.properties aufgetreten!");
-				}
-			}
-		} catch (FileNotFoundException e) {
-			new ErrorNotificationPopup(
-				"Datei nicht gefunden",
-				"Die config.properties-Datei konnte nicht gefunden werden!");
-		}
-		return prop;
+		try (InputStream input = new FileInputStream(configPropertiesPath)) {
+            if (input != null) {
+                prop.load(input);
+                input.close();
+            }
+            return prop;
+        } catch (IOException e) {
+            // TODO: ErrorNotificationPopup: Fehler beim Lesen
+        }
+        return prop;
 	}
 
 	/**
