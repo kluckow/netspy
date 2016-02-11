@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 
 import netspy.NetSpy;
+import netspy.components.config.ConfigPropertiesManager;
 import netspy.components.filehandling.manager.FileManager;
 import netspy.components.gui.components.frame.NetSpyFrame;
 import netspy.components.gui.components.popups.ErrorNotificationPopup;
@@ -58,6 +59,7 @@ public class NetSpyActionListener implements ActionListener {
                 if (fileMailPath.isDirectory()) {
                     
                 	this.owner.getInputMailPath().setText(fileMailPath.getAbsolutePath());
+                	new ConfigPropertiesManager().setInboxPath(fileMailPath.getAbsolutePath());
 
                 // check with file-names
                 } else if (fileMailPath.isFile()) {
@@ -66,6 +68,7 @@ public class NetSpyActionListener implements ActionListener {
                 		break;
                 	} else {
                 		this.owner.getInputMailPath().setText(fileMailPath.getAbsolutePath());
+                		new ConfigPropertiesManager().setInboxPath(fileMailPath.getAbsolutePath());
                 	}
                 }
                 
@@ -88,6 +91,7 @@ public class NetSpyActionListener implements ActionListener {
 		        
 		        // change text field accordingly after choosing a folder
 		        this.owner.getInputQuarantinePath().setText(fileQuarantinePath.getPath());
+		        new ConfigPropertiesManager().setQuarantinePath(fileQuarantinePath.getAbsolutePath());
 
 		    } else if (returnValQuarantine == JFileChooser.ERROR_OPTION) {
 		        
@@ -114,6 +118,7 @@ public class NetSpyActionListener implements ActionListener {
 		    	
 		        // change text field accordingly after choosing a folder
 		        this.owner.getInputBlackwordPath().setText(fileBlackwordPath.getPath());
+		        new ConfigPropertiesManager().setBlackwordPath(fileBlackwordPath.getAbsolutePath());
 		        
 		    } else if (returnValBlackword == JFileChooser.ERROR_OPTION) {
 		        
@@ -134,6 +139,7 @@ public class NetSpyActionListener implements ActionListener {
 		        
 		        // change text field accordingly after choosing a folder
 		        this.owner.getInputLogPath().setText(fileLogPath.getPath());
+		        new ConfigPropertiesManager().setLogPath(fileLogPath.getAbsolutePath());
 		        
 		    } else if (returnValLog == JFileChooser.ERROR_OPTION) {
 		        
