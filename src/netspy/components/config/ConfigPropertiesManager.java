@@ -15,6 +15,7 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.configuration.PropertiesConfigurationLayout;
 
+import netspy.components.gui.components.frame.components.LogBox;
 import netspy.components.gui.components.popups.ErrorNotificationPopup;
 
 /**
@@ -25,12 +26,25 @@ public class ConfigPropertiesManager implements NetSpyGlobals {
 	/** The config properties path. */
 	private String configPropertiesPath;
 
+	/** The logbox. */
+	private LogBox logbox;
+	
 	/**
 	 * Instantiates a new config properties manager.
 	 */
 	public ConfigPropertiesManager() {
+		
 		this.configPropertiesPath = System.getProperty("user.dir") +
 				PropertyDefaultValues.CONFIG_PROPERTIES_PATH_RELATIVE;
+	}
+	
+	/**
+	 * Instantiates a new config properties manager.
+	 */
+	public ConfigPropertiesManager(LogBox logbox) {
+		
+		this();
+		this.logbox = logbox;
 	}
 	
 	/**
@@ -50,7 +64,6 @@ public class ConfigPropertiesManager implements NetSpyGlobals {
 			if (!file.exists()) {
 				file.createNewFile();
 				System.out.println("config.properties wurden neu erstellt!");
-				// TODO: logbox entry: es wurde eine Konfigurationsdatei erstellt
 				
 				// createDefaultValues for paths
 				setupDefaultConfig();
@@ -97,7 +110,7 @@ public class ConfigPropertiesManager implements NetSpyGlobals {
 	 */
 	private void setProperty(String propKey, String propValue) {
 		
-	    File file = new File(new ConfigPropertiesManager().getConfigPropertiesPath());
+	    File file = new File(getConfigPropertiesPath());
 	    
 		try (InputStreamReader input = new InputStreamReader(new FileInputStream(file))) {
 
