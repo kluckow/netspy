@@ -63,7 +63,8 @@ public class ConfigPropertiesManager implements NetSpyGlobals {
 			File file = new File(configPropertiesPath);
 			if (!file.exists()) {
 				file.createNewFile();
-				System.out.println("config.properties wurden neu erstellt!");
+				
+				this.logbox.append("Es wurde eine neue Konfigurationsdatei für die Pfade mit Default-Werten angelegt.");
 				
 				// createDefaultValues for paths
 				setupDefaultConfig();
@@ -88,9 +89,6 @@ public class ConfigPropertiesManager implements NetSpyGlobals {
 				PropertyDefaultValues.LOG_PATH_RELATIVE);
 		setProperty(PropertyKeys.QUARANTINE_PATH, System.getProperty("user.dir") +
 				PropertyDefaultValues.QUARANTINE_PATH_RELATIVE);
-		// TODO: set security level in default config.properties
-//		setProperty(PropertyKeys.SECURITY_LEVEL, System.getProperty("user.dir") +
-//		    PropertyDefaultValues.SECURITY_LEVEL);
 	}
 
 	/**
