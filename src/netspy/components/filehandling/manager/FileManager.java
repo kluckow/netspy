@@ -33,12 +33,13 @@ public class FileManager {
 	 */
 	public List<File> getFilesByExtension(String fileExtension, String absPath) {
 		
-		File folder = new File(absPath);
+		File fileOrFolder = new File(absPath);
 		List<File> listOfFiles = new ArrayList<>();
-		
-		if (folder.isDirectory()) {
+
+		// check is necessary, because chosen target to scan can be folder or a single file
+		if (fileOrFolder.isDirectory()) {
 			
-			File[] arrOfFiles = folder.listFiles();
+			File[] arrOfFiles = fileOrFolder.listFiles();
 			
 			if (arrOfFiles.length > 0) {
 				
@@ -52,8 +53,8 @@ public class FileManager {
 				}
 			}
 		// might be the case when user entered a single .eml-file
-		} else if (folder.isFile()) {
-			listOfFiles.add(folder);
+		} else if (fileOrFolder.isFile()) {
+			listOfFiles.add(fileOrFolder);
 		}
 		return listOfFiles;
 	}
@@ -128,18 +129,25 @@ public class FileManager {
 	 * @param dest the dest
 	 */
 	public void moveFile(String src, String dest) {
-		// TODO: refactor
+		
 		File srcFile = new File(src);
 		File destFile = new File(dest + File.separator + srcFile.getName());
+		
 		if(srcFile.renameTo(destFile)) {
+			
 			System.out.println(srcFile.getAbsolutePath() + " wurde nach " + destFile.getAbsolutePath() + " verschoben.");
+			
 		} else if (destFile.exists()){
-			// TODO: mit kevin absprechen, was hier passieren soll
-			System.out.println("Datei existiert bereits im Quarantäne-Verzeichnis");
+			
+			
 			try {
 				List<String> srcLines = new FileManager().readFile(srcFile.getAbsolutePath(), "UTF-8");
 				List<String> destLines = new FileManager().readFile(destFile.getAbsolutePath(), "UTF-8");
 				if (srcLines.equals(destLines)) {
+					
+					// TODO: Abfrage with JOptionPane, ob bereits existierende Dateien in der Inbox gelöscht werden sollen oder nicht
+					// System.out.println("Datei existiert bereits im Quarantäne-Verzeichnis. Außerdem ist der Inhalt gleich");
+					
 					srcFile.delete();
 					System.out.println("content equals is true");
 				}
