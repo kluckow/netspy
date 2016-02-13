@@ -5,7 +5,6 @@ package netspy.components.mailing;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -98,11 +97,15 @@ public class EmailHandler {
 	 * @param line the line
 	 * @return the string
 	 */
-	@SuppressWarnings("deprecation")
 	private String extractSendingDate(String line) {
-		// TODO: default string if data unknown (see extractSender)
+		
 		String date = new StringHelper().splitString(line, ": ").get(1).trim();
-		return new Date(date).toLocaleString();
+		
+		// set "Nicht definiert" if property is not defined
+		if (date.length() <= 0 || date == null) {
+			return "Nicht definiert";
+		}
+		return date;
 	}
 
 	/**
@@ -112,8 +115,14 @@ public class EmailHandler {
 	 * @return the string
 	 */
 	private String extractSubject(String line) {
-		// TODO: default string if data unknown (see extractSender)
-		return new StringHelper().splitString(line, ": ").get(1).trim();
+		
+		String subject = new StringHelper().splitString(line, ": ").get(1).trim();
+		
+		// set "Nicht definiert" if property is not defined
+		if (subject.length() <= 0 || subject == null) {
+			return "Nicht definiert";
+		}
+		return subject;
 	}
 
 	/**
@@ -127,6 +136,7 @@ public class EmailHandler {
 		String sender = new StringHelper().splitString(line, ": ").get(1).trim();
 		sender = sender.substring(sender.indexOf("<") + 1, sender.indexOf(">"));
 		
+		// set "Nicht definiert" if property is not defined
 		if (sender.length() <= 0 || sender == null) {
 			return "Nicht definiert";
 		}
@@ -144,6 +154,7 @@ public class EmailHandler {
 		String receiver = new StringHelper().splitString(line, ": ").get(1).trim();
 		receiver = receiver.substring(receiver.indexOf("<") + 1, receiver.indexOf(">"));
 		
+		// set "Nicht definiert" if property is not defined
 		if (receiver.length() <= 0 || receiver == null) {
 			return "Nicht definiert";
 		}
