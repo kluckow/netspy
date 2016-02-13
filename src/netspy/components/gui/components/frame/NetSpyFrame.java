@@ -118,7 +118,7 @@ public class NetSpyFrame extends JFrame {
 	private JTextField inputLogPath;
 	
 	/** The log box. */
-	private LogBox logBox;
+	private LogBox logBox = new LogBox();
 	
 	/** The main panel. */
 	private JPanel mainPanel = new JPanel();
@@ -130,7 +130,7 @@ public class NetSpyFrame extends JFrame {
 	private GridBagConstraints gbc = new GridBagConstraints();
 	
 	/** The prop conf. */
-	ConfigPropertiesManager propConf = new ConfigPropertiesManager();
+	ConfigPropertiesManager propConf;
 	
     /**
      * Instantiates a new my j frame.
@@ -146,6 +146,7 @@ public class NetSpyFrame extends JFrame {
      */
     private void initConf() {
     	
+    	propConf = new ConfigPropertiesManager(this.logBox);
     	propConf.init();
 	}
 
@@ -428,7 +429,6 @@ public class NetSpyFrame extends JFrame {
     	gbc.anchor = GridBagConstraints.LINE_START;
     	gbc.fill = GridBagConstraints.BOTH;
     	
-    	this.logBox = new LogBox();
         final JScrollPane infoBoxScrollable = new JScrollPane(this.logBox);
         infoBoxScrollable.setPreferredSize(new Dimension(500, 200));
         infoBoxScrollable.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
