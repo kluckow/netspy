@@ -93,7 +93,6 @@ public class NetSpyActionListener implements ActionListener {
 				field.setAccessible(true);
 				JTextField tf = (JTextField) field.get(ui);
 				tf.setEditable(false);
-				tf.setEnabled(false);
 			} catch (NoSuchFieldException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
