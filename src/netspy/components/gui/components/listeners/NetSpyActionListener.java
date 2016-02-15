@@ -86,7 +86,7 @@ public class NetSpyActionListener implements ActionListener {
 		    final JFileChooser quarantinePathChooser = new JFileChooser();
 		    quarantinePathChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		    quarantinePathChooser.setCurrentDirectory(new File(this.owner.getInputQuarantinePath().getText()));
-		    MetalFileChooserUI ui = (MetalFileChooserUI)quarantinePathChooser.getUI();
+		    MetalFileChooserUI ui = (MetalFileChooserUI) quarantinePathChooser.getUI();
 		    Field field = null;
 			try {
 				field = MetalFileChooserUI.class.getDeclaredField("fileNameTextField");
@@ -154,6 +154,26 @@ public class NetSpyActionListener implements ActionListener {
 			final JFileChooser logPathChooser = new JFileChooser();
 		    logPathChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		    logPathChooser.setCurrentDirectory(new File(this.owner.getInputLogPath().getText()));
+		    MetalFileChooserUI uiLog = (MetalFileChooserUI) logPathChooser.getUI();
+		    Field fieldLog = null;
+			try {
+				fieldLog = MetalFileChooserUI.class.getDeclaredField("fileNameTextField");
+				fieldLog.setAccessible(true);
+				JTextField tf = (JTextField) fieldLog.get(uiLog);
+				tf.setEditable(false);
+			} catch (NoSuchFieldException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SecurityException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IllegalArgumentException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IllegalAccessException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		    final int returnValLog = logPathChooser.showOpenDialog(null);
 		    final File fileLogPath = logPathChooser.getSelectedFile();
 		    
