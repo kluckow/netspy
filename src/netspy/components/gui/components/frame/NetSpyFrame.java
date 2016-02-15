@@ -9,6 +9,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -27,11 +28,11 @@ import netspy.components.gui.components.listeners.NetSpyActionListener;
  */
 public class NetSpyFrame extends JFrame {
 
-	/** The Constant APPLICATION_TITLE. */
-	public static final String APPLICATION_TITLE = "NetSpy 2";
-
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2357381332647405895L;
+	
+	/** The Constant APPLICATION_TITLE. */
+	public static final String APPLICATION_TITLE = "NetSpy 2";
 	
 	/** The Constant INPUT_ID_LOG_PATH. */
 	private static final String INPUT_ID_LOG_PATH = "input_log_path";
@@ -247,11 +248,10 @@ public class NetSpyFrame extends JFrame {
         final JButton btnOpenMailPathChooser = new JButton(BUTTON_LABEL_SEARCH_FILE);
         btnOpenMailPathChooser.setName(BUTTON_ID_MAIL_PATH);
         btnOpenMailPathChooser.addActionListener(actionListener);
-        // TODO: impl
-//        btnOpenMailPathChooser.addActionListener(e -> openMailPathChooser());
         btnOpenMailPathChooser.setPreferredSize(DIMENSION_BUTTON_SIZE);
         this.mainPanel.add(btnOpenMailPathChooser, gbc);
 
+        // TODO: @Kevin insert DefaultListModel
         
 //        BLACKWORD PATH
         
@@ -406,15 +406,6 @@ public class NetSpyFrame extends JFrame {
         
     }
     
-    /**
-     * @return
-     */
-    private Object openMailPathChooser() {
-
-        // TODO Auto-generated method stub
-        return null;
-    }
-
     /**
      * Sets the info box.
      */
