@@ -5,13 +5,16 @@ package netspy.components.filehandling.manager;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import netspy.components.config.ConfigPropertiesManager;
 import netspy.components.filehandling.io.TextReader;
 import netspy.components.filehandling.io.TextWriter;
 import netspy.components.gui.components.popups.ErrorNotificationPopup;
+import netspy.components.logging.LogManager;
 
 /**
  * The Class FileManager.
@@ -93,15 +96,23 @@ public class FileManager {
 	 */
 	public String createLogfile() {
 		
-		File file = new File(new ConfigPropertiesManager().getLogPath());
-		try {
-			new File(file.getParent()).mkdirs();
-			file.createNewFile();
-		} catch (IOException e) {
-		    new ErrorNotificationPopup("Datei konnnte nicht erstellt werden", file.getName() + " konnte nicht erstellt werden in "
-		        + "in " + file.getParent() + "!");
+		String date = new SimpleDateFormat(LogManager.LOG_FORMAT_DATE_LOGFILE).format(new Date());
+		String logFilename = date + "-log.txt";
+		String logFileFinal = new ConfigPropertiesManager().getLogPath() + File.separator + logFilename;
+		File logFile = new File(logFileFinal);
+		
+		if (logFile.exists()) {
+			return logFileFinal;
+		} else {
+			File newLogfile = new File(logFileFinal);
+			try {
+				newLogfile.createNewFile();
+			} catch (IOException e) {
+				new ErrorNotificationPopup("Datei konnnte nicht erstellt werden", newLogfile.getName() + " konnte nicht erstellt werden in "
+						+ "in " + newLogfile.getParent() + "!");
+			}
+			return logFileFinal;
 		}
-		return file.getPath();
 	}
 
 
@@ -133,23 +144,16 @@ public class FileManager {
 		File srcFile = new File(src);
 		File destFile = new File(dest + File.separator + srcFile.getName());
 		
-		if(srcFile.renameTo(destFile)) {
-			
-			System.out.println(srcFile.getAbsolutePath() + " wurde nach " + destFile.getAbsolutePath() + " verschoben.");
+		if (srcFile.renameTo(destFile)) {
 			
 		} else if (destFile.exists()){
-			
 			
 			try {
 				List<String> srcLines = new FileManager().readFile(srcFile.getAbsolutePath(), "UTF-8");
 				List<String> destLines = new FileManager().readFile(destFile.getAbsolutePath(), "UTF-8");
 				if (srcLines.equals(destLines)) {
 					
-					// TODO: Abfrage with JOptionPane, ob bereits existierende Dateien in der Inbox gelöscht werden sollen oder nicht
-					// System.out.println("Datei existiert bereits im Quarantäne-Verzeichnis. Außerdem ist der Inhalt gleich");
-					
 					srcFile.delete();
-					System.out.println("content equals is true");
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -161,23 +165,23 @@ public class FileManager {
 	/**
 	 * Write.
 	 *
-	 * @param relPath the rel path
+	 * @param absPath the abs path
 	 * @param line the line
 	 */
-	public void write(String relPath, String line) {
+	public void write(String absPath, String line) {
 
-		new TextWriter().write(relPath, line);
+		new TextWriter().write(absPath, line);
 	}
 
 	/**
 	 * Log.
 	 *
-	 * @param relPath the rel path
+	 * @param absPath the abs path
 	 * @param logLine the log line
 	 */
-	public void log(String relPath, String logLine) {
+	public void log(String absPath, String logLine) {
 		
-		new TextWriter().write(relPath, logLine);
+		new TextWriter().write(absPath, logLine);
 	}
 	
 }
