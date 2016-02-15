@@ -32,6 +32,9 @@ public class LogBox extends JTextArea {
 		super.append(str + System.lineSeparator());
 	}
 	
+	/**
+	 * Clear.
+	 */
 	public void clear() {
 		setText("");
 		new InfoNotificationPopup("", "Reportfenster wurde geleert!");
