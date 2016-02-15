@@ -6,7 +6,6 @@ package netspy.components.logging;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import netspy.components.config.ConfigPropertiesManager;
 import netspy.components.filehandling.manager.FileManager;
 import netspy.components.mailing.Email;
 
@@ -16,7 +15,10 @@ import netspy.components.mailing.Email;
 public class LogManager {
 	
 	/** The date format logging. */
-	private final String LOG_FORMAT = "dd-MM-yyyy HH:mm:ss";
+	private final String LOG_FORMAT_LOG_ENTRY = "dd.MM.yyyy HH:mm:ss";
+	
+	/** The log format logfile. */
+	public static final String LOG_FORMAT_DATE_LOGFILE = "dd-MM-yyyy";
 	
 	/** The Constant LOG_ENTRY_SEPARATOR. */
 	private static final String LOG_ENTRY_SEPARATOR = " | ";
@@ -27,9 +29,10 @@ public class LogManager {
 	 * @param scanResult the scan result
 	 */
 	public void log(Email email) {
-		String logLine = "Scan vom: " + new SimpleDateFormat(LOG_FORMAT).format(new Date());
+		String logLine = "Scan vom: " + new SimpleDateFormat(LOG_FORMAT_LOG_ENTRY).format(new Date());
 		logLine += LOG_ENTRY_SEPARATOR;
-		logLine += "Gesendet am: " + email.getSendingDate();
+		// TODO: avoid deprecation
+		logLine += "Gesendet am: " + new SimpleDateFormat(LOG_FORMAT_LOG_ENTRY).format(new Date(email.getSendingDate()));
 		logLine += LOG_ENTRY_SEPARATOR;
 		logLine += "Betreff: " + email.getSubject();
 		logLine += LOG_ENTRY_SEPARATOR;
@@ -41,15 +44,7 @@ public class LogManager {
 		logLine += LOG_ENTRY_SEPARATOR;
 		logLine += "Gefundene Wörter: " + email.getHitMap().entrySet().toString();
 		
-		
-		new FileManager().createLogfile();
-		new FileManager().log(new ConfigPropertiesManager().getLogPath(), logLine);
+		new FileManager().log(new FileManager().createLogfile(), logLine);
 	}
 	
-	/**
-	 * Gets the formatted date.
-	 *
-	 * @param dateFormat the date format
-	 * @return the formatted date as String
-	 */
 }
