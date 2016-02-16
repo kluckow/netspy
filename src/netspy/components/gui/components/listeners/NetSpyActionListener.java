@@ -94,17 +94,17 @@ public class NetSpyActionListener implements ActionListener {
 				JTextField tf = (JTextField) field.get(ui);
 				tf.setEditable(false);
 			} catch (NoSuchFieldException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			    // could not fiend textfield inside file chooser
+			    new ErrorNotificationPopup("Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
 			} catch (SecurityException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			    // could not access access-property of textfield inside file chooser
+			    new ErrorNotificationPopup("Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
 			} catch (IllegalArgumentException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			    // could not access ui component of text field inside file chooser
+			    new ErrorNotificationPopup("Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
 			} catch (IllegalAccessException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			    // could not access ui component of text field inside file chooser
+			    new ErrorNotificationPopup("Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
 			}
 		    final int returnValQuarantine = quarantinePathChooser.showOpenDialog(null);
 		    final File fileQuarantinePath = quarantinePathChooser.getSelectedFile();
@@ -162,17 +162,17 @@ public class NetSpyActionListener implements ActionListener {
 				JTextField tf = (JTextField) fieldLog.get(uiLog);
 				tf.setEditable(false);
 			} catch (NoSuchFieldException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+                // could not fiend textfield inside file chooser
+                new ErrorNotificationPopup("Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
 			} catch (SecurityException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+                // could not access access-property of textfield inside file chooser
+                new ErrorNotificationPopup("Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
 			} catch (IllegalArgumentException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+                // could not access ui component of text field inside file chooser
+                new ErrorNotificationPopup("Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
 			} catch (IllegalAccessException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+                // could not access ui component of text field inside file chooser
+                new ErrorNotificationPopup("Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
 			}
 		    final int returnValLog = logPathChooser.showOpenDialog(null);
 		    final File fileLogPath = logPathChooser.getSelectedFile();
