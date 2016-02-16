@@ -3,8 +3,12 @@
  */
 package netspy.components.logging;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
+import java.util.Locale.Category;
 
 import netspy.components.filehandling.manager.FileManager;
 import netspy.components.mailing.Email;
@@ -15,7 +19,7 @@ import netspy.components.mailing.Email;
 public class LogManager {
 	
 	/** The date format logging. */
-	private final String LOG_FORMAT_LOG_ENTRY = "dd.MM.yyyy HH:mm:ss";
+	public static final String DATE_FORMAT_LOG_ENTRY = "dd.MM.yyyy HH:mm:ss";
 	
 	/** The log format logfile. */
 	public static final String LOG_FORMAT_DATE_LOGFILE = "dd-MM-yyyy";
@@ -29,10 +33,10 @@ public class LogManager {
 	 * @param scanResult the scan result
 	 */
 	public void log(Email email) {
-		String logLine = "Scan vom: " + new SimpleDateFormat(LOG_FORMAT_LOG_ENTRY).format(new Date());
+		
+		String logLine = "Scan vom: " + new SimpleDateFormat(DATE_FORMAT_LOG_ENTRY).format(new Date());
 		logLine += LOG_ENTRY_SEPARATOR;
-		// TODO: avoid deprecation
-		logLine += "Gesendet am: " + new SimpleDateFormat(LOG_FORMAT_LOG_ENTRY).format(new Date(email.getSendingDate()));
+		logLine += "Gesendet am: " + email.getSendingDate();
 		logLine += LOG_ENTRY_SEPARATOR;
 		logLine += "Betreff: " + email.getSubject();
 		logLine += LOG_ENTRY_SEPARATOR;

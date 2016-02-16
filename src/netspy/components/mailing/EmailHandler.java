@@ -14,6 +14,7 @@ import netspy.components.config.ConfigPropertiesManager;
 import netspy.components.filehandling.lists.Blacklist;
 import netspy.components.filehandling.manager.FileManager;
 import netspy.components.logging.LogManager;
+import netspy.components.util.DateHelper;
 import netspy.components.util.StringHelper;
 
 /**
@@ -105,7 +106,7 @@ public class EmailHandler {
 		if (date.length() <= 0 || date == null) {
 			return "Nicht definiert";
 		}
-		return date;
+		return new DateHelper().formatDate(date);
 	}
 
 	/**
