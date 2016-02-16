@@ -120,9 +120,12 @@ public class ConfigPropertiesManager implements NetSpyGlobals {
 			config.setProperty(propKey, propValue);
 			layout.save(new FileWriter(file));
 		} catch (ConfigurationException e) {
-		    // TODO: ErrorNotif 
+            // could not load config.properties
+            new ErrorNotificationPopup("Fehler mit Konfigurationsdatei",
+                "Es ist ein Fehler beim Laden der Konfigurationsdatei aufgetreten!"); 
         } catch (IOException e) {
-            // TODO: ErrorNotif
+            new ErrorNotificationPopup("Fehler mit Konfigurationsdatei",
+                "Es ist ein Fehler beim Öffnen bzw. Schreiben der Konfigurationsdatei aufgetreten!"); 
         }
 		
 	}
@@ -142,7 +145,8 @@ public class ConfigPropertiesManager implements NetSpyGlobals {
             }
             return prop;
         } catch (IOException e) {
-            // TODO: ErrorNotificationPopup: Fehler beim Lesen
+            new ErrorNotificationPopup("Fehler mit Konfigurationsdatei",
+                "Es ist ein Fehler beim Öffnen bzw. Lesen der Konfigurationsdatei aufgetreten!"); 
         }
         return prop;
 	}
