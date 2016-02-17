@@ -38,7 +38,7 @@ interface NetSpyGlobals {
 		String BLACKWORD_PATH_RELATIVE = "\\data\\blacklist.txt";
 		
 		/** The log path relative. */
-		String LOG_PATH_RELATIVE = "\\logs\\log.txt";
+		String LOG_PATH_RELATIVE = "\\logs";
 		
 		/** The quarantine path relative. */
 		String QUARANTINE_PATH_RELATIVE = "\\quarantine";
