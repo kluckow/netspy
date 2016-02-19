@@ -44,6 +44,7 @@ public class Netspy {
 	    // aber nochmal überprüfen kann nicht schaden.
 		if (checkInboxForMails()) {
             processMailsInInbox();
+            finishScan();
         }
 	}
 
@@ -59,6 +60,14 @@ public class Netspy {
     }
 
     /**
+     * Finish scan.
+     */
+    private void finishScan() {
+    	
+    	this.frame.getLogBox().append("Scan abgeschlossen...");
+	}
+
+	/**
      * Check inbox for mails.
      *
      * @return true, if successful
