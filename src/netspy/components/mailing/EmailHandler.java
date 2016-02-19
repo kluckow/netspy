@@ -237,11 +237,28 @@ public class EmailHandler {
 //		clear mail container after files are moved
 		this.mailContainer = new EmailContainer();
 		
-		String msg = "Es wurden " + counterSuspiciousMails + " verdächtige Email(s) gefunden.";
-		if (counterSuspiciousMails >= 1) {
-		    msg += System.lineSeparator();
+		String msg = ""; 
+		boolean addAdditionalInfoLine = counterSuspiciousMails > 0;
+		
+		switch (counterSuspiciousMails) {
+		case 0:
+			msg = "Es wurde keine verdächtige Email gefunden.";
+			break;
+		case 1:
+			msg = "Es wurde " + counterSuspiciousMails + " verdächtige Email gefunden.";
+			break;
+
+		default:
+			msg = "Es wurden " + counterSuspiciousMails + " verdächtige Emails gefunden.";
+			break;
+		}
+		
+		if (addAdditionalInfoLine) {
+			
+			msg += System.lineSeparator();
 			msg += "Weitere Details dazu befinden sich in der Logdatei.";
 		}
+		
 		this.logbox.append(msg);
 	}
 	
