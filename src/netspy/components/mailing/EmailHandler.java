@@ -9,10 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import netspy.NetSpy;
 import netspy.components.config.ConfigPropertiesManager;
 import netspy.components.filehandling.lists.Blacklist;
 import netspy.components.filehandling.manager.FileManager;
+import netspy.components.gui.components.frame.components.LogBox;
 import netspy.components.logging.LogManager;
 import netspy.components.util.DateHelper;
 import netspy.components.util.StringHelper;
@@ -45,7 +45,15 @@ public class EmailHandler {
 	
 	/** The mail containers. */
 	private EmailContainer mailContainer = new EmailContainer();
+
+	/** The logbox. */
+	private LogBox logbox;
 		
+	public EmailHandler(LogBox logbox) {
+		
+		this.logbox = logbox;
+	}
+	
 	/**
 	 * Check mailbox.
 	 *
@@ -234,7 +242,7 @@ public class EmailHandler {
 		    msg += System.lineSeparator();
 			msg += "Weitere Details dazu befinden sich in der Logdatei.";
 		}
-		NetSpy.mainFrame.getLogBox().append(msg);
+		this.logbox.append(msg);
 	}
 	
 	/**
@@ -315,6 +323,10 @@ public class EmailHandler {
 	public List<String> getMailContent(File file) throws IOException {
 		
 		return new FileManager().readFile(file.getPath(), "UTF-8", HTML_MAIL_PART_START_IDENTIFIER);
+	}
+
+	public LogBox getLogbox() {
+		return logbox;
 	}
 
 }
