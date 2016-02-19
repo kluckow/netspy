@@ -34,6 +34,7 @@ public class Email {
 	private String filename;
 
 	/** The relative path. */
+	// TODO: Verify that this is absolutePath and rename accordingly (getter/setter/field/params in external methods/etc.)
 	private String relativePath;
 
 	/** The hit map. */
