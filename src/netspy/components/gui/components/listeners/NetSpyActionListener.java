@@ -13,12 +13,12 @@ import javax.swing.JFileChooser;
 import javax.swing.JTextField;
 import javax.swing.plaf.metal.MetalFileChooserUI;
 
-import netspy.NetSpy;
 import netspy.components.config.ConfigPropertiesManager;
 import netspy.components.filehandling.manager.FileManager;
 import netspy.components.gui.components.frame.NetSpyFrame;
 import netspy.components.gui.components.popups.ErrorNotificationPopup;
 import netspy.components.mailing.EmailHandler;
+import netspy.components.netspy.Netspy;
 
 /**
  * Class NetSpyActionListener.
@@ -197,7 +197,7 @@ public class NetSpyActionListener implements ActionListener {
 			    new ErrorNotificationPopup("Fehlende Pfadangaben", "Bitte überprüfen Sie Ihre Eingaben bezüglich der Pfade!");
 			    break;
 			} else {
-			    NetSpy.run();
+			    new Netspy().start(this.owner);
 			}
 			break;
 			
