@@ -81,13 +81,13 @@ public class NetSpyFrame extends JFrame {
 	private static final String BUTTON_LABEL_SEARCH_FILE = "Durchsuchen";
 	
 	/** The Constant BUTTON_LABEL_BLACKWORD_ADD. */
-	private static final String BUTTON_LABEL_BLACKWORD_ADD = "Hinzufügen";
+	private static final String BUTTON_LABEL_BLACKWORD_ADD = "Hinzufï¿½gen";
 	
 	/** The Constant BUTTON_LABEL_BLACKWORD_ADD. */
-	private static final String BUTTON_LABEL_BLACKWORD_DELETE = "Löschen";
+	private static final String BUTTON_LABEL_BLACKWORD_DELETE = "Lï¿½schen";
 	
 	/** The Constant BUTTON_LABEL_BLACKWORD_ADD. */
-	private static final String BUTTON_LABEL_BLACKWORD_EDIT = "Ändern";
+	private static final String BUTTON_LABEL_BLACKWORD_EDIT = "ï¿½ndern";
 
     /** The Constant BUTTON_ID_MAIL_PATH. */
     public static final String BUTTON_ID_MAIL_PATH = "button_mail_path";
@@ -519,11 +519,14 @@ public class NetSpyFrame extends JFrame {
 		mainPanel.add(scrollPane, gbc);
         
     }
+	
+	
+    // TODO: Need Bugfix... doesnt work and i FUCKING dont know why
 	@SuppressWarnings("unchecked")
 	public ArrayList<String> fillBlackWordBox(@SuppressWarnings("rawtypes") DefaultListModel dlm_BlackWord) {
 		ArrayList<String> Blackwords = listSelectionListener.getBlacklist();
 	
-	
+		
 		for(String temp: Blackwords){
 			dlm_BlackWord.add(currentIndex, temp);
 		}
