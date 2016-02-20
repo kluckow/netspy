@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /**
  * (c) Copyrights 2016 by Kevin Schorn, Markus Kluckow
  */
@@ -26,32 +25,3 @@ public class ErrorNotificationPopup extends NotificationPopup {
     }
     
 }
-=======
-/**
- * (c) Copyrights 2016 by Kevin Schorn, Markus Kluckow
- */
-package netspy.components.gui.components.popups;
-
-import javax.swing.JOptionPane;
-
-/**
- * Class ErrorNotificationPopup.
- *
- */
-public class ErrorNotificationPopup extends NotificationPopup {
-
-    /** The Constant serialVersionUID. */
-    private static final long serialVersionUID = -3151242789990015554L;
-    
-    /**
-     * Instantiates a new error notification popup.
-     *
-     * @param message the message
-     */
-    public ErrorNotificationPopup(String title, String message) {
-        super();
-        showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
-    }
-    
-}
->>>>>>> 327a0c79d00220564bf883cb9e591a0e3088cc05
