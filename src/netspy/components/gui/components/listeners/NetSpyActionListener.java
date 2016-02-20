@@ -10,13 +10,19 @@ import java.lang.reflect.Field;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+<<<<<<< HEAD
 import javax.swing.JOptionPane;
+=======
+>>>>>>> 327a0c79d00220564bf883cb9e591a0e3088cc05
 import javax.swing.JTextField;
 import javax.swing.plaf.metal.MetalFileChooserUI;
 
 import netspy.NetSpy;
 import netspy.components.config.ConfigPropertiesManager;
+<<<<<<< HEAD
 import netspy.components.filehandling.io.TextWriter;
+=======
+>>>>>>> 327a0c79d00220564bf883cb9e591a0e3088cc05
 import netspy.components.filehandling.manager.FileManager;
 import netspy.components.gui.components.frame.NetSpyFrame;
 import netspy.components.gui.components.popups.ErrorNotificationPopup;
@@ -30,8 +36,11 @@ public class NetSpyActionListener implements ActionListener {
 
 	/** The owner. Used for accessing the text fields. */
 	private NetSpyFrame owner;
+<<<<<<< HEAD
 	
 	
+=======
+>>>>>>> 327a0c79d00220564bf883cb9e591a0e3088cc05
     
 	/**
 	 * Instantiates a new file chooser action listener.
@@ -193,6 +202,7 @@ public class NetSpyActionListener implements ActionListener {
 		        new ErrorNotificationPopup("Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
 		    }
 			break;
+<<<<<<< HEAD
 		
 		case NetSpyFrame.BUTTON_ID_BLACKWORD_ADD:
 			String BlackWordStrAdd = null; 
@@ -209,6 +219,8 @@ public class NetSpyActionListener implements ActionListener {
 //			
 //		case NetSpyFrame.BUTTON_ID_BLACKWORD_DELETE:
 //			
+=======
+>>>>>>> 327a0c79d00220564bf883cb9e591a0e3088cc05
 			
 		case NetSpyFrame.BUTTON_ID_START_SCAN:
 			

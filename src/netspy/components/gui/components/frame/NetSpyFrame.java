@@ -4,31 +4,46 @@
 package netspy.components.gui.components.frame;
 
 import java.awt.Color;
+<<<<<<< HEAD
 import java.awt.Component;
+=======
+>>>>>>> 327a0c79d00220564bf883cb9e591a0e3088cc05
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+<<<<<<< HEAD
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+=======
+>>>>>>> 327a0c79d00220564bf883cb9e591a0e3088cc05
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+<<<<<<< HEAD
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+=======
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+>>>>>>> 327a0c79d00220564bf883cb9e591a0e3088cc05
 import javax.swing.ScrollPaneConstants;
 
 import netspy.components.config.ConfigPropertiesManager;
 import netspy.components.gui.components.frame.components.LogBox;
 import netspy.components.gui.components.listeners.NetSpyActionListener;
+<<<<<<< HEAD
 import netspy.components.gui.components.listeners.NetSpyListSelectionListener;
+=======
+>>>>>>> 327a0c79d00220564bf883cb9e591a0e3088cc05
 
 /**
  * The Class MyJFrame.
@@ -79,6 +94,7 @@ public class NetSpyFrame extends JFrame {
 	
 	/** The Constant BUTTON_LABEL_SEARCH_FILE. */
 	private static final String BUTTON_LABEL_SEARCH_FILE = "Durchsuchen";
+<<<<<<< HEAD
 	
 	/** The Constant BUTTON_LABEL_BLACKWORD_ADD. */
 	private static final String BUTTON_LABEL_BLACKWORD_ADD = "Hinzuf�gen";
@@ -88,10 +104,13 @@ public class NetSpyFrame extends JFrame {
 	
 	/** The Constant BUTTON_LABEL_BLACKWORD_ADD. */
 	private static final String BUTTON_LABEL_BLACKWORD_EDIT = "�ndern";
+=======
+>>>>>>> 327a0c79d00220564bf883cb9e591a0e3088cc05
 
     /** The Constant BUTTON_ID_MAIL_PATH. */
     public static final String BUTTON_ID_MAIL_PATH = "button_mail_path";
     
+<<<<<<< HEAD
     /** The Constant BUTTON_ID_BLACKWORD_ADD . */
     public static final String BUTTON_ID_BLACKWORD_ADD = "button_blackword_add";
     
@@ -101,6 +120,8 @@ public class NetSpyFrame extends JFrame {
     /** The Constant BUTTON_ID_BLACKWORD_DELETE . */
     public static final String BUTTON_ID_BLACKWORD_EDIT = "button_blackword_edit";
     
+=======
+>>>>>>> 327a0c79d00220564bf883cb9e591a0e3088cc05
     /** The Constant BUTTON_ID_BLACKWORD_PATH. */
     public static final String BUTTON_ID_BLACKWORD_PATH = "button_blackword_path";
     
@@ -131,8 +152,11 @@ public class NetSpyFrame extends JFrame {
 	/** The action listener. */
 	private NetSpyActionListener actionListener = new NetSpyActionListener(this);
 	
+<<<<<<< HEAD
 	private NetSpyListSelectionListener listSelectionListener = new NetSpyListSelectionListener(this);
 	
+=======
+>>>>>>> 327a0c79d00220564bf883cb9e591a0e3088cc05
 	/** The Input mail path. */
 	private JTextField inputMailPath;
 	
@@ -145,8 +169,11 @@ public class NetSpyFrame extends JFrame {
 	/** The Input log path. */
 	private JTextField inputLogPath;
 	
+<<<<<<< HEAD
 	private JScrollPane blackWordList;
 		
+=======
+>>>>>>> 327a0c79d00220564bf883cb9e591a0e3088cc05
 	/** The log box. */
 	private LogBox logBox = new LogBox();
 	
@@ -156,9 +183,12 @@ public class NetSpyFrame extends JFrame {
 	/** The empty row. */
 	private JPanel emptyRow = new JPanel();
 	
+<<<<<<< HEAD
 	/** The current index. */
 	private int currentIndex;
 	
+=======
+>>>>>>> 327a0c79d00220564bf883cb9e591a0e3088cc05
 	/** The gbc. */
 	private GridBagConstraints gbc = new GridBagConstraints();
 	
@@ -191,6 +221,10 @@ public class NetSpyFrame extends JFrame {
     	// general configuration of frame
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle(APPLICATION_TITLE);
+<<<<<<< HEAD
+=======
+        this.setBackground(Color.RED);
+>>>>>>> 327a0c79d00220564bf883cb9e591a0e3088cc05
         this.setBounds(500, 200, 1024, 768);
         this.setResizable(false);
         
@@ -200,7 +234,11 @@ public class NetSpyFrame extends JFrame {
         
         // Layout
         this.mainPanel.setLayout(new GridBagLayout());
+<<<<<<< HEAD
         gbc.insets = new Insets(7, 7, 7, 7);
+=======
+        gbc.insets = new Insets(5, 5, 5, 5);
+>>>>>>> 327a0c79d00220564bf883cb9e591a0e3088cc05
         
         // Background color
         this.mainPanel.setBackground(Color.WHITE);
@@ -208,7 +246,10 @@ public class NetSpyFrame extends JFrame {
         // create content
         this.setTitlePanel();
         this.setFormLayout();
+<<<<<<< HEAD
         this.setBlackWordBox();
+=======
+>>>>>>> 327a0c79d00220564bf883cb9e591a0e3088cc05
         this.setInfoBox();
         
         this.add(this.mainPanel);
@@ -225,7 +266,11 @@ public class NetSpyFrame extends JFrame {
     	// y = 0, x = 0-7
     	gbc.gridx = 0;
     	gbc.gridy = 0;
+<<<<<<< HEAD
     	gbc.gridwidth = 12;
+=======
+    	gbc.gridwidth = 8;
+>>>>>>> 327a0c79d00220564bf883cb9e591a0e3088cc05
     	gbc.anchor = GridBagConstraints.CENTER;
     	gbc.fill = GridBagConstraints.HORIZONTAL;
     	
@@ -239,8 +284,12 @@ public class NetSpyFrame extends JFrame {
     /**
      * Sets the form layout.
      */
+<<<<<<< HEAD
     
 	private void setFormLayout() {
+=======
+    private void setFormLayout() {
+>>>>>>> 327a0c79d00220564bf883cb9e591a0e3088cc05
 
         
 //        MAIL PATH
@@ -285,8 +334,11 @@ public class NetSpyFrame extends JFrame {
         this.mainPanel.add(btnOpenMailPathChooser, gbc);
 
         // TODO: @Kevin insert DefaultListModel
+<<<<<<< HEAD
         // Siehe setBlackWordBox();
         
+=======
+>>>>>>> 327a0c79d00220564bf883cb9e591a0e3088cc05
         
 //        BLACKWORD PATH
         
@@ -438,6 +490,10 @@ public class NetSpyFrame extends JFrame {
         btnStartScan.addActionListener(actionListener);
         btnStartScan.setPreferredSize(DIMENSION_BUTTON_SIZE);
         this.mainPanel.add(btnStartScan, gbc);
+<<<<<<< HEAD
+=======
+        
+>>>>>>> 327a0c79d00220564bf883cb9e591a0e3088cc05
     }
     
     /**
@@ -449,18 +505,27 @@ public class NetSpyFrame extends JFrame {
     	// y = 7-12, x = 0-7, fill both
     	gbc.gridy = 7;
     	gbc.gridx = 1;
+<<<<<<< HEAD
     	gbc.gridwidth = 12;
+=======
+    	gbc.gridwidth = 8;
+>>>>>>> 327a0c79d00220564bf883cb9e591a0e3088cc05
     	gbc.gridheight = 6;
     	gbc.anchor = GridBagConstraints.LINE_START;
     	gbc.fill = GridBagConstraints.BOTH;
     	
         final JScrollPane infoBoxScrollable = new JScrollPane(this.logBox);
+<<<<<<< HEAD
         infoBoxScrollable.setPreferredSize(new Dimension(500, 150));
+=======
+        infoBoxScrollable.setPreferredSize(new Dimension(500, 200));
+>>>>>>> 327a0c79d00220564bf883cb9e591a0e3088cc05
         infoBoxScrollable.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         infoBoxScrollable.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         
         this.mainPanel.add(infoBoxScrollable, gbc);
     }
+<<<<<<< HEAD
     
 	@SuppressWarnings("unchecked")
 	public void setBlackWordBox(){
@@ -531,6 +596,10 @@ public class NetSpyFrame extends JFrame {
 	}
  
 	/**
+=======
+
+    /**
+>>>>>>> 327a0c79d00220564bf883cb9e591a0e3088cc05
      * Sets the input mail path.
      *
      * @param inputMailPath the new input mail path
@@ -653,6 +722,7 @@ public class NetSpyFrame extends JFrame {
 	public void setGbc(GridBagConstraints gbc) {
 		this.gbc = gbc;
 	}
+<<<<<<< HEAD
 
 	public int getCurrentIndex() {
 		return currentIndex;
@@ -669,4 +739,6 @@ public class NetSpyFrame extends JFrame {
 	public void setBlackWordList(JScrollPane blackWordList) {
 		this.blackWordList = blackWordList;
 	}
+=======
+>>>>>>> 327a0c79d00220564bf883cb9e591a0e3088cc05
 }
