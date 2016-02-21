@@ -1,7 +1,7 @@
 /**
  * (c) Copyrights 2016 by Kevin Schorn, Markus Kluckow
  */
-package netspy;
+package netspy.components.netspy;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,38 +15,43 @@ import netspy.components.mailing.Email;
 import netspy.components.mailing.EmailHandler;
 
 /**
- * The Class NetSpy.
+ * The Class Netspy.
  */
-public class NetSpy {
-
+public class Netspy {
+	
     /** The email handler. */
-    static EmailHandler emailHandler = new EmailHandler();
+    private EmailHandler emailHandler;
     
     /** The main frame. */
-    public static NetSpyFrame mainFrame;
+    private NetSpyFrame frame;
 
     /**
-     * The main method.
-     *
-     * @param args the arguments
+     * Start.
      */
-    public static void main(final String[] args) {
+    public void start(NetSpyFrame frame) {
     	
-        mainFrame = new NetSpyFrame();
+    	this.frame = frame;
+    	this.emailHandler = new EmailHandler(this.frame.getLogBox());
+    	run();
     }
 
-	public static void run() {
+	/**
+	 * Run.
+	 */
+	private void run() {
+
 	    // Eigentlich wird die Überprüfung schon beim Auswählen des Pfades durchgeführt,
 	    // aber nochmal überprüfen kann nicht schaden.
 		if (checkInboxForMails()) {
             processMailsInInbox();
+            finishScan();
         }
 	}
 
     /**
      * Process mails in inbox.
      */
-    private static void processMailsInInbox() {
+    private void processMailsInInbox() {
 
         emailHandler.scanMails();
         if (!emailHandler.getMailContainer().getMails().isEmpty() && !new FileManager().getBlacklist().isEmpty()) {
@@ -55,11 +60,19 @@ public class NetSpy {
     }
 
     /**
+     * Finish scan.
+     */
+    private void finishScan() {
+    	
+    	this.frame.getLogBox().append("Scan abgeschlossen...");
+	}
+
+	/**
      * Check inbox for mails.
      *
      * @return true, if successful
      */
-    private static boolean checkInboxForMails() {
+    private boolean checkInboxForMails() {
 
         if (!emailHandler.checkMailbox()) {
             
@@ -68,7 +81,7 @@ public class NetSpy {
             
         } else {
             
-            mainFrame.getLogBox().append("Scan wurde gestartet...");
+            this.frame.getLogBox().append("Scan wurde gestartet...");
             // get emails as files
             final List<File> mailFiles = emailHandler.getEmlFiles();
 

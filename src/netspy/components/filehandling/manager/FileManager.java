@@ -90,9 +90,9 @@ public class FileManager {
 	}
 	
 	/**
-	 * Creates the logfile.
+	 * Creates the logfile with 'dd-mm-yyyy-log.txt' format.
 	 *
-	 * @return the string
+	 * @return the string of the logfile
 	 */
 	public String createLogfile() {
 		
@@ -108,8 +108,8 @@ public class FileManager {
 			try {
 				newLogfile.createNewFile();
 			} catch (IOException e) {
-				new ErrorNotificationPopup("Datei konnnte nicht erstellt werden", newLogfile.getName() + " konnte nicht erstellt werden in "
-						+ "in " + newLogfile.getParent() + "!");
+				new ErrorNotificationPopup("Datei konnnte nicht erstellt werden", newLogfile.getName() +
+						" konnte nicht erstellt werden in " + newLogfile.getParent() + "!");
 			}
 			return logFileFinal;
 		}

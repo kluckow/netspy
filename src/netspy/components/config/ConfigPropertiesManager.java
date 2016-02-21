@@ -115,42 +115,19 @@ public class ConfigPropertiesManager implements NetSpyGlobals {
 			PropertiesConfiguration config = new PropertiesConfiguration();
 			PropertiesConfigurationLayout layout = new PropertiesConfigurationLayout(config);
 			layout.load(input);
-			
 			input.close();
 
 			config.setProperty(propKey, propValue);
 			layout.save(new FileWriter(file));
 		} catch (ConfigurationException e) {
-		    // TODO: ErrorNotif 
+            // could not load config.properties
+            new ErrorNotificationPopup("Fehler mit Konfigurationsdatei",
+                "Es ist ein Fehler beim Laden der Konfigurationsdatei aufgetreten!"); 
         } catch (IOException e) {
-            // TODO: ErrorNotif
+            new ErrorNotificationPopup("Fehler mit Konfigurationsdatei",
+                "Es ist ein Fehler beim Öffnen bzw. Schreiben der Konfigurationsdatei aufgetreten!"); 
         }
 		
-		// TODO: remove when 100% sure the org.apache.common way is working for us
-		/**
-		OutputStream output = null;
-		try {
-			output = new FileOutputStream(configPropertiesPath);
-			Properties prop = getProperties();
-			prop.put(propKey, propValue);
-			prop.store(output, null);
-		} catch (FileNotFoundException e) {
-			new ErrorNotificationPopup(
-				"Datei nicht gefunden",
-				"Die config.properties-Datei konnte nicht gefunden werden!");
-		} catch (IOException e) {
-			new ErrorNotificationPopup(
-				"Datei-Schreib- oder Lesefehler",
-				"Es ist ein Problem beim Schreiben bzw. Lesen der Konfigurationsdatei aufgetreten!");
-		} finally {
-			try {
-				output.close();
-			} catch (IOException e) {
-				new ErrorNotificationPopup(
-					"Datei-Zugriffsfehler",
-					"Es ist ein Problem beim Zugriff auf die config.properties aufgetreten!");
-			}
-		}*/ 
 	}
 
 	/**
@@ -168,7 +145,8 @@ public class ConfigPropertiesManager implements NetSpyGlobals {
             }
             return prop;
         } catch (IOException e) {
-            // TODO: ErrorNotificationPopup: Fehler beim Lesen
+            new ErrorNotificationPopup("Fehler mit Konfigurationsdatei",
+                "Es ist ein Fehler beim Öffnen bzw. Lesen der Konfigurationsdatei aufgetreten!"); 
         }
         return prop;
 	}

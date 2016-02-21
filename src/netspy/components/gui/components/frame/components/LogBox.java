@@ -29,6 +29,7 @@ public class LogBox extends JTextArea {
 	
 	@Override
 	public void append(String str) {
+		// TODO: Feature, that logbox is filling with 100ms delay each letter for cool anmiation
 		super.append(str + System.lineSeparator());
 	}
 	
