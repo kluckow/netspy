@@ -4,14 +4,11 @@
 package netspy.components.gui.components.frame;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -81,13 +78,13 @@ public class NetSpyFrame extends JFrame {
 	private static final String BUTTON_LABEL_SEARCH_FILE = "Durchsuchen";
 	
 	/** The Constant BUTTON_LABEL_BLACKWORD_ADD. */
-	private static final String BUTTON_LABEL_BLACKWORD_ADD = "Hinzuf�gen";
+	private static final String BUTTON_LABEL_BLACKWORD_ADD = "Hinzufügen";
 	
 	/** The Constant BUTTON_LABEL_BLACKWORD_ADD. */
-	private static final String BUTTON_LABEL_BLACKWORD_DELETE = "L�schen";
+	private static final String BUTTON_LABEL_BLACKWORD_DELETE = "Löschen";
 	
 	/** The Constant BUTTON_LABEL_BLACKWORD_ADD. */
-	private static final String BUTTON_LABEL_BLACKWORD_EDIT = "�ndern";
+	private static final String BUTTON_LABEL_BLACKWORD_EDIT = "Ändern";
 
     /** The Constant BUTTON_ID_MAIL_PATH. */
     public static final String BUTTON_ID_MAIL_PATH = "button_mail_path";
@@ -131,6 +128,7 @@ public class NetSpyFrame extends JFrame {
 	/** The action listener. */
 	private NetSpyActionListener actionListener = new NetSpyActionListener(this);
 	
+	/** The list selection listener. */
 	private NetSpyListSelectionListener listSelectionListener = new NetSpyListSelectionListener(this);
 	
 	/** The Input mail path. */
