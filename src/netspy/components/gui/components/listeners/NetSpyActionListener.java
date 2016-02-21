@@ -7,9 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -21,7 +19,6 @@ import netspy.components.filehandling.io.TextWriter;
 import netspy.components.filehandling.manager.FileManager;
 import netspy.components.gui.components.frame.NetSpyFrame;
 import netspy.components.gui.components.popups.ErrorNotificationPopup;
-import netspy.components.gui.components.listeners.NetSpyListSelectionListener;
 import netspy.components.mailing.EmailHandler;
 import netspy.components.netspy.Netspy;
 
@@ -169,7 +166,7 @@ public class NetSpyActionListener implements ActionListener {
 				JTextField tf = (JTextField) fieldLog.get(uiLog);
 				tf.setEditable(false);
 			} catch (NoSuchFieldException e1) {
-                // could not fiend textfield inside file chooser
+                // could not find textfield inside file chooser
                 new ErrorNotificationPopup("Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
 			} catch (SecurityException e1) {
                 // could not access access-property of textfield inside file chooser
@@ -198,15 +195,16 @@ public class NetSpyActionListener implements ActionListener {
 			break;
 		
 		case NetSpyFrame.BUTTON_ID_BLACKWORD_ADD:
-			String BlackWordStrAdd = null; 
+			String BlackWordStrAdd = ""; 
 			// TODO refresh of BlackWordList 
+			// TODO: no empty string or whitespaces allowed
 			BlackWordStrAdd = JOptionPane.showInputDialog(null,"Geben Sie das neue BlackWord ein", JOptionPane.PLAIN_MESSAGE);
 			if (BlackWordStrAdd != null){
 				String BlackWordPath = new ConfigPropertiesManager().getBlackwordPath();
 				new TextWriter().write(BlackWordPath, BlackWordStrAdd);
 				}
 			else {
-				new ErrorNotificationPopup("Fehler", "Es wurde kein neues BlackWord hinzugefügt!");
+				new ErrorNotificationPopup("Fehler", "Es wurde kein neues BlackWord hinzugefÃ¼gt!");
 			}
 			break;
 //			
