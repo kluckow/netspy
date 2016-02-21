@@ -3,12 +3,8 @@
  */
 package netspy.components.logging;
 
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
-import java.util.Locale.Category;
 
 import netspy.components.filehandling.manager.FileManager;
 import netspy.components.mailing.Email;
