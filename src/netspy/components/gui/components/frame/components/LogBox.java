@@ -4,10 +4,11 @@
 package netspy.components.gui.components.frame.components;
 
 import java.awt.Color;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JTextArea;
-
-import netspy.components.gui.components.popups.InfoNotificationPopup;
 
 /**
  * The Class LogBox.
@@ -24,13 +25,69 @@ public class LogBox extends JTextArea {
 		super();
         setEditable(false);
         setBackground(Color.BLACK);
-        setForeground(Color.WHITE);
+        setForeground(Color.GREEN);
 	}
 	
+	/**
+	 * Prepend timestamp.
+	 *
+	 * @param str the str
+	 * @return the string
+	 */
+	private String generateTimestampPrefix() {
+		
+		return "[" + new SimpleDateFormat("HH:mm:ss").format(new Date()) + "]: ";
+	}
+	
+	/* (non-Javadoc)
+	 * @see javax.swing.JTextArea#append(java.lang.String)
+	 */
 	@Override
 	public void append(String str) {
-		// TODO: Feature, that logbox is filling with 100ms delay each letter for cool anmiation
+		
+		super.append(generateTimestampPrefix());
 		super.append(str + System.lineSeparator());
+		
+		try {
+			TimeUnit.MILLISECONDS.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		this.update(this.getGraphics());
+	}
+
+	/**
+	 * Append with delay.
+	 *
+	 * @param str the str
+	 * @param delay the delay in ms
+	 */
+	public void appendWithDelay(String str) {
+
+		super.append(generateTimestampPrefix());
+		
+		String letter = "";
+		for (int i = 0; i < str.length(); i++){
+			
+			letter = str.substring(i, i+1);
+			super.append(letter);
+			
+			
+			if (!letter.equals(" ") && !letter.equals(System.lineSeparator())) {
+				try {
+					if (i == str.length()) {
+						TimeUnit.MILLISECONDS.sleep(1000);
+					} else {
+						TimeUnit.MILLISECONDS.sleep(200);
+					}
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				this.update(this.getGraphics());
+			}
+			
+		}
+		super.append(System.lineSeparator());
 	}
 	
 	/**
@@ -38,7 +95,6 @@ public class LogBox extends JTextArea {
 	 */
 	public void clear() {
 		setText("");
-		new InfoNotificationPopup("", "Reportfenster wurde geleert!");
 	}
 
 }
