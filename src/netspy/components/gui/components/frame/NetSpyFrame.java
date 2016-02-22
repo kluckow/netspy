@@ -189,7 +189,6 @@ public class NetSpyFrame extends JFrame {
     	// general configuration of frame
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle(APPLICATION_TITLE);
-        this.setBounds(500, 200, 1024, 768);
         this.setResizable(false);
         
         // Application Icon
@@ -212,6 +211,7 @@ public class NetSpyFrame extends JFrame {
         this.add(this.mainPanel);
         
         this.pack();
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
 
@@ -240,7 +240,6 @@ public class NetSpyFrame extends JFrame {
     
 	private void setFormLayout() {
 
-        
 //        MAIL PATH
         
 //        LABEL
@@ -447,13 +446,13 @@ public class NetSpyFrame extends JFrame {
     	// y = 7-12, x = 0-7, fill both
     	gbc.gridy = 7;
     	gbc.gridx = 1;
-    	gbc.gridwidth = 12;
+    	gbc.gridwidth = 16;
     	gbc.gridheight = 6;
     	gbc.anchor = GridBagConstraints.LINE_START;
     	gbc.fill = GridBagConstraints.BOTH;
     	
         final JScrollPane infoBoxScrollable = new JScrollPane(this.logBox);
-        infoBoxScrollable.setPreferredSize(new Dimension(500, 150));
+        infoBoxScrollable.setPreferredSize(new Dimension(0, 150));
         infoBoxScrollable.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         infoBoxScrollable.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         
