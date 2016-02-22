@@ -64,7 +64,7 @@ public class Netspy {
      */
     private void finishScan() {
     	
-    	this.frame.getLogBox().append("Scan abgeschlossen...");
+    	this.frame.getLogBox().append("Scan abgeschlossen.");
 	}
 
 	/**
@@ -80,8 +80,8 @@ public class Netspy {
             return false;
             
         } else {
-            
-            this.frame.getLogBox().append("Scan wurde gestartet...");
+            this.frame.getLogBox().clear();
+            this.frame.getLogBox().appendWithDelay("Starte Scan...");
             // get emails as files
             final List<File> mailFiles = emailHandler.getEmlFiles();
 
