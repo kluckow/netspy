@@ -143,7 +143,8 @@ public class NetSpyFrame extends JFrame {
 	/** The Input log path. */
 	private JTextField inputLogPath;
 	
-	private JScrollPane blackWordList;
+	/** The black word list. */
+	private JScrollPane blackwordList;
 		
 	/** The log box. */
 	private LogBox logBox = new LogBox();
@@ -197,7 +198,7 @@ public class NetSpyFrame extends JFrame {
         
         // Layout
         this.mainPanel.setLayout(new GridBagLayout());
-        gbc.insets = new Insets(7, 7, 7, 7);
+        gbc.insets = new Insets(5, 15, 5, 15);
         
         // Background color
         this.mainPanel.setBackground(Color.WHITE);
@@ -223,7 +224,7 @@ public class NetSpyFrame extends JFrame {
     	// y = 0, x = 0-7
     	gbc.gridx = 0;
     	gbc.gridy = 0;
-    	gbc.gridwidth = 12;
+    	gbc.gridwidth = 17;
     	gbc.anchor = GridBagConstraints.CENTER;
     	gbc.fill = GridBagConstraints.HORIZONTAL;
     	
@@ -401,7 +402,7 @@ public class NetSpyFrame extends JFrame {
         btnOpenQuarantinePathChooser.addActionListener(actionListener);
         btnOpenQuarantinePathChooser.setPreferredSize(DIMENSION_BUTTON_SIZE);
         this.mainPanel.add(btnOpenQuarantinePathChooser, gbc);
-
+        
         // EMPTY ROW
         // let row with index 5 empty: workaround
         // y = 5, x = undefined, fill none
@@ -410,7 +411,6 @@ public class NetSpyFrame extends JFrame {
         this.emptyRow = new JPanel();
         emptyRow.setBackground(Color.WHITE);
         this.mainPanel.add(emptyRow, gbc);
-        
         
 //        BUTTON CLEAR LOGBOX
         // y = 6, x = 4-5, fill horizontal
@@ -442,7 +442,6 @@ public class NetSpyFrame extends JFrame {
      */
     private void setInfoBox() {
 
-    	
     	// y = 7-12, x = 0-7, fill both
     	gbc.gridy = 7;
     	gbc.gridx = 1;
@@ -459,6 +458,9 @@ public class NetSpyFrame extends JFrame {
         this.mainPanel.add(infoBoxScrollable, gbc);
     }
     
+	/**
+	 * Sets the black word box.
+	 */
 	@SuppressWarnings("unchecked")
 	public void setBlackWordBox(){
 
@@ -511,18 +513,23 @@ public class NetSpyFrame extends JFrame {
 		fillBlackWordBox(dlm_BlackWord);
 		
 		blackWordList.setBackground(Color.GREEN);
-		final JScrollPane scrollPane = new JScrollPane(this.blackWordList);
+		final JScrollPane scrollPane = new JScrollPane(this.blackwordList);
 		scrollPane.setViewportView(blackWordList);
 		mainPanel.add(scrollPane, gbc);
         
     }
 	
 	
+    /**
+     * Fill black word box.
+     *
+     * @param dlm_BlackWord the dlm_ black word
+     * @return the array list
+     */
     // TODO: Need Bugfix... doesnt work and i FUCKING dont know why
 	@SuppressWarnings("unchecked")
 	public ArrayList<String> fillBlackWordBox(@SuppressWarnings("rawtypes") DefaultListModel dlm_BlackWord) {
 		ArrayList<String> Blackwords = listSelectionListener.getBlacklist();
-	
 		
 		for(String temp: Blackwords){
 			dlm_BlackWord.add(currentIndex, temp);
@@ -646,27 +653,57 @@ public class NetSpyFrame extends JFrame {
 		this.mainPanel = mainPanel;
 	}
 
+	/**
+	 * Gets the gbc.
+	 *
+	 * @return the gbc
+	 */
 	public GridBagConstraints getGbc() {
 		return this.gbc;
 	}
 
+	/**
+	 * Sets the gbc.
+	 *
+	 * @param gbc the new gbc
+	 */
 	public void setGbc(GridBagConstraints gbc) {
 		this.gbc = gbc;
 	}
 
+	/**
+	 * Gets the current index.
+	 *
+	 * @return the current index
+	 */
 	public int getCurrentIndex() {
 		return currentIndex;
 	}
 
+	/**
+	 * Sets the current index.
+	 *
+	 * @param currentIndex the new current index
+	 */
 	public void setCurrentIndex(int currentIndex) {
 		this.currentIndex = currentIndex;
 	}
 
+	/**
+	 * Gets the black word list.
+	 *
+	 * @return the black word list
+	 */
 	public JScrollPane getBlackWordList() {
-		return blackWordList;
+		return blackwordList;
 	}
 
-	public void setBlackWordList(JScrollPane blackWordList) {
-		this.blackWordList = blackWordList;
+	/**
+	 * Sets the black word list.
+	 *
+	 * @param blackwordList the new black word list
+	 */
+	public void setBlackWordList(JScrollPane blackwordList) {
+		this.blackwordList = blackwordList;
 	}
 }
