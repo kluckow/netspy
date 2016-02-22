@@ -252,14 +252,14 @@ public class EmailHandler {
 			msg = "Es wurden " + counterSuspiciousMails + " verdächtige Emails gefunden.";
 			break;
 		}
+		this.logbox.append(msg);
 		
 		if (addAdditionalInfoLine) {
 			
-			msg += System.lineSeparator();
-			msg += "Weitere Details dazu befinden sich in der Logdatei.";
+			msg = "Weitere Details dazu befinden sich in der Logdatei.";
+			this.logbox.append(msg);
 		}
 		
-		this.logbox.append(msg);
 	}
 	
 	/**
