@@ -221,7 +221,7 @@ public class NetSpyFrame extends JFrame {
      */
     private void setTitlePanel() {
 
-    	// y = 0, x = 0-7
+    	// y = 0, x = 0-16, centered
     	gbc.gridx = 0;
     	gbc.gridy = 0;
     	gbc.gridwidth = 17;
@@ -233,6 +233,8 @@ public class NetSpyFrame extends JFrame {
         titlePanel.add(new JLabel(APPLICATION_TITLE));
         
         this.mainPanel.add(titlePanel, gbc);
+    	gbc.fill = GridBagConstraints.NONE;
+
     }
 
     /**
@@ -249,7 +251,6 @@ public class NetSpyFrame extends JFrame {
         gbc.gridy = 1;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.LINE_START;
-        gbc.fill = GridBagConstraints.NONE;
         final JLabel labelMailPath = new JLabel(LABEL_MAIL_PATH);
         labelMailPath.setSize(DIMENSION_LABEL_SIZE);
         this.mainPanel.add(labelMailPath, gbc);
@@ -260,7 +261,6 @@ public class NetSpyFrame extends JFrame {
         gbc.gridx = 2;
         gbc.gridy = 1;
         gbc.gridwidth = 4;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
         this.inputMailPath = new JTextField();
         this.inputMailPath.setText(propConf.getInboxPath());
         this.inputMailPath.setPreferredSize(DIMENSION_TEXTFIELD_SIZE);
@@ -275,17 +275,12 @@ public class NetSpyFrame extends JFrame {
         gbc.gridx = 6;
         gbc.gridy = 1;
         gbc.gridwidth = 2;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
         final JButton btnOpenMailPathChooser = new JButton(BUTTON_LABEL_SEARCH_FILE);
         btnOpenMailPathChooser.setName(BUTTON_ID_MAIL_PATH);
         btnOpenMailPathChooser.addActionListener(actionListener);
         btnOpenMailPathChooser.setPreferredSize(DIMENSION_BUTTON_SIZE);
         this.mainPanel.add(btnOpenMailPathChooser, gbc);
 
-        // TODO: @Kevin insert DefaultListModel
-        // Siehe setBlackWordBox();
-        
-        
 //        BLACKWORD PATH
         
 //        LABEL
@@ -293,7 +288,6 @@ public class NetSpyFrame extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 2;
-        gbc.fill = GridBagConstraints.NONE;
         final JLabel lblBlackword = new JLabel(LABEL_BLACKWORD_PATH);
         lblBlackword.setSize(DIMENSION_LABEL_SIZE);
         this.mainPanel.add(lblBlackword, gbc);
@@ -303,7 +297,6 @@ public class NetSpyFrame extends JFrame {
         gbc.gridx = 2;
         gbc.gridy = 2;
         gbc.gridwidth = 4;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
         this.inputBlackwordPath = new JTextField();
         this.inputBlackwordPath.setText(propConf.getBlackwordPath());
         this.inputBlackwordPath.setPreferredSize(DIMENSION_TEXTFIELD_SIZE);
@@ -318,7 +311,6 @@ public class NetSpyFrame extends JFrame {
         gbc.gridx = 6;
         gbc.gridy = 2;
         gbc.gridwidth = 2;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
         final JButton btnOpenBlackwordPathChooser = new JButton((BUTTON_LABEL_SEARCH_FILE));
         btnOpenBlackwordPathChooser.setName(BUTTON_ID_BLACKWORD_PATH);
         btnOpenBlackwordPathChooser.addActionListener(actionListener);
@@ -332,7 +324,6 @@ public class NetSpyFrame extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 3;
         gbc.gridwidth = 2;
-        gbc.fill = GridBagConstraints.NONE;
         final JLabel lblLogPath = new JLabel(LABEL_LOG_PATH);
         lblLogPath.setSize(DIMENSION_LABEL_SIZE);
         this.mainPanel.add(lblLogPath, gbc);
@@ -342,7 +333,6 @@ public class NetSpyFrame extends JFrame {
         gbc.gridx = 2;
         gbc.gridy = 3;
         gbc.gridwidth = 4;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
         this.inputLogPath = new JTextField();
         this.inputLogPath.setText(propConf.getLogPath());
         this.inputLogPath.setEditable(false);
@@ -357,7 +347,6 @@ public class NetSpyFrame extends JFrame {
         gbc.gridx = 6;
         gbc.gridy = 3;
         gbc.gridwidth = 2;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
         final JButton btnOpenLogPathChooser = new JButton(BUTTON_LABEL_SEARCH_FILE);
         btnOpenLogPathChooser.setName(BUTTON_ID_LOG_PATH);
         btnOpenLogPathChooser.addActionListener(actionListener);
@@ -371,7 +360,7 @@ public class NetSpyFrame extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 4;
         gbc.gridwidth = 2;
-        gbc.fill = GridBagConstraints.NONE;
+        gbc.anchor = GridBagConstraints.NORTH;
         final JLabel lblQuarantine = new JLabel(LABEL_QUARANTAENE_PATH);
         lblQuarantine.setSize(DIMENSION_LABEL_SIZE);
         this.mainPanel.add(lblQuarantine, gbc);
@@ -381,7 +370,6 @@ public class NetSpyFrame extends JFrame {
         gbc.gridx = 2;
         gbc.gridy = 4;
         gbc.gridwidth = 4;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
         this.inputQuarantinePath = new JTextField();
         this.inputQuarantinePath.setText(propConf.getQuarantinePath());
         this.inputQuarantinePath.setEditable(false);
@@ -396,7 +384,6 @@ public class NetSpyFrame extends JFrame {
         gbc.gridx = 6;
         gbc.gridy = 4;
         gbc.gridwidth = 2;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
         final JButton btnOpenQuarantinePathChooser = new JButton((BUTTON_LABEL_SEARCH_FILE));
         btnOpenQuarantinePathChooser.setName(BUTTON_ID_QUARANTINE_PATH);
         btnOpenQuarantinePathChooser.addActionListener(actionListener);
@@ -405,31 +392,37 @@ public class NetSpyFrame extends JFrame {
         
         // EMPTY ROW
         // let row with index 5 empty: workaround
-        // y = 5, x = undefined, fill none
+        // y = 5, x = 0-11, fill none
         gbc.gridy = 5;
-        gbc.fill = GridBagConstraints.NONE;
+        gbc.gridx = 0;
+        gbc.gridwidth = 12;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         this.emptyRow = new JPanel();
+        emptyRow.setSize(new Dimension(0, 10));
         emptyRow.setBackground(Color.WHITE);
         this.mainPanel.add(emptyRow, gbc);
         
 //        BUTTON CLEAR LOGBOX
-        // y = 6, x = 4-5, fill horizontal
-        gbc.gridx = 1;
+        // y = 6, x = 0-1, fill horizontal
+        gbc.gridx = 0;
         gbc.gridy = 6;
-        gbc.gridwidth = 3;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.anchor = GridBagConstraints.WEST;
         final JButton btnClearLogBox = new JButton(BUTTON_LABEL_CLEAR_LOGBOX);
         btnClearLogBox.setName(BUTTON_ID_CLEAR_LOGBOX);
         btnClearLogBox.setPreferredSize(DIMENSION_BUTTON_SIZE);
         btnClearLogBox.addActionListener(actionListener);
         this.mainPanel.add(btnClearLogBox, gbc);
         
+        // y = 6, x = 2-3, free space
+        
 //        BUTTON START SCAN
-        // y = 6, x = 6-7, fill horizontal
-        gbc.gridx = 6;
+        // y = 6, x = 4-5, fill horizontal
+        gbc.gridx = 4;
         gbc.gridy = 6;
         gbc.gridwidth = 2;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.EAST;
         final JButton btnStartScan = new JButton(BUTTON_LABEL_START_SCAN);
         btnStartScan.setName(BUTTON_ID_START_SCAN);
         btnStartScan.addActionListener(actionListener);
@@ -442,14 +435,12 @@ public class NetSpyFrame extends JFrame {
      */
     private void setInfoBox() {
 
-    	// y = 7-12, x = 0-7, fill both
+    	// y = 7-12, x = 0-11, fill both
+    	gbc.gridx = 0;
     	gbc.gridy = 7;
-    	gbc.gridx = 1;
-    	gbc.gridwidth = 16;
+    	gbc.gridwidth = 12;
     	gbc.gridheight = 6;
-    	gbc.anchor = GridBagConstraints.LINE_START;
     	gbc.fill = GridBagConstraints.BOTH;
-    	
         final JScrollPane infoBoxScrollable = new JScrollPane(this.logBox);
         infoBoxScrollable.setPreferredSize(new Dimension(0, 150));
         infoBoxScrollable.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -464,46 +455,49 @@ public class NetSpyFrame extends JFrame {
 	@SuppressWarnings("unchecked")
 	public void setBlackWordBox(){
 
-		// y = 1-2, x = 10-12, fill horizontal
+//		BUTTON ADD BLACKWORD
+		// y = 2, x = 8-9, fill horizontal
         gbc.gridx = 8;
-        gbc.gridy = 2;
+        gbc.gridy = 1;
         gbc.gridwidth = 2;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.anchor = GridBagConstraints.BASELINE;
         final JButton btnAddBlackWord = new JButton(BUTTON_LABEL_BLACKWORD_ADD);
         btnAddBlackWord.setName(BUTTON_ID_BLACKWORD_ADD);
         btnAddBlackWord.addActionListener(actionListener);
         btnAddBlackWord.setPreferredSize(DIMENSION_BUTTON_SIZE);
         this.mainPanel.add(btnAddBlackWord, gbc);
         
-        // y = 3-4, x = 10-12, fill horizontal
+//        BUTTON EDIT BLACKWORD
+        // y = 2, x = 8-9, fill horizontal
         gbc.gridx = 8;
-        gbc.gridy = 3;
+        gbc.gridy = 2;
         gbc.gridwidth = 2;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.fill = GridBagConstraints.NONE;
         final JButton btnEditBlackWord = new JButton(BUTTON_LABEL_BLACKWORD_EDIT);
         btnEditBlackWord.setName(BUTTON_ID_BLACKWORD_EDIT);
         btnEditBlackWord.addActionListener(actionListener);
         btnEditBlackWord.setPreferredSize(DIMENSION_BUTTON_SIZE);
         this.mainPanel.add(btnEditBlackWord, gbc);
         
-        // y = 2-3, x = 10-12, fill horizontal
+//        BUTTON DELETE BLACKWORD
+        // y = 3, x = 8-9, fill horizontal
         gbc.gridx = 8;
-        gbc.gridy = 4;
+        gbc.gridy = 3;
         gbc.gridwidth = 2;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
         final JButton btnDeleteBlackWord = new JButton(BUTTON_LABEL_BLACKWORD_DELETE);
         btnDeleteBlackWord.setName(BUTTON_ID_BLACKWORD_DELETE);
         btnDeleteBlackWord.addActionListener(actionListener);
         btnDeleteBlackWord.setPreferredSize(DIMENSION_BUTTON_SIZE);
         this.mainPanel.add(btnDeleteBlackWord, gbc);
         
-     // y = 1-6, x = 8-10, fill both
+     // y = 1-4, x = 10-11, fill both
         gbc.gridx = 10;
         gbc.gridy = 1;
-        gbc.gridwidth = 7;
+        gbc.gridwidth = 2;
         gbc.gridheight = 4;
-        gbc.anchor = GridBagConstraints.LINE_END;
-        gbc.fill = GridBagConstraints.BOTH;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.NORTHWEST;
 		@SuppressWarnings("rawtypes")
 		DefaultListModel dlm_BlackWord = new DefaultListModel();
 		@SuppressWarnings({ "rawtypes" })
@@ -512,7 +506,9 @@ public class NetSpyFrame extends JFrame {
 		blackWordList.addListSelectionListener(listSelectionListener);
 		fillBlackWordBox(dlm_BlackWord);
 		
-		blackWordList.setBackground(Color.GREEN);
+		blackWordList.setBackground(Color.WHITE);
+		// TODO: bug?: Putting a JScrollPane into constructor of a (Component) JScrollPane
+		// also bad variable naming here: JList blackWordList | JScrollPane blackwordList
 		final JScrollPane scrollPane = new JScrollPane(this.blackwordList);
 		scrollPane.setViewportView(blackWordList);
 		mainPanel.add(scrollPane, gbc);
