@@ -195,17 +195,19 @@ public class NetSpyActionListener implements ActionListener {
 			break;
 		
 		case NetSpyFrame.BUTTON_ID_BLACKWORD_ADD:
-			String BlackWordStrAdd = ""; 
-			// TODO refresh of BlackWordList 
-			// TODO: no empty string or whitespaces allowed
-			BlackWordStrAdd = JOptionPane.showInputDialog(null,"Geben Sie das neue BlackWord ein", JOptionPane.PLAIN_MESSAGE);
-			if (BlackWordStrAdd != null){
-				String BlackWordPath = new ConfigPropertiesManager().getBlackwordPath();
-				new TextWriter().write(BlackWordPath, BlackWordStrAdd);
-				}
-			else {
-				new ErrorNotificationPopup("Fehler", "Es wurde kein neues BlackWord hinzugefügt!");
-			}
+//			String blackWordStrAdd = ""; 
+//			// TODO: no empty string or whitespaces allowed
+//			blackWordStrAdd = JOptionPane.showInputDialog(null,"Geben Sie das neue BlackWord ein", null);
+//			if (blackWordStrAdd != null && !blackWordStrAdd.isEmpty()){
+//				String BlackWordPath = new ConfigPropertiesManager().getBlackwordPath();
+//				new TextWriter().write(BlackWordPath, blackWordStrAdd);
+//				// TODO refresh of BlackWordList 
+//				// TODO: update DLM
+//				}
+//			else {
+//				// Oder Eingabe fehlerhaft
+//				new ErrorNotificationPopup("Fehler", "Es wurde kein neues BlackWord hinzugefügt!");
+//			}
 			break;
 //			
 //		case NetSpyFrame.BUTTON_ID_BLACKWORD_DELETE:

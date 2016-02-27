@@ -8,7 +8,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -23,7 +23,9 @@ import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 
 import netspy.components.config.ConfigPropertiesManager;
+import netspy.components.filehandling.manager.FileManager;
 import netspy.components.gui.components.frame.components.LogBox;
+import netspy.components.gui.components.listeners.ListActionListener;
 import netspy.components.gui.components.listeners.NetSpyActionListener;
 import netspy.components.gui.components.listeners.NetSpyListSelectionListener;
 
@@ -125,11 +127,13 @@ public class NetSpyFrame extends JFrame {
 	/** The Constant DIMENSION_BUTTON_SIZE. */
 	private static final Dimension DIMENSION_BUTTON_SIZE = new Dimension(120, 25);
 
+	private ListActionListener dlmActionListener;
+	
 	/** The action listener. */
 	private NetSpyActionListener actionListener = new NetSpyActionListener(this);
 	
 	/** The list selection listener. */
-	private NetSpyListSelectionListener listSelectionListener = new NetSpyListSelectionListener(this);
+	private NetSpyListSelectionListener listSelectionListener = new NetSpyListSelectionListener();
 	
 	/** The Input mail path. */
 	private JTextField inputMailPath;
@@ -163,6 +167,8 @@ public class NetSpyFrame extends JFrame {
 	
 	/** The prop conf. */
 	ConfigPropertiesManager propConf;
+
+	private JScrollPane blacklistScrollPane;
 	
     /**
      * Instantiates a new my j frame.
@@ -452,8 +458,28 @@ public class NetSpyFrame extends JFrame {
 	/**
 	 * Sets the black word box.
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void setBlackWordBox(){
+		
+		// DEFAULT LIST MODEL
+		// y = 1-4, x = 10-11, fill both
+		gbc.gridx = 10;
+		gbc.gridy = 1;
+		gbc.gridwidth = 2;
+		gbc.gridheight = 4;
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		gbc.anchor = GridBagConstraints.NORTHWEST;
+		
+		DefaultListModel<String> dlmBlackWord = new DefaultListModel<String>();
+		JList blackWordList = new JList(dlmBlackWord);
+		blackWordList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		blackWordList.addListSelectionListener(listSelectionListener);
+		fillBlackWordBox(dlmBlackWord);
+		
+		blackWordList.setBackground(Color.WHITE);
+		blacklistScrollPane = new JScrollPane(this.blackwordList);
+		blacklistScrollPane.setViewportView(blackWordList);
+		mainPanel.add(blacklistScrollPane, gbc);
 
 //		BUTTON ADD BLACKWORD
 		// y = 2, x = 8-9, fill horizontal
@@ -464,7 +490,8 @@ public class NetSpyFrame extends JFrame {
         gbc.anchor = GridBagConstraints.BASELINE;
         final JButton btnAddBlackWord = new JButton(BUTTON_LABEL_BLACKWORD_ADD);
         btnAddBlackWord.setName(BUTTON_ID_BLACKWORD_ADD);
-        btnAddBlackWord.addActionListener(actionListener);
+        dlmActionListener = new ListActionListener(blackWordList, dlmBlackWord);
+        btnAddBlackWord.addActionListener(dlmActionListener);
         btnAddBlackWord.setPreferredSize(DIMENSION_BUTTON_SIZE);
         this.mainPanel.add(btnAddBlackWord, gbc);
         
@@ -491,46 +518,25 @@ public class NetSpyFrame extends JFrame {
         btnDeleteBlackWord.setPreferredSize(DIMENSION_BUTTON_SIZE);
         this.mainPanel.add(btnDeleteBlackWord, gbc);
         
-     // y = 1-4, x = 10-11, fill both
-        gbc.gridx = 10;
-        gbc.gridy = 1;
-        gbc.gridwidth = 2;
-        gbc.gridheight = 4;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.anchor = GridBagConstraints.NORTHWEST;
-		@SuppressWarnings("rawtypes")
-		DefaultListModel dlm_BlackWord = new DefaultListModel();
-		@SuppressWarnings({ "rawtypes" })
-		JList blackWordList = new JList(dlm_BlackWord);
-		blackWordList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		blackWordList.addListSelectionListener(listSelectionListener);
-		fillBlackWordBox(dlm_BlackWord);
-		
-		blackWordList.setBackground(Color.WHITE);
-		// TODO: bug?: Putting a JScrollPane into constructor of a (Component) JScrollPane
-		// also bad variable naming here: JList blackWordList | JScrollPane blackwordList
-		final JScrollPane scrollPane = new JScrollPane(this.blackwordList);
-		scrollPane.setViewportView(blackWordList);
-		mainPanel.add(scrollPane, gbc);
-        
     }
 	
 	
     /**
      * Fill black word box.
      *
-     * @param dlm_BlackWord the dlm_ black word
+     * @param dlm the dlm_ black word
      * @return the array list
      */
     // TODO: Need Bugfix... doesnt work and i FUCKING dont know why
-	@SuppressWarnings("unchecked")
-	public ArrayList<String> fillBlackWordBox(@SuppressWarnings("rawtypes") DefaultListModel dlm_BlackWord) {
-		ArrayList<String> Blackwords = listSelectionListener.getBlacklist();
+	public void fillBlackWordBox(DefaultListModel<String> dlm) {
 		
-		for(String temp: Blackwords){
-			dlm_BlackWord.add(currentIndex, temp);
+		List<String> blacklist = new FileManager().getBlacklist();
+		if (blacklist != null) {
+			
+			for(String blackword: blacklist){
+				dlm.addElement(blackword);
+			}
 		}
-		return Blackwords;
 	}
  
 	/**
