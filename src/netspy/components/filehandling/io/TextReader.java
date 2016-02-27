@@ -6,10 +6,14 @@ package netspy.components.filehandling.io;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+
+import netspy.components.gui.components.popups.ErrorPopup;
 
 /**
  * The Class TextParser.
@@ -24,20 +28,30 @@ public class TextReader {
 	 * @return the list
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	public List<String> readFile(String relativePathOfFile, String encoding) throws IOException {
+	public List<String> readFile(String relativePathOfFile, String encoding) {
 		
 		List<String> lines = new ArrayList<>();
 		File file = new File(relativePathOfFile);
-		FileInputStream fis = new FileInputStream(file);
-		BufferedReader br = new BufferedReader(new InputStreamReader(fis, encoding));
-		
-		String line = null;
-		
-		while ((line = br.readLine()) != null) {
+		FileInputStream fis;
+		try {
+			fis = new FileInputStream(file);
+			BufferedReader br = new BufferedReader(new InputStreamReader(fis, encoding));
 			
-			lines.add(line);
+			String line = null;
+			
+			while ((line = br.readLine()) != null) {
+				
+				lines.add(line);
+			}
+			br.close();
+		} catch (FileNotFoundException e) {
+			new ErrorPopup("Datei nicht gefunden", "Es ist ein Fehler beim Lokalisieren einer Datei aufgetreten!");
+		} catch (UnsupportedEncodingException e) {
+			new ErrorPopup("Datei-Encoding-Fehler", "Es ist ein Encoding-Fehler beim Lesen einer Datei aufgetreten");
+		} catch (IOException e) {
+			new ErrorPopup("Datei-Lesefehler", "Es ist ein Problem "
+					+ "beim Lesen einer Datei aufgetreten!");
 		}
-		br.close();
 		
 		return lines;
 	}

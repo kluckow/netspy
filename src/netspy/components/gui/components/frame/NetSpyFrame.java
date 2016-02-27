@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
@@ -25,7 +26,7 @@ import javax.swing.ScrollPaneConstants;
 import netspy.components.config.ConfigPropertiesManager;
 import netspy.components.filehandling.manager.FileManager;
 import netspy.components.gui.components.frame.components.LogBox;
-import netspy.components.gui.components.listeners.ListActionListener;
+import netspy.components.gui.components.listeners.BlacklistActionListener;
 import netspy.components.gui.components.listeners.NetSpyActionListener;
 import netspy.components.gui.components.listeners.NetSpyListSelectionListener;
 
@@ -33,6 +34,9 @@ import netspy.components.gui.components.listeners.NetSpyListSelectionListener;
  * The Class MyJFrame.
  */
 public class NetSpyFrame extends JFrame {
+
+	/** The Constant FRAME_INSETS. */
+	private static final Insets GBC_INSETS = new Insets(5, 5, 5, 5);
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2357381332647405895L;
@@ -74,7 +78,7 @@ public class NetSpyFrame extends JFrame {
 	public static final String BUTTON_LABEL_SHOW_LOGBOX = "Log einblenden";
 	
 	/** The Constant BUTTON_LABEL_START_SCAN. */
-	private static final String BUTTON_LABEL_START_SCAN = "Start scan";
+	private static final String BUTTON_LABEL_START_SCAN = "Starte Scan";
 	
 	/** The Constant BUTTON_LABEL_SEARCH_FILE. */
 	private static final String BUTTON_LABEL_SEARCH_FILE = "Durchsuchen";
@@ -84,6 +88,9 @@ public class NetSpyFrame extends JFrame {
 	
 	/** The Constant BUTTON_LABEL_BLACKWORD_ADD. */
 	private static final String BUTTON_LABEL_BLACKWORD_DELETE = "Löschen";
+
+	/** The Constant BUTTON_LABEL_BLACKWORD_DELETE_ALL. */
+	private static final String BUTTON_LABEL_BLACKWORD_DELETE_ALL = "Alle löschen";
 	
 	/** The Constant BUTTON_LABEL_BLACKWORD_ADD. */
 	private static final String BUTTON_LABEL_BLACKWORD_EDIT = "Ändern";
@@ -96,6 +103,9 @@ public class NetSpyFrame extends JFrame {
     
     /** The Constant BUTTON_ID_BLACKWORD_DELETE . */
     public static final String BUTTON_ID_BLACKWORD_DELETE = "button_blackword_delete";
+    
+    /** The Constant BUTTON_ID_BLACKWORD_DELETE_ALL. */
+    public static final String BUTTON_ID_BLACKWORD_DELETE_ALL = "button_blackword_delete_all";
     
     /** The Constant BUTTON_ID_BLACKWORD_DELETE . */
     public static final String BUTTON_ID_BLACKWORD_EDIT = "button_blackword_edit";
@@ -127,13 +137,14 @@ public class NetSpyFrame extends JFrame {
 	/** The Constant DIMENSION_BUTTON_SIZE. */
 	private static final Dimension DIMENSION_BUTTON_SIZE = new Dimension(120, 25);
 
-	private ListActionListener dlmActionListener;
+	/** The dlm action listener. */
+	private BlacklistActionListener dlmActionListener;
 	
 	/** The action listener. */
 	private NetSpyActionListener actionListener = new NetSpyActionListener(this);
 	
 	/** The list selection listener. */
-	private NetSpyListSelectionListener listSelectionListener = new NetSpyListSelectionListener();
+	private NetSpyListSelectionListener listSelectionListener = new NetSpyListSelectionListener(this);
 	
 	/** The Input mail path. */
 	private JTextField inputMailPath;
@@ -148,7 +159,7 @@ public class NetSpyFrame extends JFrame {
 	private JTextField inputLogPath;
 	
 	/** The black word list. */
-	private JScrollPane blackwordList;
+	private JScrollPane blackwordScrollPane;
 		
 	/** The log box. */
 	private LogBox logBox = new LogBox();
@@ -159,16 +170,32 @@ public class NetSpyFrame extends JFrame {
 	/** The empty row. */
 	private JPanel emptyRow = new JPanel();
 	
-	/** The current index. */
-	private int currentIndex;
-	
 	/** The gbc. */
 	private GridBagConstraints gbc = new GridBagConstraints();
 	
 	/** The prop conf. */
 	ConfigPropertiesManager propConf;
 
+	/** The blacklist scroll pane. */
 	private JScrollPane blacklistScrollPane;
+
+	/** The btn add black word. */
+	private JButton btnAddBlackWord;
+
+	/** The btn edit black word. */
+	private JButton btnEditBlackWord;
+
+	/** The btn delete black word. */
+	private JButton btnDeleteBlackword;
+
+	/** The btn delete all blackwords. */
+	private JButton btnDeleteAllBlackwords;
+	
+	/** The blackword list. */
+	private JList<String> blackwordList;
+
+	/** The dlm black word. */
+	private DefaultListModel<String> dlmBlackWord;
 	
     /**
      * Instantiates a new my j frame.
@@ -204,7 +231,7 @@ public class NetSpyFrame extends JFrame {
         
         // Layout
         this.mainPanel.setLayout(new GridBagLayout());
-        gbc.insets = new Insets(5, 15, 5, 15);
+        gbc.insets = GBC_INSETS;
         
         // Background color
         this.mainPanel.setBackground(Color.WHITE);
@@ -366,7 +393,7 @@ public class NetSpyFrame extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 4;
         gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.anchor = GridBagConstraints.BASELINE;
         final JLabel lblQuarantine = new JLabel(LABEL_QUARANTAENE_PATH);
         lblQuarantine.setSize(DIMENSION_LABEL_SIZE);
         this.mainPanel.add(lblQuarantine, gbc);
@@ -398,10 +425,10 @@ public class NetSpyFrame extends JFrame {
         
         // EMPTY ROW
         // let row with index 5 empty: workaround
-        // y = 5, x = 0-11, fill none
+        // y = 5, x = 0-9, fill none
         gbc.gridy = 5;
         gbc.gridx = 0;
-        gbc.gridwidth = 12;
+        gbc.gridwidth = 10;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         this.emptyRow = new JPanel();
         emptyRow.setSize(new Dimension(0, 10));
@@ -424,8 +451,8 @@ public class NetSpyFrame extends JFrame {
         // y = 6, x = 2-3, free space
         
 //        BUTTON START SCAN
-        // y = 6, x = 4-5, fill horizontal
-        gbc.gridx = 4;
+        // y = 6, x = 6-7, fill horizontal
+        gbc.gridx = 6;
         gbc.gridy = 6;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.EAST;
@@ -447,6 +474,7 @@ public class NetSpyFrame extends JFrame {
     	gbc.gridwidth = 12;
     	gbc.gridheight = 6;
     	gbc.fill = GridBagConstraints.BOTH;
+    	gbc.anchor = GridBagConstraints.CENTER;
         final JScrollPane infoBoxScrollable = new JScrollPane(this.logBox);
         infoBoxScrollable.setPreferredSize(new Dimension(0, 150));
         infoBoxScrollable.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -462,23 +490,43 @@ public class NetSpyFrame extends JFrame {
 	public void setBlackWordBox(){
 		
 		// DEFAULT LIST MODEL
+		
+		setDlmBlackWord(new DefaultListModel<String>());
+		setBlackwordList(new JList(getDlmBlackWord()));
+		getBlackwordList().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		loadBlackwordBox(getDlmBlackWord());
+		
+		// TODO: add customized data listener for removed/added/changed events
+		// and print to logbox
+//		dlmBlackWord.addListDataListener(new ListDataListener() {
+//			@Override
+//			public void intervalRemoved(ListDataEvent e) {
+//			}
+//			@Override
+//			public void intervalAdded(ListDataEvent e) {
+//			}
+//			@Override
+//			public void contentsChanged(ListDataEvent e) {
+//			}
+//		});
+		
 		// y = 1-4, x = 10-11, fill both
 		gbc.gridx = 10;
 		gbc.gridy = 1;
 		gbc.gridwidth = 2;
-		gbc.gridheight = 4;
+		gbc.gridheight = 6;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.anchor = GridBagConstraints.NORTHWEST;
 		
-		DefaultListModel<String> dlmBlackWord = new DefaultListModel<String>();
-		JList blackWordList = new JList(dlmBlackWord);
-		blackWordList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		blackWordList.addListSelectionListener(listSelectionListener);
-		fillBlackWordBox(dlmBlackWord);
+		getBlackwordList().setBackground(Color.WHITE);
+		blacklistScrollPane = new JScrollPane(this.getBlackwordScrollPane());
+		blacklistScrollPane.setPreferredSize(new Dimension(150, 190));
+		blacklistScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		blacklistScrollPane.setViewportView(getBlackwordList());
 		
-		blackWordList.setBackground(Color.WHITE);
-		blacklistScrollPane = new JScrollPane(this.blackwordList);
-		blacklistScrollPane.setViewportView(blackWordList);
+		// initialize action listener for default list model
+		dlmActionListener = new BlacklistActionListener(getBlackwordList(), getDlmBlackWord());
+		
 		mainPanel.add(blacklistScrollPane, gbc);
 
 //		BUTTON ADD BLACKWORD
@@ -488,35 +536,59 @@ public class NetSpyFrame extends JFrame {
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.BASELINE;
-        final JButton btnAddBlackWord = new JButton(BUTTON_LABEL_BLACKWORD_ADD);
-        btnAddBlackWord.setName(BUTTON_ID_BLACKWORD_ADD);
-        dlmActionListener = new ListActionListener(blackWordList, dlmBlackWord);
-        btnAddBlackWord.addActionListener(dlmActionListener);
-        btnAddBlackWord.setPreferredSize(DIMENSION_BUTTON_SIZE);
-        this.mainPanel.add(btnAddBlackWord, gbc);
+        
+        setBtnAddBlackWord(new JButton(BUTTON_LABEL_BLACKWORD_ADD));
+        getBtnAddBlackWord().setName(BUTTON_ID_BLACKWORD_ADD);
+        getBtnAddBlackWord().addActionListener(dlmActionListener);
+        getBtnAddBlackWord().setPreferredSize(DIMENSION_BUTTON_SIZE);
+        this.mainPanel.add(getBtnAddBlackWord(), gbc);
         
 //        BUTTON EDIT BLACKWORD
         // y = 2, x = 8-9, fill horizontal
         gbc.gridx = 8;
         gbc.gridy = 2;
         gbc.gridwidth = 2;
-        gbc.fill = GridBagConstraints.NONE;
-        final JButton btnEditBlackWord = new JButton(BUTTON_LABEL_BLACKWORD_EDIT);
-        btnEditBlackWord.setName(BUTTON_ID_BLACKWORD_EDIT);
-        btnEditBlackWord.addActionListener(actionListener);
-        btnEditBlackWord.setPreferredSize(DIMENSION_BUTTON_SIZE);
-        this.mainPanel.add(btnEditBlackWord, gbc);
+        
+        setBtnEditBlackWord(new JButton(BUTTON_LABEL_BLACKWORD_EDIT));
+        getBtnEditBlackWord().setName(BUTTON_ID_BLACKWORD_EDIT);
+        getBtnEditBlackWord().addActionListener(dlmActionListener);
+        getBtnEditBlackWord().setPreferredSize(DIMENSION_BUTTON_SIZE);
+        this.mainPanel.add(getBtnEditBlackWord(), gbc);
         
 //        BUTTON DELETE BLACKWORD
         // y = 3, x = 8-9, fill horizontal
         gbc.gridx = 8;
         gbc.gridy = 3;
         gbc.gridwidth = 2;
-        final JButton btnDeleteBlackWord = new JButton(BUTTON_LABEL_BLACKWORD_DELETE);
-        btnDeleteBlackWord.setName(BUTTON_ID_BLACKWORD_DELETE);
-        btnDeleteBlackWord.addActionListener(actionListener);
-        btnDeleteBlackWord.setPreferredSize(DIMENSION_BUTTON_SIZE);
-        this.mainPanel.add(btnDeleteBlackWord, gbc);
+        
+        setBtnDeleteBlackWord(new JButton(BUTTON_LABEL_BLACKWORD_DELETE));
+        getBtnDeleteBlackWord().setName(BUTTON_ID_BLACKWORD_DELETE);
+        getBtnDeleteBlackWord().addActionListener(dlmActionListener);
+        getBtnDeleteBlackWord().setPreferredSize(DIMENSION_BUTTON_SIZE);
+        this.mainPanel.add(getBtnDeleteBlackWord(), gbc);
+        
+		
+//        BUTTON DELETE ALL BLACKWORDS
+		// y = 4, x = 8-9, fill horizontal
+		gbc.gridx = 8;
+		gbc.gridy = 4;
+		gbc.gridwidth = 2;
+		
+		setBtnDeleteAllBlackwords(new JButton(BUTTON_LABEL_BLACKWORD_DELETE_ALL));
+		getBtnDeleteAllBlackwords().setName(BUTTON_ID_BLACKWORD_DELETE_ALL);
+		getBtnDeleteAllBlackwords().addActionListener(dlmActionListener);
+		getBtnDeleteAllBlackwords().setPreferredSize(DIMENSION_BUTTON_SIZE);
+		this.mainPanel.add(getBtnDeleteAllBlackwords(), gbc);
+		
+		// add selection listener to JList and select first entry
+		getBlackwordList().addListSelectionListener(listSelectionListener);
+		if (getDlmBlackWord().size() > 0) {
+			getBlackwordList().setSelectedIndex(0);
+		} else {
+			this.btnEditBlackWord.setEnabled(false);
+			this.btnDeleteBlackword.setEnabled(false);
+			this.btnDeleteAllBlackwords.setEnabled(false);
+		}
         
     }
 	
@@ -527,14 +599,15 @@ public class NetSpyFrame extends JFrame {
      * @param dlm the dlm_ black word
      * @return the array list
      */
-    // TODO: Need Bugfix... doesnt work and i FUCKING dont know why
-	public void fillBlackWordBox(DefaultListModel<String> dlm) {
+	public void loadBlackwordBox(DefaultListModel<String> dlm) {
 		
 		List<String> blacklist = new FileManager().getBlacklist();
 		if (blacklist != null) {
 			
+			Collections.sort(blacklist, String.CASE_INSENSITIVE_ORDER);
+			
 			for(String blackword: blacklist){
-				dlm.addElement(blackword);
+				dlm.addElement(blackword.toLowerCase());
 			}
 		}
 	}
@@ -674,38 +747,128 @@ public class NetSpyFrame extends JFrame {
 	}
 
 	/**
-	 * Gets the current index.
-	 *
-	 * @return the current index
-	 */
-	public int getCurrentIndex() {
-		return currentIndex;
-	}
-
-	/**
-	 * Sets the current index.
-	 *
-	 * @param currentIndex the new current index
-	 */
-	public void setCurrentIndex(int currentIndex) {
-		this.currentIndex = currentIndex;
-	}
-
-	/**
 	 * Gets the black word list.
 	 *
 	 * @return the black word list
 	 */
-	public JScrollPane getBlackWordList() {
+	public JScrollPane getBlackwordScrollPane() {
+		return blackwordScrollPane;
+	}
+	
+	/**
+	 * Sets the blackword scroll pane.
+	 *
+	 * @param blackwordScrollPane the new blackword scroll pane
+	 */
+	public void setBlackwordScrollPane(JScrollPane blackwordScrollPane) {
+		this.blackwordScrollPane = blackwordScrollPane;
+	}
+
+	/**
+	 * Gets the btn delete black word.
+	 *
+	 * @return the btn delete black word
+	 */
+	public JButton getBtnDeleteBlackWord() {
+		return btnDeleteBlackword;
+	}
+
+	/**
+	 * Sets the btn delete black word.
+	 *
+	 * @param btnDeleteBlackWord the new btn delete black word
+	 */
+	public void setBtnDeleteBlackWord(JButton btnDeleteBlackWord) {
+		this.btnDeleteBlackword = btnDeleteBlackWord;
+	}
+
+	/**
+	 * Gets the btn edit black word.
+	 *
+	 * @return the btn edit black word
+	 */
+	public JButton getBtnEditBlackWord() {
+		return btnEditBlackWord;
+	}
+
+	/**
+	 * Sets the btn edit black word.
+	 *
+	 * @param btnEditBlackWord the new btn edit black word
+	 */
+	public void setBtnEditBlackWord(JButton btnEditBlackWord) {
+		this.btnEditBlackWord = btnEditBlackWord;
+	}
+
+	/**
+	 * Gets the btn add black word.
+	 *
+	 * @return the btn add black word
+	 */
+	public JButton getBtnAddBlackWord() {
+		return btnAddBlackWord;
+	}
+
+	/**
+	 * Sets the btn add black word.
+	 *
+	 * @param btnAddBlackWord the new btn add black word
+	 */
+	public void setBtnAddBlackWord(JButton btnAddBlackWord) {
+		this.btnAddBlackWord = btnAddBlackWord;
+	}
+
+	/**
+	 * Gets the blackword list.
+	 *
+	 * @return the blackword list
+	 */
+	public JList<String> getBlackwordList() {
 		return blackwordList;
 	}
 
 	/**
-	 * Sets the black word list.
+	 * Sets the blackword list.
 	 *
-	 * @param blackwordList the new black word list
+	 * @param blackwordList the new blackword list
 	 */
-	public void setBlackWordList(JScrollPane blackwordList) {
+	public void setBlackwordList(JList<String> blackwordList) {
 		this.blackwordList = blackwordList;
+	}
+
+	/**
+	 * Gets the btn delete all blackwords.
+	 *
+	 * @return the btn delete all blackwords
+	 */
+	public JButton getBtnDeleteAllBlackwords() {
+		return btnDeleteAllBlackwords;
+	}
+
+	/**
+	 * Sets the btn delete all blackwords.
+	 *
+	 * @param btnDeleteAllBlackwords the new btn delete all blackwords
+	 */
+	public void setBtnDeleteAllBlackwords(JButton btnDeleteAllBlackwords) {
+		this.btnDeleteAllBlackwords = btnDeleteAllBlackwords;
+	}
+
+	/**
+	 * Gets the dlm black word.
+	 *
+	 * @return the dlm black word
+	 */
+	public DefaultListModel<String> getDlmBlackWord() {
+		return dlmBlackWord;
+	}
+
+	/**
+	 * Sets the dlm black word.
+	 *
+	 * @param dlmBlackWord the new dlm black word
+	 */
+	public void setDlmBlackWord(DefaultListModel<String> dlmBlackWord) {
+		this.dlmBlackWord = dlmBlackWord;
 	}
 }

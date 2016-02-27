@@ -10,15 +10,13 @@ import java.lang.reflect.Field;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.plaf.metal.MetalFileChooserUI;
 
 import netspy.components.config.ConfigPropertiesManager;
-import netspy.components.filehandling.io.TextWriter;
 import netspy.components.filehandling.manager.FileManager;
 import netspy.components.gui.components.frame.NetSpyFrame;
-import netspy.components.gui.components.popups.ErrorNotificationPopup;
+import netspy.components.gui.components.popups.ErrorPopup;
 import netspy.components.mailing.EmailHandler;
 import netspy.components.netspy.Netspy;
 
@@ -71,7 +69,7 @@ public class NetSpyActionListener implements ActionListener {
                 // check with file-names
                 } else if (fileMailPath.isFile()) {
                 	if (!fileMailPath.getName().endsWith(EmailHandler.EML_FILE_EXTENSION)) {
-                		new ErrorNotificationPopup("Ungültige Dateierweiterung", "Es sind nur .eml-Dateien erlaubt!");
+                		new ErrorPopup("Ungültige Dateierweiterung", "Es sind nur .eml-Dateien erlaubt!");
                 		break;
                 	} else {
                 		this.owner.getInputMailPath().setText(fileMailPath.getAbsolutePath());
@@ -80,7 +78,7 @@ public class NetSpyActionListener implements ActionListener {
                 }
                 
             } else if (returnValMailPath == JFileChooser.ERROR_OPTION) {
-                new ErrorNotificationPopup("Unbekannter Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
+                new ErrorPopup("Unbekannter Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
             }
             
 			break;
@@ -99,16 +97,16 @@ public class NetSpyActionListener implements ActionListener {
 				tf.setEditable(false);
 			} catch (NoSuchFieldException e1) {
 			    // could not fiend textfield inside file chooser
-			    new ErrorNotificationPopup("Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
+			    new ErrorPopup("Unbekannter Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
 			} catch (SecurityException e1) {
 			    // could not access access-property of textfield inside file chooser
-			    new ErrorNotificationPopup("Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
+			    new ErrorPopup("Unbekannter Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
 			} catch (IllegalArgumentException e1) {
 			    // could not access ui component of text field inside file chooser
-			    new ErrorNotificationPopup("Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
+			    new ErrorPopup("Unbekannter Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
 			} catch (IllegalAccessException e1) {
 			    // could not access ui component of text field inside file chooser
-			    new ErrorNotificationPopup("Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
+			    new ErrorPopup("Unbekannter Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
 			}
 		    final int returnValQuarantine = quarantinePathChooser.showOpenDialog(null);
 		    final File fileQuarantinePath = quarantinePathChooser.getSelectedFile();
@@ -122,7 +120,7 @@ public class NetSpyActionListener implements ActionListener {
 
 		    } else if (returnValQuarantine == JFileChooser.ERROR_OPTION) {
 		        
-		        new ErrorNotificationPopup("Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
+		        new ErrorPopup("Unbekannter Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
 		    }
 			break;
 			
@@ -139,7 +137,7 @@ public class NetSpyActionListener implements ActionListener {
 		        
 		    	// only blacklist.txt file accepted
 		        if (!fileBlackwordPath.getName().equals(FileManager.BLACKLIST_FILE_NAME)) {
-		            new ErrorNotificationPopup("Falsche Datei", "Datei muss '" + FileManager.BLACKLIST_FILE_NAME + "' heißen!");
+		            new ErrorPopup("Falsche Datei", "Datei muss '" + FileManager.BLACKLIST_FILE_NAME + "' heißen!");
 		            break;
 		        }
 		    	
@@ -149,7 +147,7 @@ public class NetSpyActionListener implements ActionListener {
 		        
 		    } else if (returnValBlackword == JFileChooser.ERROR_OPTION) {
 		        
-		        new ErrorNotificationPopup("Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
+		        new ErrorPopup("Unbekannter Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
 		    }
 			break;
 			
@@ -167,16 +165,16 @@ public class NetSpyActionListener implements ActionListener {
 				tf.setEditable(false);
 			} catch (NoSuchFieldException e1) {
                 // could not find textfield inside file chooser
-                new ErrorNotificationPopup("Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
+                new ErrorPopup("Unbekannter Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
 			} catch (SecurityException e1) {
                 // could not access access-property of textfield inside file chooser
-                new ErrorNotificationPopup("Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
+                new ErrorPopup("Unbekannter Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
 			} catch (IllegalArgumentException e1) {
                 // could not access ui component of text field inside file chooser
-                new ErrorNotificationPopup("Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
+                new ErrorPopup("Unbekannter Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
 			} catch (IllegalAccessException e1) {
                 // could not access ui component of text field inside file chooser
-                new ErrorNotificationPopup("Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
+                new ErrorPopup("Unbekannter Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
 			}
 		    final int returnValLog = logPathChooser.showOpenDialog(null);
 		    final File fileLogPath = logPathChooser.getSelectedFile();
@@ -190,37 +188,18 @@ public class NetSpyActionListener implements ActionListener {
 		        
 		    } else if (returnValLog == JFileChooser.ERROR_OPTION) {
 		        
-		        new ErrorNotificationPopup("Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
+		        new ErrorPopup("Unbekannter Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
 		    }
 			break;
 		
-		case NetSpyFrame.BUTTON_ID_BLACKWORD_ADD:
-//			String blackWordStrAdd = ""; 
-//			// TODO: no empty string or whitespaces allowed
-//			blackWordStrAdd = JOptionPane.showInputDialog(null,"Geben Sie das neue BlackWord ein", null);
-//			if (blackWordStrAdd != null && !blackWordStrAdd.isEmpty()){
-//				String BlackWordPath = new ConfigPropertiesManager().getBlackwordPath();
-//				new TextWriter().write(BlackWordPath, blackWordStrAdd);
-//				// TODO refresh of BlackWordList 
-//				// TODO: update DLM
-//				}
-//			else {
-//				// Oder Eingabe fehlerhaft
-//				new ErrorNotificationPopup("Fehler", "Es wurde kein neues BlackWord hinzugefügt!");
-//			}
-			break;
-//			
-//		case NetSpyFrame.BUTTON_ID_BLACKWORD_DELETE:
-//			
-			
 		case NetSpyFrame.BUTTON_ID_START_SCAN:
 			
 			if (!allPathsAreSet()) {
 			    this.owner.getLogBox().append("Scan konnte nicht gestartet werden!");
-			    new ErrorNotificationPopup("Fehlende Pfadangaben", "Bitte überprüfen Sie Ihre Eingaben bezüglich der Pfade!");
+			    new ErrorPopup("Fehlende Pfadangaben", "Bitte überprüfen Sie Ihre Eingaben bezüglich der Pfade!");
 			    break;
 			} else {
-			    new Netspy().start(this.owner);
+			    new Netspy().start(this.owner.getLogBox());
 			}
 			break;
 			

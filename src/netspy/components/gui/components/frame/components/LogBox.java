@@ -52,6 +52,7 @@ public class LogBox extends JTextArea {
 			TimeUnit.MILLISECONDS.sleep(500);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
+			// TODO e
 		}
 		this.update(this.getGraphics());
 	}
@@ -82,6 +83,7 @@ public class LogBox extends JTextArea {
 					}
 				} catch (InterruptedException e) {
 					e.printStackTrace();
+					// TODO e
 				}
 				this.update(this.getGraphics());
 			}

@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
  * Class InfoNotificationPopup.
  *
  */
-public class InfoNotificationPopup extends NotificationPopup {
+public class InfoPopup extends Popup {
 
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -521228479931485901L;
@@ -20,7 +20,7 @@ public class InfoNotificationPopup extends NotificationPopup {
      * @param title the title
      * @param message the message
      */
-    public InfoNotificationPopup(String title, String message) {
+    public InfoPopup(String title, String message) {
         super();
         showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
     }

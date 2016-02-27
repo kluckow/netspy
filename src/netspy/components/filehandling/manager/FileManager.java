@@ -12,8 +12,9 @@ import java.util.List;
 
 import netspy.components.config.ConfigPropertiesManager;
 import netspy.components.filehandling.io.TextReader;
+import netspy.components.filehandling.io.TextUpdater;
 import netspy.components.filehandling.io.TextWriter;
-import netspy.components.gui.components.popups.ErrorNotificationPopup;
+import netspy.components.gui.components.popups.ErrorPopup;
 import netspy.components.logging.LogManager;
 
 /**
@@ -25,7 +26,7 @@ public class FileManager {
 	public static final String BLACKLIST_FILE_NAME = "blacklist.txt";
 	
 	/** The Constant BLACKLSIT_ENCODING. */
-	private static final String BLACKLIST_ENCODING = "UTF-8";
+	public static final String BLACKLIST_ENCODING = "UTF-8";
 	
 	/**
 	 * Gets the files by file extension.
@@ -108,7 +109,7 @@ public class FileManager {
 			try {
 				newLogfile.createNewFile();
 			} catch (IOException e) {
-				new ErrorNotificationPopup("Datei konnnte nicht erstellt werden", newLogfile.getName() +
+				new ErrorPopup("Datei konnnte nicht erstellt werden", newLogfile.getName() +
 						" konnte nicht erstellt werden in " + newLogfile.getParent() + "!");
 			}
 			return logFileFinal;
@@ -123,14 +124,8 @@ public class FileManager {
 	 */
 	public List<String> getBlacklist() {
 		
-		try {
-			return new TextReader().readFile(new ConfigPropertiesManager().getBlackwordPath(),
-					BLACKLIST_ENCODING);
-		} catch (IOException e) {
-			new ErrorNotificationPopup("Datei-Lesefehler", "Es ist ein Problem "
-					+ "beim Lesen der Blacklist-Datei aufgetreten!");
-		}
-		return null;
+		return new TextReader().readFile(new ConfigPropertiesManager().getBlackwordPath(),
+				BLACKLIST_ENCODING);
 	}
 
 	/**
@@ -163,17 +158,6 @@ public class FileManager {
 	}
 
 	/**
-	 * Write.
-	 *
-	 * @param absPath the abs path
-	 * @param line the line
-	 */
-	public void write(String absPath, String line) {
-
-		new TextWriter().write(absPath, line);
-	}
-
-	/**
 	 * Log.
 	 *
 	 * @param absPath the abs path
@@ -181,7 +165,39 @@ public class FileManager {
 	 */
 	public void log(String absPath, String logLine) {
 		
-		new TextWriter().write(absPath, logLine);
+		new TextWriter().write(absPath, logLine, true, false);
+	}
+	
+	/**
+	 * Removes the all.
+	 *
+	 * @param absPath the abs path
+	 */
+	public void removeAll(String absPath) {
+		
+		new TextUpdater().clear(absPath);
+	}
+	
+	/**
+	 * Removes the.
+	 *
+	 * @param absPath the abs path
+	 * @param str the str
+	 */
+	public void remove(String absPath, String str) {
+		
+		new TextUpdater().remove(absPath, str);
+	}
+	
+	/**
+	 * Update.
+	 *
+	 * @param absPath the abs path
+	 * @param str the str
+	 */
+	public void insert(String absPath, String str) {
+		
+		new TextUpdater().insert(absPath, str);
 	}
 	
 }

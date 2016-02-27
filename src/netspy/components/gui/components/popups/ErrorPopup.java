@@ -9,8 +9,11 @@ import javax.swing.JOptionPane;
  * Class ErrorNotificationPopup.
  *
  */
-public class ErrorNotificationPopup extends NotificationPopup {
+public class ErrorPopup extends Popup {
 
+	public static final String UNKNOWN_ERROR_MSG = "Es ist ein unbekannter Fehler aufgetreten";
+	public static final String UNKNOWN_ERROR_TITLE = "Unbekannter Fehler";
+	
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -3151242789990015554L;
     
@@ -19,7 +22,7 @@ public class ErrorNotificationPopup extends NotificationPopup {
      *
      * @param message the message
      */
-    public ErrorNotificationPopup(String title, String message) {
+    public ErrorPopup(String title, String message) {
         super();
         showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
     }

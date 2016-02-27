@@ -23,7 +23,7 @@ import netspy.components.util.StringHelper;
 public class EmailHandler {
 	
 	/** The Constant SECURITY_LEVEL. */
-	public static final int SECURITY_LEVEL = 6;
+	private static final int SECURITY_LEVEL = 6;
 	
 	/** The Constant EML_FILE_EXTENSION. */
 	public static final String EML_FILE_EXTENSION = ".eml";

@@ -8,9 +8,9 @@ import java.io.IOException;
 import java.util.List;
 
 import netspy.components.filehandling.manager.FileManager;
-import netspy.components.gui.components.frame.NetSpyFrame;
-import netspy.components.gui.components.popups.ErrorNotificationPopup;
-import netspy.components.gui.components.popups.InfoNotificationPopup;
+import netspy.components.gui.components.frame.components.LogBox;
+import netspy.components.gui.components.popups.ErrorPopup;
+import netspy.components.gui.components.popups.InfoPopup;
 import netspy.components.mailing.Email;
 import netspy.components.mailing.EmailHandler;
 
@@ -21,17 +21,17 @@ public class Netspy {
 	
     /** The email handler. */
     private EmailHandler emailHandler;
+	
+	/** The logbox. */
+	private LogBox logbox;
     
-    /** The main frame. */
-    private NetSpyFrame frame;
-
     /**
      * Start.
      */
-    public void start(NetSpyFrame frame) {
+    public void start(LogBox logbox) {
     	
-    	this.frame = frame;
-    	this.emailHandler = new EmailHandler(this.frame.getLogBox());
+    	this.logbox = logbox;
+    	this.emailHandler = new EmailHandler(this.logbox);
     	run();
     }
 
@@ -64,7 +64,7 @@ public class Netspy {
      */
     private void finishScan() {
     	
-    	this.frame.getLogBox().append("Scan abgeschlossen.");
+    	this.logbox.appendWithDelay("Scan abgeschlossen.");
 	}
 
 	/**
@@ -76,12 +76,12 @@ public class Netspy {
 
         if (!emailHandler.checkMailbox()) {
             
-            new InfoNotificationPopup("Keine Emails vorhanden", "Keine Emails in der Mailbox gefunden. Keine Überprüfung notwendig.");
+            new InfoPopup("Keine Emails vorhanden", "Keine Emails in der Mailbox gefunden. Keine Überprüfung notwendig.");
             return false;
             
         } else {
-            this.frame.getLogBox().clear();
-            this.frame.getLogBox().appendWithDelay("Starte Scan...");
+            this.logbox.clear();
+            this.logbox.appendWithDelay("Starte Scan...");
             // get emails as files
             final List<File> mailFiles = emailHandler.getEmlFiles();
 
@@ -93,7 +93,7 @@ public class Netspy {
                     // add email object to email container
                     emailHandler.getMailContainer().getMails().add(email);
                 } catch (final IOException e) {
-                    new ErrorNotificationPopup("Datei-Lesefehler", "Es ist ein Problem beim Lesen der Email-Datei aufgetreten!");
+                    new ErrorPopup("Datei-Lesefehler", "Es ist ein Problem beim Lesen der Email-Datei aufgetreten!");
                 }
             }
             return true;

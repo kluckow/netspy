@@ -1,45 +1,65 @@
+/**
+ * (c) Copyrights 2016 by Kevin Schorn, Markus Kluckow
+ */
 package netspy.components.gui.components.listeners;
-
-import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import netspy.components.config.ConfigPropertiesManager;
-import netspy.components.filehandling.io.TextReader;
-import netspy.components.gui.components.popups.ErrorNotificationPopup;
+import netspy.components.gui.components.frame.NetSpyFrame;
 
-
-
-public class NetSpyListSelectionListener implements ListSelectionListener{
+/**
+ * The listener interface for receiving netSpyListSelection events.
+ * The class that is interested in processing a netSpyListSelection
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addNetSpyListSelectionListener<code> method. When
+ * the netSpyListSelection event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see NetSpyListSelectionEvent
+ */
+public class NetSpyListSelectionListener implements ListSelectionListener {
 	
-	private static final String BLACKLIST_ENCODING = "UTF-8";
+	/** The frame. */
+	private NetSpyFrame frame;
 	
-	public NetSpyListSelectionListener() {
+	/** The blackword list. */
+	private JList<String> blackwordList;
+
+	/**
+	 * Instantiates a new net spy list selection listener.
+	 *
+	 * @param frame the frame
+	 */
+	public NetSpyListSelectionListener(NetSpyFrame frame) {
+		this.frame = frame;
+		this.blackwordList = this.frame.getBlackwordList();
 	}
 
-	@SuppressWarnings("rawtypes")
+	/* (non-Javadoc)
+	 * @see javax.swing.event.ListSelectionListener#valueChanged(javax.swing.event.ListSelectionEvent)
+	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
 		
-		// get JList of event
-		JList list = (JList) e.getSource();
-		list.update(list.getGraphics());
-		list.repaint();
+		this.blackwordList = (JList<String>) e.getSource();
 		
-	}
-	
-	public ArrayList<String> getBlacklist() {
-		try {
-			ArrayList<String> blackwords = (ArrayList<String>) new TextReader().readFile(new ConfigPropertiesManager().getBlackwordPath(),
-					BLACKLIST_ENCODING);
-			return blackwords;
-		} catch (IOException e) {
-			new ErrorNotificationPopup("Datei-Lesefehler", "Es ist ein Problem "
-					+ "beim Lesen der Blacklist-Datei aufgetreten!");
-			return null;
+		
+		if (blackwordList.getSelectedIndex() == -1) {
+			System.out.println("selected index: " + blackwordList.getSelectedIndex());
+			frame.getBtnEditBlackWord().setEnabled(false);
+			frame.getBtnDeleteBlackWord().setEnabled(false);
+			if (frame.getDlmBlackWord().isEmpty()) {
+				frame.getBtnDeleteAllBlackwords().setEnabled(false);
+			}
+		} else {
+			frame.getBtnEditBlackWord().setEnabled(true);
+			frame.getBtnDeleteBlackWord().setEnabled(true);
+			frame.getBtnDeleteAllBlackwords().setEnabled(true);
 		}
 	}
+
 }

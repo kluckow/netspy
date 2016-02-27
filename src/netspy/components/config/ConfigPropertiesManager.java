@@ -16,7 +16,7 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.configuration.PropertiesConfigurationLayout;
 
 import netspy.components.gui.components.frame.components.LogBox;
-import netspy.components.gui.components.popups.ErrorNotificationPopup;
+import netspy.components.gui.components.popups.ErrorPopup;
 
 /**
  * The Class ConfigPropertiesManager.
@@ -70,7 +70,7 @@ public class ConfigPropertiesManager implements NetSpyGlobals {
 				setupDefaultConfig();
 			} 
 		} catch (IOException e) {
-		    new ErrorNotificationPopup("Fehler bei Dateierstellung",
+		    new ErrorPopup("Fehler bei Dateierstellung",
 		                    "Die config.properties-Datei konnte nicht erstellt werden!");
 		    
         }
@@ -121,10 +121,10 @@ public class ConfigPropertiesManager implements NetSpyGlobals {
 			layout.save(new FileWriter(file));
 		} catch (ConfigurationException e) {
             // could not load config.properties
-            new ErrorNotificationPopup("Fehler mit Konfigurationsdatei",
+            new ErrorPopup("Fehler mit Konfigurationsdatei",
                 "Es ist ein Fehler beim Laden der Konfigurationsdatei aufgetreten!"); 
         } catch (IOException e) {
-            new ErrorNotificationPopup("Fehler mit Konfigurationsdatei",
+            new ErrorPopup("Fehler mit Konfigurationsdatei",
                 "Es ist ein Fehler beim Öffnen bzw. Schreiben der Konfigurationsdatei aufgetreten!"); 
         }
 		
@@ -145,7 +145,7 @@ public class ConfigPropertiesManager implements NetSpyGlobals {
             }
             return prop;
         } catch (IOException e) {
-            new ErrorNotificationPopup("Fehler mit Konfigurationsdatei",
+            new ErrorPopup("Fehler mit Konfigurationsdatei",
                 "Es ist ein Fehler beim Öffnen bzw. Lesen der Konfigurationsdatei aufgetreten!"); 
         }
         return prop;

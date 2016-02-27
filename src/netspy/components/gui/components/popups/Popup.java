@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
  * Class NotificationPopup.
  *
  */
-public abstract class NotificationPopup extends JOptionPane {
+public abstract class Popup extends JOptionPane {
 
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1325639161519213012L;
@@ -20,7 +20,7 @@ public abstract class NotificationPopup extends JOptionPane {
      * @param title the title
      * @param message the message
      */
-    public NotificationPopup() {
+    public Popup() {
         super();
         setBounds(300, 200, 500, 200);
     }
