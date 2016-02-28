@@ -19,19 +19,17 @@ import netspy.components.config.ConfigPropertiesManager;
 import netspy.components.filehandling.manager.FileManager;
 import netspy.components.gui.components.frame.NetSpyFrame;
 import netspy.components.gui.components.popups.ErrorPopup;
-import netspy.components.mailing.EmailHandler;
 import netspy.components.netspy.Netspy;
 
 /**
  * Class NetSpyActionListener.
  *
+ * @see NetSpyActionEvent
  */
 public class NetSpyActionListener implements ActionListener {
 
 	/** The owner. Used for accessing the text fields. */
 	private NetSpyFrame owner;
-	
-	
     
 	/**
 	 * Instantiates a new file chooser action listener.
@@ -56,10 +54,32 @@ public class NetSpyActionListener implements ActionListener {
 			final JFileChooser mailPathChooser = new JFileChooser();
             mailPathChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
             mailPathChooser.setCurrentDirectory(new File(this.owner.getInputMailPath().getText()));
-            final int returnValMailPath = mailPathChooser.showOpenDialog(null);
+            
+            // set input field inside file chooser editable = false
+		    MetalFileChooserUI mailPathUi = (MetalFileChooserUI) mailPathChooser.getUI();
+		    Field mailPathInputField = null;
+			try {
+				mailPathInputField = MetalFileChooserUI.class.getDeclaredField("fileNameTextField");
+				mailPathInputField.setAccessible(true);
+				JTextField mailPathTextField = (JTextField) mailPathInputField.get(mailPathUi);
+				mailPathTextField.setEditable(false);
+			} catch (NoSuchFieldException e1) {
+			    // could not fiend textfield inside file chooser
+			    new ErrorPopup("Unbekannter Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
+			} catch (SecurityException e1) {
+			    // could not access access-property of textfield inside file chooser
+			    new ErrorPopup("Unbekannter Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
+			} catch (IllegalArgumentException e1) {
+			    // could not access ui component of text field inside file chooser
+			    new ErrorPopup("Unbekannter Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
+			} catch (IllegalAccessException e1) {
+			    // could not access ui component of text field inside file chooser
+			    new ErrorPopup("Unbekannter Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
+			}
+			final int returnValMailPath = mailPathChooser.showOpenDialog(null);
             final File fileMailPath = mailPathChooser.getSelectedFile();
             
-            // Verhindert exception wenn keine file/dir ausgewählt wird
+            // avoid exception if no file/dir is selected
             if (returnValMailPath == JFileChooser.APPROVE_OPTION) {
                 
             	// change text field accordingly after choosing a file/folder
@@ -71,7 +91,7 @@ public class NetSpyActionListener implements ActionListener {
 
                 // check with file-names
                 } else if (fileMailPath.isFile()) {
-                	if (!fileMailPath.getName().endsWith(EmailHandler.EML_FILE_EXTENSION)) {
+                	if (!fileMailPath.getName().endsWith(FileManager.EML_FILE_EXTENSION)) {
                 		new ErrorPopup("Ungültige Dateierweiterung",
                 				"Es sind nur .eml-Dateien oder Verzeichnisse erlaubt!");
                 		break;
@@ -92,6 +112,8 @@ public class NetSpyActionListener implements ActionListener {
 		    final JFileChooser quarantinePathChooser = new JFileChooser();
 		    quarantinePathChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		    quarantinePathChooser.setCurrentDirectory(new File(this.owner.getInputQuarantinePath().getText()));
+		    
+		    // set input field inside file chooser editable = false
 		    MetalFileChooserUI ui = (MetalFileChooserUI) quarantinePathChooser.getUI();
 		    Field field = null;
 			try {
@@ -133,6 +155,28 @@ public class NetSpyActionListener implements ActionListener {
 		    final JFileChooser blackwordPathChooser = new JFileChooser();
 		    blackwordPathChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		    blackwordPathChooser.setCurrentDirectory(new File(this.owner.getInputBlackwordPath().getText()));
+		    
+		    // set input field inside file chooser editable = false
+		    MetalFileChooserUI blackwordPathUi = (MetalFileChooserUI) blackwordPathChooser.getUI();
+		    Field blackwordField = null;
+			try {
+				blackwordField = MetalFileChooserUI.class.getDeclaredField("fileNameTextField");
+				blackwordField.setAccessible(true);
+				JTextField blackwordTextField = (JTextField) blackwordField.get(blackwordPathUi);
+				blackwordTextField.setEditable(false);
+			} catch (NoSuchFieldException e1) {
+			    // could not fiend textfield inside file chooser
+			    new ErrorPopup("Unbekannter Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
+			} catch (SecurityException e1) {
+			    // could not access access-property of textfield inside file chooser
+			    new ErrorPopup("Unbekannter Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
+			} catch (IllegalArgumentException e1) {
+			    // could not access ui component of text field inside file chooser
+			    new ErrorPopup("Unbekannter Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
+			} catch (IllegalAccessException e1) {
+			    // could not access ui component of text field inside file chooser
+			    new ErrorPopup("Unbekannter Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
+			}
 		    final int returnValBlackword = blackwordPathChooser.showOpenDialog(null);
 		    final File fileBlackwordPath = blackwordPathChooser.getSelectedFile();
 		    
@@ -150,7 +194,6 @@ public class NetSpyActionListener implements ActionListener {
 		        new ConfigPropertiesManager().setBlackwordPath(fileBlackwordPath.getAbsolutePath());
 		        
 		    } else if (returnValBlackword == JFileChooser.ERROR_OPTION) {
-		        
 		        new ErrorPopup("Unbekannter Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
 		    }
 			break;
@@ -191,7 +234,6 @@ public class NetSpyActionListener implements ActionListener {
 		        new ConfigPropertiesManager().setLogPath(fileLogPath.getAbsolutePath());
 		        
 		    } else if (returnValLog == JFileChooser.ERROR_OPTION) {
-		        
 		        new ErrorPopup("Unbekannter Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
 		    }
 			break;
@@ -199,9 +241,11 @@ public class NetSpyActionListener implements ActionListener {
 		case NetSpyFrame.BUTTON_ID_START_SCAN:
 			
 			if (!allPathsAreSet()) {
-			    this.owner.getLogBox().append("Scan konnte nicht gestartet werden!");
+				
+			    this.owner.getLogBox().appendWithoutDelay("Scan konnte nicht gestartet werden!");
 			    new ErrorPopup("Fehlende Pfadangaben", "Bitte überprüfen Sie Ihre Eingaben bezüglich der Pfade!");
 			    break;
+			    
 			} else {
 			    new Netspy().start(this.owner.getLogBox());
 			}
@@ -215,15 +259,16 @@ public class NetSpyActionListener implements ActionListener {
 		case NetSpyFrame.BUTTON_ID_SHOW_LOG:
 			
 			if (Desktop.getDesktop().isDesktopSupported()) {
+				
 				String logpath = new ConfigPropertiesManager().getLogPath()
 						+ File.separator + new FileManager().generateLogfileNameToday();
 				File file = new File(logpath);
-				if (!file.exists()) {
-					new ErrorPopup("Logdatei existiert nicht",
-							"Bitte überprüfen Sie, ob heute schon eine Logdatei erstellt wurde!");
-					break;
-				}
+				
+				// already create empty logfile instead of showing error popup (==> better usability)
+				if (!file.exists()) new FileManager().createLogfile();
+					
 				try {
+					this.owner.getLogBox().append("Öffne Logdatei...");
 					java.awt.Desktop.getDesktop().edit(file);
 				} catch (IOException e1) {
 					new ErrorPopup("Dateizugriffs-Fehler",
@@ -269,6 +314,7 @@ public class NetSpyActionListener implements ActionListener {
      * @param dir the dir
      * @return true, if successful
      */
+    // might lead into long waiting time when accidently selecting an upper directory, e.g. drives
     @SuppressWarnings("unused")
 	private boolean containsDirEmlFiles(File dir) {
         
@@ -276,7 +322,7 @@ public class NetSpyActionListener implements ActionListener {
             return false;
         }
         for (File fileInDir : dir.listFiles()) {
-            if (fileInDir.getName().endsWith(EmailHandler.EML_FILE_EXTENSION)) {
+            if (fileInDir.getName().endsWith(FileManager.EML_FILE_EXTENSION)) {
                 return true;    
             } else if (containsDirEmlFiles(fileInDir)) {
                 return true;

@@ -10,10 +10,12 @@ import org.junit.Test;
 /**
  * Class NetSpyTest.
  *
- * @author kluckow
  */
 public class NetSpyTest {
 
+    /**
+     * Test.
+     */
     @Test
     public void test() {
 

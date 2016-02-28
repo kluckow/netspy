@@ -21,7 +21,10 @@ import netspy.components.logging.LogManager;
  * The Class FileManager.
  */
 public class FileManager {
-
+	
+	/** The Constant EML_FILE_EXTENSION. */
+	public static final String EML_FILE_EXTENSION = ".eml";
+	
 	/** The Constant BLACKLIST_FILE. */
 	public static final String BLACKLIST_FILE_NAME = "blacklist.txt";
 	
@@ -85,7 +88,7 @@ public class FileManager {
 	 * @return the list
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	public List<String> readFile(String filename, String encoding, String stopper) throws IOException {
+	public List<String> readFile(String filename, String encoding, String stopper) {
 		
 		return new TextReader().readFile(filename, encoding, stopper);
 	}

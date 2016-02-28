@@ -4,12 +4,10 @@
 package netspy.components.netspy;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import netspy.components.filehandling.manager.FileManager;
 import netspy.components.gui.components.frame.components.LogBox;
-import netspy.components.gui.components.popups.ErrorPopup;
 import netspy.components.gui.components.popups.InfoPopup;
 import netspy.components.mailing.Email;
 import netspy.components.mailing.EmailHandler;
@@ -27,6 +25,8 @@ public class Netspy {
     
     /**
      * Start.
+     *
+     * @param logbox the logbox
      */
     public void start(LogBox logbox) {
     	
@@ -40,8 +40,10 @@ public class Netspy {
 	 */
 	private void run() {
 
-	    // Eigentlich wird die Überprüfung schon beim Auswählen des Pfades durchgeführt,
-	    // aber nochmal überprüfen kann nicht schaden.
+		/**
+		 * Is actually already checked when configuring paths,
+		 * but files could have been moved out of inbox after configuring it
+		 */
 		if (checkInboxForMails()) {
             processMailsInInbox();
             finishScan();
@@ -54,7 +56,9 @@ public class Netspy {
     private void processMailsInInbox() {
 
         emailHandler.scanMails();
-        if (!emailHandler.getMailContainer().getMails().isEmpty() && !new FileManager().getBlacklist().isEmpty()) {
+        
+        // should not be the case though, but to make sure...
+        if (!emailHandler.getMailContainer().getMails().isEmpty()) {
             emailHandler.putMailsIntoQuarantine();
         }
     }
@@ -91,15 +95,12 @@ public class Netspy {
             final List<File> mailFiles = emailHandler.getEmlFiles();
 
             for (final File mailFile : mailFiles) {
-                try {
-                    // extract content of emailFile and create an email object with that content
-                    final Email email = new Email(emailHandler.getMailContent(mailFile),
-                        mailFile.getPath());
-                    // add email object to email container
-                    emailHandler.getMailContainer().getMails().add(email);
-                } catch (final IOException e) {
-                    new ErrorPopup("Datei-Lesefehler", "Es ist ein Problem beim Lesen der Email-Datei aufgetreten!");
-                }
+            	
+                // extract content of emailFile and create an email object with that content
+                final Email email = new Email(emailHandler.getMailContent(mailFile),
+                    mailFile.getPath());
+                // add email object to email container
+                emailHandler.getMailContainer().getMails().add(email);
             }
             return true;
         }

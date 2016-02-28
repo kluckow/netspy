@@ -16,9 +16,6 @@ public abstract class Popup extends JOptionPane {
 
     /**
      * Instantiates a new notification popup.
-     *
-     * @param title the title
-     * @param message the message
      */
     public Popup() {
         super();

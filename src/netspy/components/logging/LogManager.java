@@ -26,7 +26,7 @@ public class LogManager {
 	/**
 	 * Log.
 	 *
-	 * @param scanResult the scan result
+	 * @param email the email
 	 */
 	public void log(Email email) {
 		
@@ -45,9 +45,6 @@ public class LogManager {
 		logLine += "Gefundene Wörter: " + email.getHitMap().entrySet().toString();
 		
 		new FileManager().log(new FileManager().createLogfile(), logLine);
-	}
-	public void generateLogfileName() {
-		
 	}
 	
 }
