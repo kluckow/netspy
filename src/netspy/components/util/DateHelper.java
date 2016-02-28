@@ -21,17 +21,6 @@ public class DateHelper {
 
 	/** The Constant Locale for US. */
 	private static final Locale US = Locale.US;
-	/**
-	 * Date to string.
-	 *
-	 * @param date the date
-	 * @param dateFormat the date format
-	 * @return the string
-	 */
-	public String dateToString(Date date, DateFormat dateFormat) {
-		
-		return dateFormat.format(date);
-	}
 
 	/**
 	 * Format date.

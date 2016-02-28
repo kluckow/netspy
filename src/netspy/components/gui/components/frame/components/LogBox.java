@@ -45,14 +45,19 @@ public class LogBox extends JTextArea {
 	@Override
 	public void append(String str) {
 		
+		// without any delay
 		super.append(generateTimestampPrefix());
-		super.append(str + System.lineSeparator());
 		
 		try {
 			TimeUnit.MILLISECONDS.sleep(500);
+			super.append(str + System.lineSeparator());
 		} catch (InterruptedException e) {
-			e.printStackTrace();
-			// TODO e
+			this.clear();
+			this.append("Aufgrund einer Unterbrechung eines Prozesses wird die Ausgabe in dieses Logfenster unterbrochen."
+			+ System.lineSeparator());
+			this.append("Leere Logfenster...");
+			this.clear();
+			return;
 		}
 		this.update(this.getGraphics());
 	}

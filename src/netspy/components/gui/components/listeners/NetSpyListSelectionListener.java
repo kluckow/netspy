@@ -48,10 +48,11 @@ public class NetSpyListSelectionListener implements ListSelectionListener {
 		this.blackwordList = (JList<String>) e.getSource();
 		
 		
+		// if nothing is selected
 		if (blackwordList.getSelectedIndex() == -1) {
-			System.out.println("selected index: " + blackwordList.getSelectedIndex());
 			frame.getBtnEditBlackWord().setEnabled(false);
 			frame.getBtnDeleteBlackWord().setEnabled(false);
+			// and blacklist is empty
 			if (frame.getDlmBlackWord().isEmpty()) {
 				frame.getBtnDeleteAllBlackwords().setEnabled(false);
 			}

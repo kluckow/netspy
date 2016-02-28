@@ -229,7 +229,7 @@ public class EmailHandler {
 			if (email.isSuspicious()) {
 				
 				new LogManager().log(email);
-				new FileManager().moveFile(email.getRelativePath(), new ConfigPropertiesManager().getQuarantinePath());
+				new FileManager().moveFile(email.getAbsolutePath(), new ConfigPropertiesManager().getQuarantinePath());
 				counterSuspiciousMails++;
 			}
 		}

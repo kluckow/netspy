@@ -517,25 +517,10 @@ public class NetSpyFrame extends JFrame {
 	public void setBlackWordBox(){
 		
 		// DEFAULT LIST MODEL
-		
 		setDlmBlackWord(new DefaultListModel<String>());
 		setBlackwordList(new JList(getDlmBlackWord()));
 		getBlackwordList().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		loadBlackwordBox(getDlmBlackWord());
-		
-		// TODO: add customized data listener for removed/added/changed events
-		// and print to logbox
-//		dlmBlackWord.addListDataListener(new ListDataListener() {
-//			@Override
-//			public void intervalRemoved(ListDataEvent e) {
-//			}
-//			@Override
-//			public void intervalAdded(ListDataEvent e) {
-//			}
-//			@Override
-//			public void contentsChanged(ListDataEvent e) {
-//			}
-//		});
 		
 		// y = 1-4, x = 10-11, fill both
 		gbc.gridx = 10;
@@ -552,7 +537,7 @@ public class NetSpyFrame extends JFrame {
 		blacklistScrollPane.setViewportView(getBlackwordList());
 		
 		// initialize action listener for default list model
-		dlmActionListener = new BlacklistActionListener(getBlackwordList(), getDlmBlackWord());
+		dlmActionListener = new BlacklistActionListener(getBlackwordList(), getDlmBlackWord(), this.logBox);
 		
 		mainPanel.add(blacklistScrollPane, gbc);
 

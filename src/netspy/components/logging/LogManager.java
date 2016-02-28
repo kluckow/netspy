@@ -40,7 +40,7 @@ public class LogManager {
 		logLine += LOG_ENTRY_SEPARATOR;
 		logLine += "Empfänger: " + email.getReceiver();
 		logLine += LOG_ENTRY_SEPARATOR;
-		logLine += "Dateiname: " + email.getRelativePath();
+		logLine += "Dateiname: " + email.getAbsolutePath();
 		logLine += LOG_ENTRY_SEPARATOR;
 		logLine += "Gefundene Wörter: " + email.getHitMap().entrySet().toString();
 		

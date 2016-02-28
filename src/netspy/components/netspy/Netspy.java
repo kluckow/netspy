@@ -86,7 +86,7 @@ public class Netspy {
         	
         } else {
             this.logbox.clear();
-            this.logbox.append("Scan...");
+            this.logbox.append("Starte Scan...");
             // get emails as files
             final List<File> mailFiles = emailHandler.getEmlFiles();
 

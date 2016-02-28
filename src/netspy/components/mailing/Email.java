@@ -33,9 +33,8 @@ public class Email {
 	/** The filename. */
 	private String filename;
 
-	/** The relative path. */
-	// TODO: Verify that this is absolutePath and rename accordingly (getter/setter/field/params in external methods/etc.)
-	private String relativePath;
+	/** The absolute path. */
+	private String absPath;
 
 	/** The hit map. */
 	private Map<String, Integer> hitMap = new HashMap<>();
@@ -178,34 +177,34 @@ public class Email {
 	}
 
 	/**
-	 * Sets the filename and relative path to the file.
+	 * Sets the filename and absolute path to the file.
 	 *
 	 * @param filename the new filename
 	 */
 	public void setFilename(String filename) {
 		
-		this.relativePath = filename;
+		this.absPath = filename;
 		this.filename = filename.substring(filename.indexOf("\\") + 1);
 	}
 
 	/**
-	 * Gets the relative path.
+	 * Gets the absolute path.
 	 *
-	 * @return the relative path
+	 * @return the absolute path
 	 */
-	public String getRelativePath() {
+	public String getAbsolutePath() {
 		
-		return relativePath;
+		return absPath;
 	}
 
 	/**
-	 * Sets the relative path.
+	 * Sets the absolute path.
 	 *
-	 * @param relativePath the new relative path
+	 * @param absolutePath the new absolute path
 	 */
-	public void setRelativePath(String relativePath) {
+	public void setAbsolutePath(String absolutePath) {
 		
-		this.setFilename(relativePath);
+		this.setFilename(absolutePath);
 	}
 
 	/**
