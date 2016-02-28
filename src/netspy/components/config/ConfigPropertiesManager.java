@@ -64,7 +64,7 @@ public class ConfigPropertiesManager implements NetSpyGlobals {
 			if (!file.exists()) {
 				file.createNewFile();
 				
-				this.logbox.appendWithDelay("Initialisiere config.properties...");
+				this.logbox.append("Pfad-Konfigurationsdatei wurde neu erstellt.");
 				
 				// createDefaultValues for paths
 				setupDefaultConfig();

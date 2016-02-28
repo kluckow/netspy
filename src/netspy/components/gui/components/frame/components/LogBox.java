@@ -58,41 +58,6 @@ public class LogBox extends JTextArea {
 	}
 
 	/**
-	 * Append with delay.
-	 *
-	 * @param str the str
-	 * @param delay the delay in ms
-	 */
-	public void appendWithDelay(String str) {
-
-		super.append(generateTimestampPrefix());
-		
-		String letter = "";
-		for (int i = 0; i < str.length(); i++){
-			
-			letter = str.substring(i, i+1);
-			super.append(letter);
-			
-			
-			if (!letter.equals(" ") && !letter.equals(System.lineSeparator())) {
-				try {
-					if (i == str.length()) {
-						TimeUnit.MILLISECONDS.sleep(1000);
-					} else {
-						TimeUnit.MILLISECONDS.sleep(200);
-					}
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-					// TODO e
-				}
-				this.update(this.getGraphics());
-			}
-			
-		}
-		super.append(System.lineSeparator());
-	}
-	
-	/**
 	 * Clear.
 	 */
 	public void clear() {

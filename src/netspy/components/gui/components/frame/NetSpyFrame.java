@@ -81,7 +81,7 @@ public class NetSpyFrame extends JFrame {
 	private static final String BUTTON_LABEL_START_SCAN = "Starte Scan";
 
 	/** The Constant BUTTON_LABEL_SHOW_LOG. */
-	private static final String BUTTON_LABEL_SHOW_LOG = "Zeige Logdatei";
+	private static final String BUTTON_LABEL_SHOW_LOG = "Öffne Logdatei";
 	
 	/** The Constant BUTTON_LABEL_SEARCH_FILE. */
 	private static final String BUTTON_LABEL_SEARCH_FILE = "Durchsuchen";
