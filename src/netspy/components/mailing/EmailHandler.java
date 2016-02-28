@@ -315,6 +315,8 @@ public class EmailHandler {
 
 		return email;
 	}
+	
+	 /**
 	 * Gets the blacklist.
 	 *
 	 * @return the blacklist
