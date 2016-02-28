@@ -28,8 +28,8 @@ public class FileManager {
 	/** The Constant BLACKLIST_FILE. */
 	public static final String BLACKLIST_FILE_NAME = "blacklist.txt";
 	
-	/** The Constant BLACKLSIT_ENCODING. */
-	public static final String BLACKLIST_ENCODING = "UTF-8";
+	/** The Constant DEFAULT_ENCODING. */
+	public static final String DEFAULT_ENCODING = "UTF-8";
 	
 	/**
 	 * Gets the files by file extension.
@@ -138,7 +138,7 @@ public class FileManager {
 	public List<String> getBlacklist() {
 		
 		return new TextReader().readFile(new ConfigPropertiesManager().getBlackwordPath(),
-				BLACKLIST_ENCODING);
+				DEFAULT_ENCODING);
 	}
 
 	/**

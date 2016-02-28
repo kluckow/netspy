@@ -98,7 +98,7 @@ public class ConfigPropertiesManager implements NetSpyGlobals {
 	 *
 	 * @return the config properties path
 	 */
-	public String getConfigPropertiesPath() {
+	private String getConfigPropertiesPath() {
 		return configPropertiesPath;
 	}
 
