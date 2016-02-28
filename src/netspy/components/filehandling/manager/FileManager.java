@@ -97,9 +97,7 @@ public class FileManager {
 	 */
 	public String createLogfile() {
 		
-		String date = new SimpleDateFormat(LogManager.LOG_FORMAT_DATE_LOGFILE).format(new Date());
-		String logFilename = date + "-log.txt";
-		String logFileFinal = new ConfigPropertiesManager().getLogPath() + File.separator + logFilename;
+		String logFileFinal = new ConfigPropertiesManager().getLogPath() + File.separator + generateLogfileNameToday();
 		File logFile = new File(logFileFinal);
 		
 		if (logFile.exists()) {
@@ -114,6 +112,18 @@ public class FileManager {
 			}
 			return logFileFinal;
 		}
+	}
+
+	/**
+	 * Generate logfile name today.
+	 *
+	 * @return the string
+	 */
+	public String generateLogfileNameToday() {
+		
+		String date = new SimpleDateFormat(LogManager.LOG_FORMAT_DATE_LOGFILE).format(new Date());
+		String logFilename = date + "-log.txt";
+		return logFilename;
 	}
 
 

@@ -3,9 +3,11 @@
  */
 package netspy.components.gui.components.listeners;
 
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Field;
 
 import javax.swing.JButton;
@@ -43,6 +45,7 @@ public class NetSpyActionListener implements ActionListener {
 	/* (non-Javadoc)
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
+	@SuppressWarnings("static-access")
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
@@ -207,6 +210,29 @@ public class NetSpyActionListener implements ActionListener {
 		case NetSpyFrame.BUTTON_ID_CLEAR_LOGBOX:
 			
 			this.owner.getLogBox().clear();
+			break;
+			
+		case NetSpyFrame.BUTTON_ID_SHOW_LOG:
+			
+			if (Desktop.getDesktop().isDesktopSupported()) {
+				String logpath = new ConfigPropertiesManager().getLogPath()
+						+ File.separator + new FileManager().generateLogfileNameToday();
+				File file = new File(logpath);
+				if (!file.exists()) {
+					new ErrorPopup("Logdatei existiert nicht",
+							"Bitte überprüfen Sie, ob heute schon eine Logdatei erstellt wurde!");
+					break;
+				}
+				try {
+					java.awt.Desktop.getDesktop().edit(file);
+				} catch (IOException e1) {
+					new ErrorPopup("Dateizugriffs-Fehler",
+							"Die Logdatei konnte nicht geöffnet werden!");
+				}
+			} else {
+				new ErrorPopup("Kein Zugriff auf Standard-Editor",
+						"Diese Komponente wird von Ihrem Betriebssystem nicht unterstützt!");
+			}
 			break;
 			
 		default:

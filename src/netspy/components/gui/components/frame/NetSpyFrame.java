@@ -79,6 +79,9 @@ public class NetSpyFrame extends JFrame {
 	
 	/** The Constant BUTTON_LABEL_START_SCAN. */
 	private static final String BUTTON_LABEL_START_SCAN = "Starte Scan";
+
+	/** The Constant BUTTON_LABEL_SHOW_LOG. */
+	private static final String BUTTON_LABEL_SHOW_LOG = "Zeige Logdatei";
 	
 	/** The Constant BUTTON_LABEL_SEARCH_FILE. */
 	private static final String BUTTON_LABEL_SEARCH_FILE = "Durchsuchen";
@@ -120,7 +123,10 @@ public class NetSpyFrame extends JFrame {
     public static final String BUTTON_ID_LOG_PATH = "button_log_path";
 
     /** The Constant BUTTON_ID_START_SCAN. */
-    public static final String BUTTON_ID_START_SCAN = "button_start_scan";
+    public static final String BUTTON_ID_START_SCAN = "button_start_scan";    
+    
+    /** The Constant BUTTON_ID_SHOW_LOG. */
+    public static final String BUTTON_ID_SHOW_LOG = "button_show_log";
     
     /** The Constant BUTTON_ID_TOGGLE_LOG_BOX. */
     public static final String BUTTON_ID_TOGGLE_LOGBOX = "toggle_logbox";
@@ -196,6 +202,9 @@ public class NetSpyFrame extends JFrame {
 
 	/** The dlm black word. */
 	private DefaultListModel<String> dlmBlackWord;
+
+	/** The btn show log. */
+	private JButton btnShowLog;
 	
     /**
      * Instantiates a new my j frame.
@@ -461,8 +470,26 @@ public class NetSpyFrame extends JFrame {
         btnStartScan.addActionListener(actionListener);
         btnStartScan.setPreferredSize(DIMENSION_BUTTON_SIZE);
         this.mainPanel.add(btnStartScan, gbc);
+
+        
+//        BUTTON SHOW LOG
+        // y = 6, x = 8-9, fill none
+        gbc.gridx = 8;
+        gbc.gridy = 6;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.anchor = GridBagConstraints.WEST;
+        btnShowLog = new JButton(BUTTON_LABEL_SHOW_LOG);
+        btnShowLog.setName(BUTTON_ID_SHOW_LOG);
+        btnShowLog.setPreferredSize(DIMENSION_BUTTON_SIZE);
+        btnShowLog.addActionListener(actionListener);
+        btnShowLog.setToolTipText("Sofern eine Logdatei von dem aktuellen Tag existiert,"
+        		+ " wird diese mit Ihrem Standard-Text-Editor geöffnet.");
+        this.mainPanel.add(btnShowLog, gbc);
+        
     }
     
+	
     /**
      * Sets the info box.
      */

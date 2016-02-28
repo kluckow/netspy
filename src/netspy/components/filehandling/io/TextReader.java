@@ -23,15 +23,15 @@ public class TextReader {
 	/**
 	 * Read a file and return lines.
 	 *
-	 * @param relativePathOfFile the filename
+	 * @param absPath the filename
 	 * @param encoding the encoding
 	 * @return the list
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	public List<String> readFile(String relativePathOfFile, String encoding) {
+	public List<String> readFile(String absPath, String encoding) {
 		
 		List<String> lines = new ArrayList<>();
-		File file = new File(relativePathOfFile);
+		File file = new File(absPath);
 		FileInputStream fis;
 		try {
 			fis = new FileInputStream(file);
