@@ -64,7 +64,7 @@ public class Netspy {
      */
     private void finishScan() {
     	
-    	this.logbox.appendWithDelay("Scan abgeschlossen.");
+    	this.logbox.append("Scan abgeschlossen.");
 	}
 
 	/**
@@ -79,6 +79,11 @@ public class Netspy {
             new InfoPopup("Keine Emails vorhanden", "Keine Emails in der Mailbox gefunden. Keine Überprüfung notwendig.");
             return false;
             
+        } else if (new FileManager().getBlacklist().isEmpty()) {
+        	new InfoPopup("Keine Blacklist-Wörter", "Die Blacklist ist leer."
+        			+ " Füge zuerst Wörter hinzu nach denen geprüft werden kann!");
+        	return false;
+        	
         } else {
             this.logbox.clear();
             this.logbox.appendWithDelay("Starte Scan...");

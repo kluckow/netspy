@@ -68,8 +68,11 @@ public class BlacklistActionListener implements ActionListener {
 			if (blackwordToAdd == null) {
 				
 				break;
-			// must not already exist
-			} else if (isValidToAdd(blackwordToAdd)) {
+			}
+			
+			blackwordToAdd = handleWhitespace(blackwordToAdd);
+			
+			if (isValidToAdd(blackwordToAdd)) {
 				
 				// add blackword to file
 				new TextWriter().write(new ConfigPropertiesManager().getBlackwordPath(), blackwordToAdd, true, true);
@@ -95,8 +98,12 @@ public class BlacklistActionListener implements ActionListener {
 			// handle null value (happening on cancel)
 			if (newBlackword == null) {
 				break;
-			// TODO: validate input
-			} else if (isValidToAdd(newBlackword) && !blackwordToEdit.equals(newBlackword)){
+			}
+			
+			// remove whitespaces
+			blackwordToEdit = handleWhitespace(blackwordToEdit);
+			
+			if (isValidToAdd(newBlackword) && !blackwordToEdit.equals(newBlackword)) {
 				
 				// remove blackword
 				new FileManager().remove(new ConfigPropertiesManager()
@@ -140,6 +147,20 @@ public class BlacklistActionListener implements ActionListener {
 	}
 
 	/**
+	 * Handle whitespace.
+	 *
+	 * @param str the str
+	 * @return the string
+	 */
+	private String handleWhitespace(String str) {
+		str = str.trim();
+		String twoWhitespacesOrMore = "\\s{2,}";
+		String singleWhitespace =  " ";
+		str = str.replaceAll(twoWhitespacesOrMore, singleWhitespace);
+		return str;
+	}
+
+	/**
 	 * Sort alphabetically.
 	 *
 	 * @param dlm the dlm
@@ -179,11 +200,6 @@ public class BlacklistActionListener implements ActionListener {
 	 */
 	private boolean isValidToAdd(String blackwordToAdd) {
 		
-		// remove whitespaces
-		blackwordToAdd = blackwordToAdd.trim();
-		String twoWhitespacesOrMore = "\\s{2,}";
-		String singleWhitespace = "\\s";
-		blackwordToAdd = blackwordToAdd.replaceAll(twoWhitespacesOrMore, singleWhitespace);
 		Pattern whitespacePattern = Pattern.compile("\\s");
 		
 		// handle empty/whitespace input
