@@ -31,7 +31,6 @@ public class LogBox extends JTextArea {
 	/**
 	 * Prepend timestamp.
 	 *
-	 * @param str the str
 	 * @return the string
 	 */
 	private String generateTimestampPrefix() {
@@ -45,27 +44,38 @@ public class LogBox extends JTextArea {
 	@Override
 	public void append(String str) {
 		
-		// without any delay
 		super.append(generateTimestampPrefix());
 		
 		try {
-			TimeUnit.MILLISECONDS.sleep(500);
 			super.append(str + System.lineSeparator());
+			this.update(this.getGraphics());
+			// timeout for better feel, bad solution though since complete is GUI frozen
+			TimeUnit.MILLISECONDS.sleep(500);
 		} catch (InterruptedException e) {
 			this.clear();
-			this.append("Aufgrund einer Unterbrechung eines Prozesses wird die Ausgabe in dieses Logfenster unterbrochen."
+			super.append("Aufgrund einer Unterbrechung eines Prozesses wird die Ausgabe in dieses Logfenster unterbrochen."
 			+ System.lineSeparator());
-			this.append("Leere Logfenster...");
+			super.append("Leere Logfenster...");
 			this.clear();
 			return;
 		}
-		this.update(this.getGraphics());
 	}
 
+	/**
+	 * Append without delay.
+	 *
+	 * @param str the str
+	 */
+	public void appendWithoutDelay(String str) {
+		
+		super.append(generateTimestampPrefix() + str + System.lineSeparator());
+	}
+	
 	/**
 	 * Clear.
 	 */
 	public void clear() {
+		
 		setText("");
 	}
 

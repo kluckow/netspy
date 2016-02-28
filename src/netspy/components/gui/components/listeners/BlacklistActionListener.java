@@ -50,6 +50,7 @@ public class BlacklistActionListener implements ActionListener {
 	 *
 	 * @param blackWordList the black word list
 	 * @param dlm the dlm
+	 * @param logbox the logbox
 	 */
 	public BlacklistActionListener(JList<String> blackWordList, DefaultListModel<String> dlm, LogBox logbox) {
 		this.blackwordList = blackWordList;
@@ -64,6 +65,7 @@ public class BlacklistActionListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		switch ( ((JButton) e.getSource()).getName() ) {
+		
 		case NetSpyFrame.BUTTON_ID_BLACKWORD_ADD:
 			
 			String blackwordToAdd = "";
@@ -76,10 +78,11 @@ public class BlacklistActionListener implements ActionListener {
 			blackwordToAdd = handleWhitespace(blackwordToAdd);
 			
 			// process add blackword
-			if (isValidToAdd(blackwordToAdd)) {
+			if (dlm.contains(blackwordToAdd.toLowerCase())) {
+				new ErrorPopup("Fehlerhafte Eingabe", "Ihr eingegebenes Blackword exitiert bereits!");
+				break;
+			} else if (isValidToAdd(blackwordToAdd)) {
 				
-				// add blackword to file
-				new TextWriter().write(new ConfigPropertiesManager().getBlackwordPath(), blackwordToAdd, true, true);
 				// add blackword to gui component
 				dlm.addElement(blackwordToAdd.toLowerCase());
 				
@@ -91,10 +94,13 @@ public class BlacklistActionListener implements ActionListener {
 				blackwordList.setSelectedIndex(indexAfter);
 				blackwordList.ensureIndexIsVisible(indexAfter);
 				
-				this.logbox.append("Blacklist-Wort '" + blackwordToAdd + "' wurde erfolgreich hinzugefügt.");
+				// add blackword to file
+				new TextWriter().write(new ConfigPropertiesManager().getBlackwordPath(), blackwordToAdd, true, true);
+				
+				this.logbox.appendWithoutDelay("Blacklist-Wort '" + blackwordToAdd + "' wurde erfolgreich hinzugefügt.");
 			}
-
 			break;
+			
 		case NetSpyFrame.BUTTON_ID_BLACKWORD_EDIT:
 			
 			int indexBefore = blackwordList.getSelectedIndex();
@@ -107,14 +113,8 @@ public class BlacklistActionListener implements ActionListener {
 			// remove whitespaces
 			blackwordToEdit = handleWhitespace(blackwordToEdit);
 			
+			// process edit blackword
 			if (isValidToAdd(newBlackword) && !blackwordToEdit.equals(newBlackword)) {
-				
-				// remove blackword from file
-				new FileManager().remove(new ConfigPropertiesManager()
-						.getBlackwordPath(), blackwordToEdit);
-				// insert blackword to file
-				new FileManager().insert(new ConfigPropertiesManager()
-						.getBlackwordPath(), newBlackword);
 				
 				// update dlm entry
 				dlm.set(indexBefore, newBlackword);
@@ -126,8 +126,15 @@ public class BlacklistActionListener implements ActionListener {
 				blackwordList.setSelectedIndex(indexAfter);
 				blackwordList.ensureIndexIsVisible(indexAfter);
 				
+				// remove blackword from file
+				new FileManager().remove(new ConfigPropertiesManager()
+						.getBlackwordPath(), blackwordToEdit);
+				// insert blackword to file
+				new FileManager().insert(new ConfigPropertiesManager()
+						.getBlackwordPath(), newBlackword);
+				
 				// print info text about edited entry
-				this.logbox.append("Blacklist-Wort '" + blackwordToEdit + "' wurde erfolgreich in '" + newBlackword + "' geändert.");
+				this.logbox.appendWithoutDelay("Blacklist-Wort '" + blackwordToEdit + "' wurde erfolgreich in '" + newBlackword + "' geändert.");
 			}
 			break;
 			
@@ -140,7 +147,7 @@ public class BlacklistActionListener implements ActionListener {
 			dlm.remove(selectedIndex);
 			
 			// print info text about deleted entry
-			this.logbox.append("Blacklist-Wort '" + deleteBlackword + "' wurde erfolgreich gelöscht.");
+			this.logbox.appendWithoutDelay("Blacklist-Wort '" + deleteBlackword + "' wurde erfolgreich gelöscht.");
 			break;
 			
 		case NetSpyFrame.BUTTON_ID_BLACKWORD_DELETE_ALL:
@@ -152,7 +159,7 @@ public class BlacklistActionListener implements ActionListener {
 			dlm.removeAllElements();
 			
 			// print info text about delete all
-			this.logbox.append("Alle Blacklist-Wörter wurden erfolgreich gelöscht.");
+			this.logbox.appendWithoutDelay("Alle Blacklist-Wörter wurden erfolgreich gelöscht.");
 			break;
 
 		default:
@@ -227,10 +234,6 @@ public class BlacklistActionListener implements ActionListener {
 		if ("".equals(blackwordToAdd) || whitespacePattern.equals(blackwordToAdd)) {
 			new InfoPopup("Fehlerhafte Eingabe",
 					"Bitte überprüfen Sie Ihre Eingabe!");
-			return false;
-		} else if (dlm.contains(blackwordToAdd.toLowerCase())) {
-			new ErrorPopup("Fehlerhafte Eingabe",
-					"Ihr eingegebenes Blackword exitiert bereits!");
 			return false;
 		}
 		return true;

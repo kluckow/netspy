@@ -21,6 +21,8 @@ public class TextWriter {
 	 *
 	 * @param absPath the absolute path of file
 	 * @param line the line
+	 * @param append the append
+	 * @param lowercase the lowercase
 	 */
 	public void write(String absPath, String line, boolean append, boolean lowercase) {
 		
@@ -42,6 +44,15 @@ public class TextWriter {
 		        + absPath + " aufgetreten!");
 		}
 	}
+	
+	/**
+	 * Write.
+	 *
+	 * @param absPath the abs path
+	 * @param lines the lines
+	 * @param append the append
+	 * @param lowercase the lowercase
+	 */
 	public void write(String absPath, List<String> lines, boolean append, boolean lowercase) {
 		
 		FileWriter fWriter;

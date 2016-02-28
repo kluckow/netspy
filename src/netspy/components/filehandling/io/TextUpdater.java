@@ -32,7 +32,7 @@ public class TextUpdater {
 	 */
 	public void remove(String absPath, String str) {
 		
-		List<String> oldContent = new TextReader().readFile(absPath, FileManager.BLACKLIST_ENCODING);
+		List<String> oldContent = new TextReader().readFile(absPath, FileManager.DEFAULT_ENCODING);
 		List<String> tempContent = new ArrayList<String>();
 		
 		for (String fileStr : oldContent) {

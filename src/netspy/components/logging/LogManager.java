@@ -26,7 +26,7 @@ public class LogManager {
 	/**
 	 * Log.
 	 *
-	 * @param scanResult the scan result
+	 * @param email the email
 	 */
 	public void log(Email email) {
 		

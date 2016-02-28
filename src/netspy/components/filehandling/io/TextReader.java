@@ -6,10 +6,8 @@ package netspy.components.filehandling.io;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +24,6 @@ public class TextReader {
 	 * @param absPath the filename
 	 * @param encoding the encoding
 	 * @return the list
-	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public List<String> readFile(String absPath, String encoding) {
 		
@@ -44,46 +41,49 @@ public class TextReader {
 				lines.add(line);
 			}
 			br.close();
-		} catch (FileNotFoundException e) {
-			new ErrorPopup("Datei nicht gefunden", "Es ist ein Fehler beim Lokalisieren einer Datei aufgetreten!");
-		} catch (UnsupportedEncodingException e) {
-			new ErrorPopup("Datei-Encoding-Fehler", "Es ist ein Encoding-Fehler beim Lesen einer Datei aufgetreten");
 		} catch (IOException e) {
+			// FileNotFoundException and UnsupportedEncodingException, but not interesting for user
 			new ErrorPopup("Datei-Lesefehler", "Es ist ein Problem "
 					+ "beim Lesen einer Datei aufgetreten!");
 		}
-		
 		return lines;
 	}
 	
 	/**
 	 * Read file.
 	 *
-	 * @param relativePathOfFile the relative path of file
+	 * @param absolutePathOfFile the absolute path of file
 	 * @param encoding the encoding
 	 * @param stopper the stopper
 	 * @return the list
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	public List<String> readFile(String relativePathOfFile, String encoding, String stopper) throws IOException {
+	public List<String> readFile(String absolutePathOfFile, String encoding, String stopper) {
 		
 		List<String> lines = new ArrayList<>();
-		File file = new File(relativePathOfFile);
-		FileInputStream fis = new FileInputStream(file);
-		BufferedReader br = new BufferedReader(new InputStreamReader(fis, encoding));
-		
-		String line = null;
-		
-		while ((line = br.readLine()) != null) {
+		File file = new File(absolutePathOfFile);
+		FileInputStream fis;
+		try {
+			fis = new FileInputStream(file);
+			BufferedReader br = new BufferedReader(new InputStreamReader(fis, encoding));
 			
-			if (line.startsWith(stopper)) {
-				break;
-			} else {
-				lines.add(line);
+			String line = null;
+			
+			while ((line = br.readLine()) != null) {
+				
+				if (line.startsWith(stopper)) {
+					break;
+				} else {
+					lines.add(line);
+				}
 			}
+			br.close();
+		} catch (IOException e) {
+			// FileNotFoundException and UnsupportedEncodingException, but not interesting for user
+			new ErrorPopup("Datei-Lesefehler",
+					"Es ist ein Problem beim Lesen einer Datei aufgetreten!");
 		}
-		br.close();
-		
 		return lines;
 	}
+	
 }

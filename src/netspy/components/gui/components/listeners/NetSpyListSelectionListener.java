@@ -25,9 +25,6 @@ public class NetSpyListSelectionListener implements ListSelectionListener {
 	/** The frame. */
 	private NetSpyFrame frame;
 	
-	/** The blackword list. */
-	private JList<String> blackwordList;
-
 	/**
 	 * Instantiates a new net spy list selection listener.
 	 *
@@ -35,7 +32,6 @@ public class NetSpyListSelectionListener implements ListSelectionListener {
 	 */
 	public NetSpyListSelectionListener(NetSpyFrame frame) {
 		this.frame = frame;
-		this.blackwordList = this.frame.getBlackwordList();
 	}
 
 	/* (non-Javadoc)
@@ -45,22 +41,27 @@ public class NetSpyListSelectionListener implements ListSelectionListener {
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
 		
-		this.blackwordList = (JList<String>) e.getSource();
-		
+		switch ( ((JList<String>) e.getSource()).getSelectedIndex() ) {
 		
 		// if nothing is selected
-		if (blackwordList.getSelectedIndex() == -1) {
+		case JList.UNDEFINED_CONDITION:
+			
 			frame.getBtnEditBlackWord().setEnabled(false);
 			frame.getBtnDeleteBlackWord().setEnabled(false);
 			// and blacklist is empty
 			if (frame.getDlmBlackWord().isEmpty()) {
 				frame.getBtnDeleteAllBlackwords().setEnabled(false);
 			}
-		} else {
+			break;
+
+		// by default there is a selected entry
+		default:
 			frame.getBtnEditBlackWord().setEnabled(true);
 			frame.getBtnDeleteBlackWord().setEnabled(true);
 			frame.getBtnDeleteAllBlackwords().setEnabled(true);
+			break;
 		}
+		
 	}
 
 }

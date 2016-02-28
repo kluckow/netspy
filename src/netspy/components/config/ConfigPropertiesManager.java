@@ -40,6 +40,8 @@ public class ConfigPropertiesManager implements NetSpyGlobals {
 	
 	/**
 	 * Instantiates a new config properties manager.
+	 *
+	 * @param logbox the logbox
 	 */
 	public ConfigPropertiesManager(LogBox logbox) {
 		
@@ -64,7 +66,7 @@ public class ConfigPropertiesManager implements NetSpyGlobals {
 			if (!file.exists()) {
 				file.createNewFile();
 				
-				this.logbox.append("Pfad-Konfigurationsdatei wurde neu erstellt.");
+				this.logbox.appendWithoutDelay("Pfad-Konfigurationsdatei wurde neu erstellt.");
 				
 				// createDefaultValues for paths
 				setupDefaultConfig();
@@ -96,7 +98,7 @@ public class ConfigPropertiesManager implements NetSpyGlobals {
 	 *
 	 * @return the config properties path
 	 */
-	public String getConfigPropertiesPath() {
+	private String getConfigPropertiesPath() {
 		return configPropertiesPath;
 	}
 

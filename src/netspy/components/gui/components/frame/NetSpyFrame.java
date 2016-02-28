@@ -451,7 +451,7 @@ public class NetSpyFrame extends JFrame {
         btnClearLogBox.addActionListener(actionListener);
         this.mainPanel.add(btnClearLogBox, gbc);
         
-        // y = 6, x = 2-3, free space
+        // y = 6, x = 2-5, free space
         
 //        BUTTON START SCAN
         // y = 6, x = 6-7, fill horizontal
@@ -465,7 +465,6 @@ public class NetSpyFrame extends JFrame {
         btnStartScan.setPreferredSize(DIMENSION_BUTTON_SIZE);
         this.mainPanel.add(btnStartScan, gbc);
 
-        
 //        BUTTON SHOW LOG
         // y = 6, x = 8-9, fill none
         gbc.gridx = 8;
@@ -516,17 +515,17 @@ public class NetSpyFrame extends JFrame {
 		getBlackwordList().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		loadBlackwordBox(getDlmBlackWord());
 		
-		// y = 1-4, x = 10-11, fill both
+		// y = 1-4, x = 10-11, fill none
 		gbc.gridx = 10;
 		gbc.gridy = 1;
 		gbc.gridwidth = 2;
 		gbc.gridheight = 6;
-		gbc.fill = GridBagConstraints.HORIZONTAL;
+		gbc.fill = GridBagConstraints.NONE;
 		gbc.anchor = GridBagConstraints.NORTHWEST;
 		
 		getBlackwordList().setBackground(Color.WHITE);
 		blacklistScrollPane = new JScrollPane(this.getBlackwordScrollPane());
-		blacklistScrollPane.setPreferredSize(new Dimension(150, 190));
+		blacklistScrollPane.setPreferredSize(new Dimension(150, 187));
 		blacklistScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		blacklistScrollPane.setViewportView(getBlackwordList());
 		
@@ -586,7 +585,7 @@ public class NetSpyFrame extends JFrame {
 		getBtnDeleteAllBlackwords().setPreferredSize(DIMENSION_BUTTON_SIZE);
 		this.mainPanel.add(getBtnDeleteAllBlackwords(), gbc);
 		
-		// add selection listener to JList and select first entry
+		// add list selection listener to JList and select first entry
 		getBlackwordList().addListSelectionListener(listSelectionListener);
 		if (getDlmBlackWord().size() > 0) {
 			getBlackwordList().setSelectedIndex(0);

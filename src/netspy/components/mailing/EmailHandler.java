@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 import netspy.components.config.ConfigPropertiesManager;
-import netspy.components.filehandling.lists.Blacklist;
 import netspy.components.filehandling.manager.FileManager;
 import netspy.components.gui.components.frame.components.LogBox;
 import netspy.components.logging.LogManager;
@@ -24,9 +23,6 @@ public class EmailHandler {
 	
 	/** The Constant SECURITY_LEVEL. */
 	private static final int SECURITY_LEVEL = 6;
-	
-	/** The Constant EML_FILE_EXTENSION. */
-	public static final String EML_FILE_EXTENSION = ".eml";
 
 	/** The Constant HTML_MAIL_PART_START_IDENTIFIER. */
 	private static final String HTML_MAIL_PART_START_IDENTIFIER = "Content-Type: text/html;";
@@ -49,6 +45,11 @@ public class EmailHandler {
 	/** The logbox. */
 	private LogBox logbox;
 		
+	/**
+	 * Instantiates a new email handler.
+	 *
+	 * @param logbox the logbox
+	 */
 	public EmailHandler(LogBox logbox) {
 		
 		this.logbox = logbox;
@@ -70,7 +71,8 @@ public class EmailHandler {
 	 * @return the eml files
 	 */
 	public List<File> getEmlFiles() {
-		return new FileManager().getFilesByExtension(EML_FILE_EXTENSION,
+		
+		return new FileManager().getFilesByExtension(FileManager.EML_FILE_EXTENSION,
 			new ConfigPropertiesManager().getInboxPath());
 	}
 	
@@ -252,12 +254,12 @@ public class EmailHandler {
 			msg = "Es wurden " + counterSuspiciousMails + " verdächtige Emails gefunden.";
 			break;
 		}
+		
 		this.logbox.append(msg);
 		
 		if (addAdditionalInfoLine) {
-			
 			msg = "Weitere Details dazu befinden sich in der Logdatei.";
-			this.logbox.append(msg);
+			this.logbox.appendWithoutDelay(msg);
 		}
 		
 	}
@@ -313,15 +315,13 @@ public class EmailHandler {
 
 		return email;
 	}
-
-	/**
 	 * Gets the blacklist.
 	 *
 	 * @return the blacklist
 	 */
 	private List<String> getBlacklist() {
 		
-        return new Blacklist(new FileManager().getBlacklist()).getBlacklist();
+        return new FileManager().getBlacklist();
 	}
 
 	/**
@@ -331,13 +331,9 @@ public class EmailHandler {
 	 * @return the mail content
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	public List<String> getMailContent(File file) throws IOException {
+	public List<String> getMailContent(File file) {
 		
 		return new FileManager().readFile(file.getPath(), "UTF-8", HTML_MAIL_PART_START_IDENTIFIER);
-	}
-
-	public LogBox getLogbox() {
-		return logbox;
 	}
 
 }
