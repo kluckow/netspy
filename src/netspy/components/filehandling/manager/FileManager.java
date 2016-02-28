@@ -71,7 +71,7 @@ public class FileManager {
 	 * @return the list
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	public List<String> readFile(String filename, String encoding) throws IOException {
+	private List<String> readFile(String filename, String encoding) throws IOException {
 		
 		return new TextReader().readFile(filename, encoding);
 	}

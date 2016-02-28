@@ -313,12 +313,6 @@ public class EmailHandler {
 
 		return email;
 	}
-	
-	/**
-	 * Log results.
-	 */
-	public void logResults() {
-	}
 
 	/**
 	 * Gets the blacklist.

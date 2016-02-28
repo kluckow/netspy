@@ -46,8 +46,5 @@ public class LogManager {
 		
 		new FileManager().log(new FileManager().createLogfile(), logLine);
 	}
-	public void generateLogfileName() {
-		
-	}
 	
 }

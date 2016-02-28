@@ -32,14 +32,4 @@ public class Blacklist {
 		
 		return blacklist;
 	}
-
-	/**
-	 * Sets the blacklist.
-	 *
-	 * @param blacklist the new blacklist
-	 */
-	public void setBlacklist(List<String> blacklist) {
-		
-		this.blacklist = blacklist;
-	}
 }

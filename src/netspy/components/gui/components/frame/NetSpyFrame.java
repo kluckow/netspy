@@ -42,7 +42,7 @@ public class NetSpyFrame extends JFrame {
 	private static final long serialVersionUID = -2357381332647405895L;
 	
 	/** The Constant APPLICATION_TITLE. */
-	public static final String APPLICATION_TITLE = "NetSpy 2";
+	private static final String APPLICATION_TITLE = "NetSpy 2";
 	
 	/** The Constant INPUT_ID_LOG_PATH. */
 	private static final String INPUT_ID_LOG_PATH = "input_log_path";
@@ -68,14 +68,8 @@ public class NetSpyFrame extends JFrame {
 	/** The Constant LABEL_MAIL_PATH. */
 	private static final String LABEL_MAIL_PATH = "Mail-Verzeichnis:";
 	
-	/** The Constant BUTTON_LABEL_HIDE_LOG_BOX. */
-	public static final String BUTTON_LABEL_HIDE_LOGBOX = "Log ausblenden";
-	
 	/** The Constant BUTTON_LABEL_CLEAR_LOGBOX. */
 	private static final String BUTTON_LABEL_CLEAR_LOGBOX = "Log leeren";
-	
-	/** The Constant BUTTON_LABEL_SHOW_LOG_BOX. */
-	public static final String BUTTON_LABEL_SHOW_LOGBOX = "Log einblenden";
 	
 	/** The Constant BUTTON_LABEL_START_SCAN. */
 	private static final String BUTTON_LABEL_START_SCAN = "Starte Scan";
@@ -180,7 +174,7 @@ public class NetSpyFrame extends JFrame {
 	private GridBagConstraints gbc = new GridBagConstraints();
 	
 	/** The prop conf. */
-	ConfigPropertiesManager propConf;
+	private ConfigPropertiesManager propConf;
 
 	/** The blacklist scroll pane. */
 	private JScrollPane blacklistScrollPane;
@@ -514,7 +508,7 @@ public class NetSpyFrame extends JFrame {
 	 * Sets the black word box.
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public void setBlackWordBox(){
+	private void setBlackWordBox(){
 		
 		// DEFAULT LIST MODEL
 		setDlmBlackWord(new DefaultListModel<String>());
@@ -611,7 +605,7 @@ public class NetSpyFrame extends JFrame {
      * @param dlm the dlm_ black word
      * @return the array list
      */
-	public void loadBlackwordBox(DefaultListModel<String> dlm) {
+	private void loadBlackwordBox(DefaultListModel<String> dlm) {
 		
 		List<String> blacklist = new FileManager().getBlacklist();
 		if (blacklist != null) {
