@@ -69,7 +69,8 @@ public class NetSpyActionListener implements ActionListener {
                 // check with file-names
                 } else if (fileMailPath.isFile()) {
                 	if (!fileMailPath.getName().endsWith(EmailHandler.EML_FILE_EXTENSION)) {
-                		new ErrorPopup("Ungültige Dateierweiterung", "Es sind nur .eml-Dateien erlaubt!");
+                		new ErrorPopup("Ungültige Dateierweiterung",
+                				"Es sind nur .eml-Dateien oder Verzeichnisse erlaubt!");
                 		break;
                 	} else {
                 		this.owner.getInputMailPath().setText(fileMailPath.getAbsolutePath());
