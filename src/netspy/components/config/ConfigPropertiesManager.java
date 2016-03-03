@@ -15,7 +15,7 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.configuration.PropertiesConfigurationLayout;
 
-import netspy.components.gui.components.frame.components.LogBox;
+import netspy.components.gui.components.frame.components.Logbox;
 import netspy.components.gui.components.popups.ErrorPopup;
 
 /**
@@ -27,7 +27,7 @@ public class ConfigPropertiesManager implements NetSpyGlobals {
 	private String configPropertiesPath;
 
 	/** The logbox. */
-	private LogBox logbox;
+	private Logbox logbox;
 	
 	/**
 	 * Instantiates a new config properties manager.
@@ -43,7 +43,7 @@ public class ConfigPropertiesManager implements NetSpyGlobals {
 	 *
 	 * @param logbox the logbox
 	 */
-	public ConfigPropertiesManager(LogBox logbox) {
+	public ConfigPropertiesManager(Logbox logbox) {
 		
 		this();
 		this.logbox = logbox;

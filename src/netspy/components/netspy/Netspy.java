@@ -7,7 +7,7 @@ import java.io.File;
 import java.util.List;
 
 import netspy.components.filehandling.manager.FileManager;
-import netspy.components.gui.components.frame.components.LogBox;
+import netspy.components.gui.components.frame.components.Logbox;
 import netspy.components.gui.components.popups.InfoPopup;
 import netspy.components.mailing.Email;
 import netspy.components.mailing.EmailHandler;
@@ -21,14 +21,14 @@ public class Netspy {
     private EmailHandler emailHandler;
 	
 	/** The logbox. */
-	private LogBox logbox;
+	private Logbox logbox;
     
     /**
      * Start.
      *
      * @param logbox the logbox
      */
-    public void start(LogBox logbox) {
+    public void start(Logbox logbox) {
     	
     	this.logbox = logbox;
     	this.emailHandler = new EmailHandler(this.logbox);

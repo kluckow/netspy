@@ -13,7 +13,7 @@ import javax.swing.JTextArea;
 /**
  * The Class LogBox.
  */
-public class LogBox extends JTextArea {
+public class Logbox extends JTextArea {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 9108921515991796683L;
@@ -21,7 +21,7 @@ public class LogBox extends JTextArea {
 	/**
 	 * Instantiates a new log box.
 	 */
-	public LogBox() {
+	public Logbox() {
 		super();
         setEditable(false);
         setBackground(Color.BLACK);

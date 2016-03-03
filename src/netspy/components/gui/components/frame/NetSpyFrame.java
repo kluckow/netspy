@@ -25,7 +25,7 @@ import javax.swing.ScrollPaneConstants;
 
 import netspy.components.config.ConfigPropertiesManager;
 import netspy.components.filehandling.manager.FileManager;
-import netspy.components.gui.components.frame.components.LogBox;
+import netspy.components.gui.components.frame.components.Logbox;
 import netspy.components.gui.components.listeners.BlacklistActionListener;
 import netspy.components.gui.components.listeners.NetSpyActionListener;
 import netspy.components.gui.components.listeners.NetSpyListSelectionListener;
@@ -162,7 +162,7 @@ public class NetSpyFrame extends JFrame {
 	private JScrollPane blackwordScrollPane;
 		
 	/** The log box. */
-	private LogBox logBox = new LogBox();
+	private Logbox logBox = new Logbox();
 	
 	/** The main panel. */
 	private JPanel mainPanel = new JPanel();
@@ -700,7 +700,7 @@ public class NetSpyFrame extends JFrame {
 	 *
 	 * @return the log box
 	 */
-	public LogBox getLogBox() {
+	public Logbox getLogBox() {
 		return this.logBox;
 	}
 
@@ -709,7 +709,7 @@ public class NetSpyFrame extends JFrame {
 	 *
 	 * @param logBox the new log box
 	 */
-	public void setLogBox(LogBox logBox) {
+	public void setLogBox(Logbox logBox) {
 		this.logBox = logBox;
 	}
 

@@ -11,7 +11,7 @@ import java.util.Map;
 
 import netspy.components.config.ConfigPropertiesManager;
 import netspy.components.filehandling.manager.FileManager;
-import netspy.components.gui.components.frame.components.LogBox;
+import netspy.components.gui.components.frame.components.Logbox;
 import netspy.components.logging.LogManager;
 import netspy.components.util.DateHelper;
 import netspy.components.util.StringHelper;
@@ -43,14 +43,14 @@ public class EmailHandler {
 	private EmailContainer mailContainer = new EmailContainer();
 
 	/** The logbox. */
-	private LogBox logbox;
+	private Logbox logbox;
 		
 	/**
 	 * Instantiates a new email handler.
 	 *
 	 * @param logbox the logbox
 	 */
-	public EmailHandler(LogBox logbox) {
+	public EmailHandler(Logbox logbox) {
 		
 		this.logbox = logbox;
 	}

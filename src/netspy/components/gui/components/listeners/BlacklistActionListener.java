@@ -19,7 +19,7 @@ import netspy.components.config.ConfigPropertiesManager;
 import netspy.components.filehandling.io.TextWriter;
 import netspy.components.filehandling.manager.FileManager;
 import netspy.components.gui.components.frame.NetSpyFrame;
-import netspy.components.gui.components.frame.components.LogBox;
+import netspy.components.gui.components.frame.components.Logbox;
 import netspy.components.gui.components.popups.ErrorPopup;
 import netspy.components.gui.components.popups.InfoPopup;
 
@@ -43,7 +43,7 @@ public class BlacklistActionListener implements ActionListener {
 	private DefaultListModel<String> dlm;
 
 	/** The logbox. */
-	private LogBox logbox;
+	private Logbox logbox;
 
 	/**
 	 * Instantiates a new blacklist action listener.
@@ -52,7 +52,7 @@ public class BlacklistActionListener implements ActionListener {
 	 * @param dlm the dlm
 	 * @param logbox the logbox
 	 */
-	public BlacklistActionListener(JList<String> blackWordList, DefaultListModel<String> dlm, LogBox logbox) {
+	public BlacklistActionListener(JList<String> blackWordList, DefaultListModel<String> dlm, Logbox logbox) {
 		this.blackwordList = blackWordList;
 		this.dlm = dlm;
 		this.logbox = logbox;
