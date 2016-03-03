@@ -129,7 +129,6 @@ public class FileManager {
 		return logFilename;
 	}
 
-
 	/**
 	 * Gets the blacklist.
 	 *
@@ -157,8 +156,8 @@ public class FileManager {
 		} else if (destFile.exists()){
 			
 			try {
-				List<String> srcLines = new FileManager().readFile(srcFile.getAbsolutePath(), "UTF-8");
-				List<String> destLines = new FileManager().readFile(destFile.getAbsolutePath(), "UTF-8");
+				List<String> srcLines = new FileManager().readFile(srcFile.getAbsolutePath(), FileManager.DEFAULT_ENCODING);
+				List<String> destLines = new FileManager().readFile(destFile.getAbsolutePath(), FileManager.DEFAULT_ENCODING);
 				if (srcLines.equals(destLines)) {
 					
 					srcFile.delete();

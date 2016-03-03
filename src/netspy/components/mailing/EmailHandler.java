@@ -202,7 +202,7 @@ public class EmailHandler {
 			List<String> mailContent = null;
 			mailContent = email.getLines();
 			
-//			replace ascii, then to lower case
+			// replace ascii, then to lower case
 			mailContent = new StringHelper().toLowerCase(new StringHelper().replaceAscii(mailContent));
 			email.setLines(mailContent);
 			
@@ -212,7 +212,6 @@ public class EmailHandler {
 			// just if mail is suspicious, get its properties,
 			// else remove mail and go to next mail
 			if (!email.isSuspicious()) {
-				
 				continue;
 			}
 		}
@@ -335,7 +334,7 @@ public class EmailHandler {
 	 */
 	public List<String> getMailContent(File file) {
 		
-		return new FileManager().readFile(file.getPath(), "UTF-8", HTML_MAIL_PART_START_IDENTIFIER);
+		return new FileManager().readFile(file.getPath(), FileManager.DEFAULT_ENCODING, HTML_MAIL_PART_START_IDENTIFIER);
 	}
 
 }

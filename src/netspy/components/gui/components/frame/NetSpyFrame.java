@@ -270,18 +270,16 @@ public class NetSpyFrame extends JFrame {
         
         this.mainPanel.add(titlePanel, gbc);
     	gbc.fill = GridBagConstraints.NONE;
-
     }
 
     /**
      * Sets the form layout.
      */
-    
 	private void setFormLayout() {
 
-//        MAIL PATH
+        // MAIL PATH
         
-//        LABEL
+        // LABEL
     	// y = 1, x = 0-1, fill none
         gbc.gridx = 0;
         gbc.gridy = 1;
@@ -292,7 +290,7 @@ public class NetSpyFrame extends JFrame {
         this.mainPanel.add(labelMailPath, gbc);
 
         
-//        INPUT
+        // INPUT
         // y = 1, x = 2-5, fill horizontal
         gbc.gridx = 2;
         gbc.gridy = 1;
@@ -306,7 +304,7 @@ public class NetSpyFrame extends JFrame {
         		+ " Verzeichnis, in dem alle .eml-Dateien durchsucht werden sollen.");
         this.mainPanel.add(this.inputMailPath, gbc);
 
-//        BUTTON FOR CHOOSER
+        // BUTTON FOR CHOOSER
         // y = 1, x = 6-7, fill horizontal
         gbc.gridx = 6;
         gbc.gridy = 1;
@@ -317,9 +315,9 @@ public class NetSpyFrame extends JFrame {
         btnOpenMailPathChooser.setPreferredSize(DIMENSION_BUTTON_SIZE);
         this.mainPanel.add(btnOpenMailPathChooser, gbc);
 
-//        BLACKWORD PATH
+        // BLACKWORD PATH
         
-//        LABEL
+        // LABEL
         // y = 2, x = 0-1, fill none
         gbc.gridx = 0;
         gbc.gridy = 2;
@@ -328,7 +326,7 @@ public class NetSpyFrame extends JFrame {
         lblBlackword.setSize(DIMENSION_LABEL_SIZE);
         this.mainPanel.add(lblBlackword, gbc);
 
-//        INPUT
+        // INPUT
         // y = 2, x = 2-5, fill horizontal
         gbc.gridx = 2;
         gbc.gridy = 2;
@@ -342,7 +340,7 @@ public class NetSpyFrame extends JFrame {
         		+ "welcher die Emails überprüft werden sollen.");
         this.mainPanel.add(this.inputBlackwordPath, gbc);
 
-//        BUTTON FOR CHOOSER
+        // BUTTON FOR CHOOSER
         // y = 2, x = 6-7, fill horizontal
         gbc.gridx = 6;
         gbc.gridy = 2;
@@ -353,9 +351,9 @@ public class NetSpyFrame extends JFrame {
         btnOpenBlackwordPathChooser.setPreferredSize(DIMENSION_BUTTON_SIZE);
         this.mainPanel.add(btnOpenBlackwordPathChooser, gbc);
 
-//        LOG PATH
+        // LOG PATH
         
-//        LABEL
+        // LABEL
         // y = 3, x = 0-1, fill none
         gbc.gridx = 0;
         gbc.gridy = 3;
@@ -364,7 +362,7 @@ public class NetSpyFrame extends JFrame {
         lblLogPath.setSize(DIMENSION_LABEL_SIZE);
         this.mainPanel.add(lblLogPath, gbc);
 
-//        INPUT
+        // INPUT
         // y = 3, x = 2-5, fill horizontal
         gbc.gridx = 2;
         gbc.gridy = 3;
@@ -378,7 +376,7 @@ public class NetSpyFrame extends JFrame {
         		+ "Dort werden die Informationen über verdächtige Emails gespeichert.");
         this.mainPanel.add(this.inputLogPath, gbc);
 
-//        BUTTON FOR CHOOSER
+        // BUTTON FOR CHOOSER
         // y = 3, x = 6-7, fill horizontal
         gbc.gridx = 6;
         gbc.gridy = 3;
@@ -389,9 +387,9 @@ public class NetSpyFrame extends JFrame {
         btnOpenLogPathChooser.setPreferredSize(DIMENSION_BUTTON_SIZE);
         this.mainPanel.add(btnOpenLogPathChooser, gbc);
 
-//        QUARANTINE PATH
+        // QUARANTINE PATH
         
-//        LABEL
+        // LABEL
     	// y = 4, x = 0-1, fill none
         gbc.gridx = 0;
         gbc.gridy = 4;
@@ -401,7 +399,7 @@ public class NetSpyFrame extends JFrame {
         lblQuarantine.setSize(DIMENSION_LABEL_SIZE);
         this.mainPanel.add(lblQuarantine, gbc);
 
-//        INPUT
+        // INPUT
         // y = 4, x = 2-5, fill horizontal
         gbc.gridx = 2;
         gbc.gridy = 4;
@@ -415,7 +413,7 @@ public class NetSpyFrame extends JFrame {
         		+ "in welches die verdächtigen Emails gespeichert werden.");
         this.mainPanel.add(this.inputQuarantinePath, gbc);
 
-//        BUTTON FOR CHOOSER
+        // BUTTON FOR CHOOSER
         // y = 4, x = 6-7, fill horizontal
         gbc.gridx = 6;
         gbc.gridy = 4;
@@ -438,7 +436,7 @@ public class NetSpyFrame extends JFrame {
         emptyRow.setBackground(Color.WHITE);
         this.mainPanel.add(emptyRow, gbc);
         
-//        BUTTON CLEAR LOGBOX
+        // BUTTON CLEAR LOGBOX
         // y = 6, x = 0-1, fill horizontal
         gbc.gridx = 0;
         gbc.gridy = 6;
@@ -453,7 +451,7 @@ public class NetSpyFrame extends JFrame {
         
         // y = 6, x = 2-5, free space
         
-//        BUTTON START SCAN
+        // BUTTON START SCAN
         // y = 6, x = 6-7, fill horizontal
         gbc.gridx = 6;
         gbc.gridy = 6;
@@ -465,7 +463,7 @@ public class NetSpyFrame extends JFrame {
         btnStartScan.setPreferredSize(DIMENSION_BUTTON_SIZE);
         this.mainPanel.add(btnStartScan, gbc);
 
-//        BUTTON SHOW LOG
+        // BUTTON SHOW LOG
         // y = 6, x = 8-9, fill none
         gbc.gridx = 8;
         gbc.gridy = 6;
@@ -534,7 +532,7 @@ public class NetSpyFrame extends JFrame {
 		
 		mainPanel.add(blacklistScrollPane, gbc);
 
-//		BUTTON ADD BLACKWORD
+		// BUTTON ADD BLACKWORD
 		// y = 2, x = 8-9, fill horizontal
         gbc.gridx = 8;
         gbc.gridy = 1;
@@ -548,7 +546,7 @@ public class NetSpyFrame extends JFrame {
         getBtnAddBlackWord().setPreferredSize(DIMENSION_BUTTON_SIZE);
         this.mainPanel.add(getBtnAddBlackWord(), gbc);
         
-//        BUTTON EDIT BLACKWORD
+        // BUTTON EDIT BLACKWORD
         // y = 2, x = 8-9, fill horizontal
         gbc.gridx = 8;
         gbc.gridy = 2;
@@ -560,7 +558,7 @@ public class NetSpyFrame extends JFrame {
         getBtnEditBlackWord().setPreferredSize(DIMENSION_BUTTON_SIZE);
         this.mainPanel.add(getBtnEditBlackWord(), gbc);
         
-//        BUTTON DELETE BLACKWORD
+        // BUTTON DELETE BLACKWORD
         // y = 3, x = 8-9, fill horizontal
         gbc.gridx = 8;
         gbc.gridy = 3;
@@ -573,7 +571,7 @@ public class NetSpyFrame extends JFrame {
         this.mainPanel.add(getBtnDeleteBlackWord(), gbc);
         
 		
-//        BUTTON DELETE ALL BLACKWORDS
+        // BUTTON DELETE ALL BLACKWORDS
 		// y = 4, x = 8-9, fill horizontal
 		gbc.gridx = 8;
 		gbc.gridy = 4;

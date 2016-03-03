@@ -18,14 +18,14 @@ public class StringHelper {
 
     static {
 
-        ASCII_MAP.put("=DC", "�");
-        ASCII_MAP.put("=FC", "�");
-        ASCII_MAP.put("=C4", "�");
-        ASCII_MAP.put("=E4", "�");
-        ASCII_MAP.put("=D6", "�");
-        ASCII_MAP.put("=F6", "�");
-        ASCII_MAP.put("=DF", "�");
-        ASCII_MAP.put("=B5", "�");
+        ASCII_MAP.put("=DC", "Ü");
+        ASCII_MAP.put("=FC", "ü");
+        ASCII_MAP.put("=C4", "Ä");
+        ASCII_MAP.put("=E4", "ä");
+        ASCII_MAP.put("=D6", "Ö");
+        ASCII_MAP.put("=F6", "ö");
+        ASCII_MAP.put("=DF", "ß");
+        ASCII_MAP.put("=B5", "µ");
     }
 
     /**
@@ -48,79 +48,6 @@ public class StringHelper {
             occurrences++;
         }
         return occurrences;
-    }
-
-    /**
-     * Count occurrences.
-     *
-     * @param lines the lines
-     * @param part the part
-     * @return the int
-     */
-    public int countOccurrences(final List<String> lines, final String part) {
-
-        if (lines.isEmpty() || part.isEmpty()) {
-            return 0;
-        }
-
-        int occurrences = 0;
-
-        for (String line : lines) {
-
-            while (line.contains(part)) {
-                line = line.replaceFirst(part, "");
-                occurrences++;
-            }
-        }
-        return occurrences;
-    }
-
-    /**
-     * Starts with.
-     *
-     * @param target the target
-     * @param prepend the prepend
-     * @return true, if successful
-     */
-    public boolean startsWith(final String target, final String prepend) {
-
-        if (target.substring(0, prepend.length()).equals(prepend) && !(target.isEmpty() || prepend.isEmpty())) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Ends with.
-     *
-     * @param target the target
-     * @param append the append
-     * @return true, if successful
-     */
-    public boolean endsWith(final String target, final String append) {
-
-        if (target.substring(target.length() - (append.length())).equals(append)
-            && !(target.isEmpty() || append.isEmpty())) {
-
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Checks if haystack contains the needle. Also not
-     * accepting empty strings
-     *
-     * @param haystack the haystack
-     * @param needle the needle
-     * @return true, if haystack contains the needle
-     */
-    public boolean contains(final String haystack, final String needle) {
-
-        if (haystack.isEmpty() || needle.isEmpty()) {
-            return false;
-        }
-        return haystack.contains(needle);
     }
 
     /**

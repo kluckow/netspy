@@ -104,7 +104,6 @@ public class NetSpyActionListener implements ActionListener {
             } else if (returnValMailPath == JFileChooser.ERROR_OPTION) {
                 new ErrorPopup("Unbekannter Fehler", "Es ist ein unbekannter Fehler aufgetreten!");
             }
-            
 			break;
 			
 		case NetSpyFrame.BUTTON_ID_QUARANTINE_PATH:
