@@ -1,0 +1,90 @@
+Return-Path: <eckert-dresen@fachinformatiker-hhbk.de>
+Delivered-To: dresen@fachinformatiker-hhbk.de
+Received: (qmail 4152 invoked from network); 22 Aug 2005 18:22:06 -0000
+Received: from unknown (HELO NWS) (eckert-dresen@fachinformatiker-hhbk.de@80.137.55.130)
+  by fwd.everynet.de with SMTP; 22 Aug 2005 18:22:06 -0000
+Message-ID: <002d01c5a746$60203540$03020a0a@HHBK.de>
+From: "H.Eckert-Dresen" <eckert-dresen@fachinformatiker-hhbk.de>
+To: "Peter Wissemann" <wissemann@hhbk.de>,
+	"Anne Dresen" <dresen@fachinformatiker-hhbk.de>
+Cc: "Antje Baehr-Ewald" <baehr-ewald@hhbk.de>
+Subject: Testmail_zu_Schlüsselwörtern
+Date: Mon, 22 Aug 2005 20:21:52 +0200
+MIME-Version: 1.0
+Content-Type: multipart/mixed;
+	boundary="----=_NextPart_000_0029_01C5A757.21BE7350"
+X-Priority: 3
+X-MSMail-Priority: Normal
+X-Mailer: Microsoft Outlook Express 6.00.2900.2670
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2900.2670
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_000_0029_01C5A757.21BE7350
+Content-Type: multipart/alternative;
+	boundary="----=_NextPart_001_002A_01C5A757.21BE7350"
+
+
+------=_NextPart_001_002A_01C5A757.21BE7350
+Content-Type: text/plain;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Diese Email dient folgendem Testzweck:
+
+Diese Mail soll mit einem Java-Programm auf bestimmte Schl=FCsselw=F6rter =
+wie z.B.
+Mikroprozessor, =B5P, Waver, Hyper-Threading, Vanderpool, YieldRate, =
+LaGrande,
+=DCbergabe, =FCberpr=FCft und der Absender der Email bei gefundenem =
+Schl=FCsselwort
+ausgegeben werden.
+
+Gruss Horst
+
+------=_NextPart_001_002A_01C5A757.21BE7350
+Content-Type: text/html;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD>
+<META http-equiv=3DContent-Type content=3D"text/html; =
+charset=3Diso-8859-1">
+<META content=3D"MSHTML 6.00.2900.2722" name=3DGENERATOR>
+<STYLE></STYLE>
+</HEAD>
+<BODY bgColor=3D#ffffff>
+<DIV>Diese Email dient folgendem Testzweck:</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>Diese Mail soll mit einem Java-Programm auf bestimmte =
+Schl=FCsselw=F6rter wie=20
+z.B.<BR>Mikroprozessor, =B5P, Waver, Hyper-Threading, Vanderpool, =
+YieldRate,=20
+LaGrande,<BR>=DCbergabe, =FCberpr=FCft und der Absender der Email bei =
+gefundenem=20
+Schl=FCsselwort<BR>ausgegeben werden.</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>Gruss Horst<BR></DIV></BODY></HTML>
+
+------=_NextPart_001_002A_01C5A757.21BE7350--
+
+------=_NextPart_000_0029_01C5A757.21BE7350
+Content-Type: text/plain;
+	name="blacklist.txt"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+	filename="blacklist.txt"
+
+Mikroprozessor
+=B5P
+Waver
+Hyper-Threading
+Vanderpool
+YieldRate
+LaGrande
+=DCbergabe
+
+------=_NextPart_000_0029_01C5A757.21BE7350--
+
+
