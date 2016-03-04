@@ -158,11 +158,8 @@ public class NetSpyFrame extends JFrame {
 	/** The Input log path. */
 	private JTextField inputLogPath;
 	
-	/** The black word list. */
-	private JScrollPane blackwordScrollPane;
-		
 	/** The log box. */
-	private Logbox logBox = new Logbox();
+	private Logbox logbox = new Logbox();
 	
 	/** The main panel. */
 	private JPanel mainPanel = new JPanel();
@@ -214,7 +211,7 @@ public class NetSpyFrame extends JFrame {
      */
     private void initConf() {
     	
-    	propConf = new ConfigPropertiesManager(this.logBox);
+    	propConf = new ConfigPropertiesManager(logbox);
     	propConf.init();
 	}
 
@@ -224,32 +221,32 @@ public class NetSpyFrame extends JFrame {
     private void initialize() {
 
     	// general configuration of frame
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setTitle(APPLICATION_TITLE);
-        this.setResizable(false);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle(APPLICATION_TITLE);
+        setResizable(false);
         
         // Application Icon
         ImageIcon appIcon = new ImageIcon(System.getProperty("user.dir") + "/resources/img/system_search.png");        
-        this.setIconImage(appIcon.getImage());
+        setIconImage(appIcon.getImage());
         
         // Layout
-        this.mainPanel.setLayout(new GridBagLayout());
+        mainPanel.setLayout(new GridBagLayout());
         gbc.insets = GBC_INSETS;
         
         // Background color
-        this.mainPanel.setBackground(Color.WHITE);
+        mainPanel.setBackground(Color.WHITE);
         
         // create content
-        this.setTitlePanel();
-        this.setFormLayout();
-        this.setBlackWordBox();
-        this.setInfoBox();
+        setTitlePanel();
+        setFormLayout();
+        setBlackWordBox();
+        setInfoBox();
         
-        this.add(this.mainPanel);
+        add(mainPanel);
         
-        this.pack();
-        this.setLocationRelativeTo(null);
-        this.setVisible(true);
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     /**
@@ -268,7 +265,7 @@ public class NetSpyFrame extends JFrame {
         titlePanel.setBackground(Color.WHITE);
         titlePanel.add(new JLabel(APPLICATION_TITLE));
         
-        this.mainPanel.add(titlePanel, gbc);
+        mainPanel.add(titlePanel, gbc);
     	gbc.fill = GridBagConstraints.NONE;
     }
 
@@ -287,7 +284,7 @@ public class NetSpyFrame extends JFrame {
         gbc.anchor = GridBagConstraints.LINE_START;
         final JLabel labelMailPath = new JLabel(LABEL_MAIL_PATH);
         labelMailPath.setSize(DIMENSION_LABEL_SIZE);
-        this.mainPanel.add(labelMailPath, gbc);
+        mainPanel.add(labelMailPath, gbc);
 
         
         // INPUT
@@ -295,14 +292,14 @@ public class NetSpyFrame extends JFrame {
         gbc.gridx = 2;
         gbc.gridy = 1;
         gbc.gridwidth = 4;
-        this.inputMailPath = new JTextField();
-        this.inputMailPath.setText(propConf.getInboxPath());
-        this.inputMailPath.setPreferredSize(DIMENSION_TEXTFIELD_SIZE);
-        this.inputMailPath.setEditable(false);
-        this.inputMailPath.setName(INPUT_ID_MAIL_PATH);
-        this.inputMailPath.setToolTipText("Wähle eine konkrete .eml-Datei oder ein\n"
+        inputMailPath = new JTextField();
+        inputMailPath.setText(propConf.getInboxPath());
+        inputMailPath.setPreferredSize(DIMENSION_TEXTFIELD_SIZE);
+        inputMailPath.setEditable(false);
+        inputMailPath.setName(INPUT_ID_MAIL_PATH);
+        inputMailPath.setToolTipText("Wähle eine konkrete .eml-Datei oder ein\n"
         		+ " Verzeichnis, in dem alle .eml-Dateien durchsucht werden sollen.");
-        this.mainPanel.add(this.inputMailPath, gbc);
+        mainPanel.add(inputMailPath, gbc);
 
         // BUTTON FOR CHOOSER
         // y = 1, x = 6-7, fill horizontal
@@ -313,7 +310,7 @@ public class NetSpyFrame extends JFrame {
         btnOpenMailPathChooser.setName(BUTTON_ID_MAIL_PATH);
         btnOpenMailPathChooser.addActionListener(actionListener);
         btnOpenMailPathChooser.setPreferredSize(DIMENSION_BUTTON_SIZE);
-        this.mainPanel.add(btnOpenMailPathChooser, gbc);
+        mainPanel.add(btnOpenMailPathChooser, gbc);
 
         // BLACKWORD PATH
         
@@ -324,21 +321,21 @@ public class NetSpyFrame extends JFrame {
         gbc.gridwidth = 2;
         final JLabel lblBlackword = new JLabel(LABEL_BLACKWORD_PATH);
         lblBlackword.setSize(DIMENSION_LABEL_SIZE);
-        this.mainPanel.add(lblBlackword, gbc);
+        mainPanel.add(lblBlackword, gbc);
 
         // INPUT
         // y = 2, x = 2-5, fill horizontal
         gbc.gridx = 2;
         gbc.gridy = 2;
         gbc.gridwidth = 4;
-        this.inputBlackwordPath = new JTextField();
-        this.inputBlackwordPath.setText(propConf.getBlackwordPath());
-        this.inputBlackwordPath.setPreferredSize(DIMENSION_TEXTFIELD_SIZE);
-        this.inputBlackwordPath.setEditable(false);
-        this.inputBlackwordPath.setName(INPUT_ID_BLACKWORD_PATH);
-        this.inputBlackwordPath.setToolTipText("Wähle die blacklist.txt-Datei aus, anhand "
+        inputBlackwordPath = new JTextField();
+        inputBlackwordPath.setText(propConf.getBlackwordPath());
+        inputBlackwordPath.setPreferredSize(DIMENSION_TEXTFIELD_SIZE);
+        inputBlackwordPath.setEditable(false);
+        inputBlackwordPath.setName(INPUT_ID_BLACKWORD_PATH);
+        inputBlackwordPath.setToolTipText("Wähle die blacklist.txt-Datei aus, anhand "
         		+ "welcher die Emails überprüft werden sollen.");
-        this.mainPanel.add(this.inputBlackwordPath, gbc);
+        mainPanel.add(inputBlackwordPath, gbc);
 
         // BUTTON FOR CHOOSER
         // y = 2, x = 6-7, fill horizontal
@@ -349,7 +346,7 @@ public class NetSpyFrame extends JFrame {
         btnOpenBlackwordPathChooser.setName(BUTTON_ID_BLACKWORD_PATH);
         btnOpenBlackwordPathChooser.addActionListener(actionListener);
         btnOpenBlackwordPathChooser.setPreferredSize(DIMENSION_BUTTON_SIZE);
-        this.mainPanel.add(btnOpenBlackwordPathChooser, gbc);
+        mainPanel.add(btnOpenBlackwordPathChooser, gbc);
 
         // LOG PATH
         
@@ -360,21 +357,21 @@ public class NetSpyFrame extends JFrame {
         gbc.gridwidth = 2;
         final JLabel lblLogPath = new JLabel(LABEL_LOG_PATH);
         lblLogPath.setSize(DIMENSION_LABEL_SIZE);
-        this.mainPanel.add(lblLogPath, gbc);
+        mainPanel.add(lblLogPath, gbc);
 
         // INPUT
         // y = 3, x = 2-5, fill horizontal
         gbc.gridx = 2;
         gbc.gridy = 3;
         gbc.gridwidth = 4;
-        this.inputLogPath = new JTextField();
-        this.inputLogPath.setText(propConf.getLogPath());
-        this.inputLogPath.setEditable(false);
-        this.inputLogPath.setName(INPUT_ID_LOG_PATH);
-        this.inputLogPath.setPreferredSize(DIMENSION_TEXTFIELD_SIZE);
-        this.inputLogPath.setToolTipText("Wähle das Log-Verzeichnis aus. "
+        inputLogPath = new JTextField();
+        inputLogPath.setText(propConf.getLogPath());
+        inputLogPath.setEditable(false);
+        inputLogPath.setName(INPUT_ID_LOG_PATH);
+        inputLogPath.setPreferredSize(DIMENSION_TEXTFIELD_SIZE);
+        inputLogPath.setToolTipText("Wähle das Log-Verzeichnis aus. "
         		+ "Dort werden die Informationen über verdächtige Emails gespeichert.");
-        this.mainPanel.add(this.inputLogPath, gbc);
+        mainPanel.add(inputLogPath, gbc);
 
         // BUTTON FOR CHOOSER
         // y = 3, x = 6-7, fill horizontal
@@ -385,7 +382,7 @@ public class NetSpyFrame extends JFrame {
         btnOpenLogPathChooser.setName(BUTTON_ID_LOG_PATH);
         btnOpenLogPathChooser.addActionListener(actionListener);
         btnOpenLogPathChooser.setPreferredSize(DIMENSION_BUTTON_SIZE);
-        this.mainPanel.add(btnOpenLogPathChooser, gbc);
+        mainPanel.add(btnOpenLogPathChooser, gbc);
 
         // QUARANTINE PATH
         
@@ -397,21 +394,21 @@ public class NetSpyFrame extends JFrame {
         gbc.anchor = GridBagConstraints.BASELINE;
         final JLabel lblQuarantine = new JLabel(LABEL_QUARANTAENE_PATH);
         lblQuarantine.setSize(DIMENSION_LABEL_SIZE);
-        this.mainPanel.add(lblQuarantine, gbc);
+        mainPanel.add(lblQuarantine, gbc);
 
         // INPUT
         // y = 4, x = 2-5, fill horizontal
         gbc.gridx = 2;
         gbc.gridy = 4;
         gbc.gridwidth = 4;
-        this.inputQuarantinePath = new JTextField();
-        this.inputQuarantinePath.setText(propConf.getQuarantinePath());
-        this.inputQuarantinePath.setEditable(false);
-        this.inputQuarantinePath.setName(INPUT_ID_QUARANTINE_PATH);
-        this.inputQuarantinePath.setPreferredSize(DIMENSION_TEXTFIELD_SIZE);
-        this.inputQuarantinePath.setToolTipText("Wähle das Quarantäne-Verzeichnis aus, "
+        inputQuarantinePath = new JTextField();
+        inputQuarantinePath.setText(propConf.getQuarantinePath());
+        inputQuarantinePath.setEditable(false);
+        inputQuarantinePath.setName(INPUT_ID_QUARANTINE_PATH);
+        inputQuarantinePath.setPreferredSize(DIMENSION_TEXTFIELD_SIZE);
+        inputQuarantinePath.setToolTipText("Wähle das Quarantäne-Verzeichnis aus, "
         		+ "in welches die verdächtigen Emails gespeichert werden.");
-        this.mainPanel.add(this.inputQuarantinePath, gbc);
+        mainPanel.add(inputQuarantinePath, gbc);
 
         // BUTTON FOR CHOOSER
         // y = 4, x = 6-7, fill horizontal
@@ -422,7 +419,7 @@ public class NetSpyFrame extends JFrame {
         btnOpenQuarantinePathChooser.setName(BUTTON_ID_QUARANTINE_PATH);
         btnOpenQuarantinePathChooser.addActionListener(actionListener);
         btnOpenQuarantinePathChooser.setPreferredSize(DIMENSION_BUTTON_SIZE);
-        this.mainPanel.add(btnOpenQuarantinePathChooser, gbc);
+        mainPanel.add(btnOpenQuarantinePathChooser, gbc);
         
         // EMPTY ROW
         // let row with index 5 empty: workaround
@@ -431,10 +428,10 @@ public class NetSpyFrame extends JFrame {
         gbc.gridx = 0;
         gbc.gridwidth = 10;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        this.emptyRow = new JPanel();
+        emptyRow = new JPanel();
         emptyRow.setSize(new Dimension(0, 10));
         emptyRow.setBackground(Color.WHITE);
-        this.mainPanel.add(emptyRow, gbc);
+        mainPanel.add(emptyRow, gbc);
         
         // BUTTON CLEAR LOGBOX
         // y = 6, x = 0-1, fill horizontal
@@ -447,7 +444,7 @@ public class NetSpyFrame extends JFrame {
         btnClearLogBox.setName(BUTTON_ID_CLEAR_LOGBOX);
         btnClearLogBox.setPreferredSize(DIMENSION_BUTTON_SIZE);
         btnClearLogBox.addActionListener(actionListener);
-        this.mainPanel.add(btnClearLogBox, gbc);
+        mainPanel.add(btnClearLogBox, gbc);
         
         // y = 6, x = 2-5, free space
         
@@ -461,7 +458,7 @@ public class NetSpyFrame extends JFrame {
         btnStartScan.setName(BUTTON_ID_START_SCAN);
         btnStartScan.addActionListener(actionListener);
         btnStartScan.setPreferredSize(DIMENSION_BUTTON_SIZE);
-        this.mainPanel.add(btnStartScan, gbc);
+        mainPanel.add(btnStartScan, gbc);
 
         // BUTTON SHOW LOG
         // y = 6, x = 8-9, fill none
@@ -476,7 +473,7 @@ public class NetSpyFrame extends JFrame {
         btnShowLog.addActionListener(actionListener);
         btnShowLog.setToolTipText("Sofern eine Logdatei von dem aktuellen Tag existiert,"
         		+ " wird diese mit Ihrem Standard-Text-Editor geöffnet.");
-        this.mainPanel.add(btnShowLog, gbc);
+        mainPanel.add(btnShowLog, gbc);
         
     }
     
@@ -493,12 +490,12 @@ public class NetSpyFrame extends JFrame {
     	gbc.gridheight = 6;
     	gbc.fill = GridBagConstraints.BOTH;
     	gbc.anchor = GridBagConstraints.CENTER;
-        final JScrollPane infoBoxScrollable = new JScrollPane(this.logBox);
+        final JScrollPane infoBoxScrollable = new JScrollPane(logbox);
         infoBoxScrollable.setPreferredSize(new Dimension(0, 150));
         infoBoxScrollable.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         infoBoxScrollable.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         
-        this.mainPanel.add(infoBoxScrollable, gbc);
+        mainPanel.add(infoBoxScrollable, gbc);
     }
     
 	/**
@@ -508,10 +505,10 @@ public class NetSpyFrame extends JFrame {
 	private void setBlackWordBox(){
 		
 		// DEFAULT LIST MODEL
-		setDlmBlackWord(new DefaultListModel<String>());
-		setBlackwordList(new JList(getDlmBlackWord()));
-		getBlackwordList().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		loadBlackwordBox(getDlmBlackWord());
+		dlmBlackWord = new DefaultListModel<String>();
+		blackwordList = new JList(dlmBlackWord);
+		blackwordList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		loadBlackwordBox(dlmBlackWord);
 		
 		// y = 1-4, x = 10-11, fill none
 		gbc.gridx = 10;
@@ -521,14 +518,14 @@ public class NetSpyFrame extends JFrame {
 		gbc.fill = GridBagConstraints.NONE;
 		gbc.anchor = GridBagConstraints.NORTHWEST;
 		
-		getBlackwordList().setBackground(Color.WHITE);
-		blacklistScrollPane = new JScrollPane(this.getBlackwordScrollPane());
+		blackwordList.setBackground(Color.WHITE);
+		blacklistScrollPane = new JScrollPane(blackwordList);
 		blacklistScrollPane.setPreferredSize(new Dimension(150, 187));
 		blacklistScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		blacklistScrollPane.setViewportView(getBlackwordList());
+		blacklistScrollPane.setViewportView(blackwordList);
 		
 		// initialize action listener for default list model
-		dlmActionListener = new BlacklistActionListener(getBlackwordList(), getDlmBlackWord(), this.logBox);
+		dlmActionListener = new BlacklistActionListener(blackwordList, dlmBlackWord, logbox);
 		
 		mainPanel.add(blacklistScrollPane, gbc);
 
@@ -540,11 +537,11 @@ public class NetSpyFrame extends JFrame {
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.BASELINE;
         
-        setBtnAddBlackWord(new JButton(BUTTON_LABEL_BLACKWORD_ADD));
-        getBtnAddBlackWord().setName(BUTTON_ID_BLACKWORD_ADD);
-        getBtnAddBlackWord().addActionListener(dlmActionListener);
-        getBtnAddBlackWord().setPreferredSize(DIMENSION_BUTTON_SIZE);
-        this.mainPanel.add(getBtnAddBlackWord(), gbc);
+        btnAddBlackWord = new JButton(BUTTON_LABEL_BLACKWORD_ADD);
+        btnAddBlackWord.setName(BUTTON_ID_BLACKWORD_ADD);
+        btnAddBlackWord.addActionListener(dlmActionListener);
+        btnAddBlackWord.setPreferredSize(DIMENSION_BUTTON_SIZE);
+        mainPanel.add(btnAddBlackWord, gbc);
         
         // BUTTON EDIT BLACKWORD
         // y = 2, x = 8-9, fill horizontal
@@ -552,11 +549,11 @@ public class NetSpyFrame extends JFrame {
         gbc.gridy = 2;
         gbc.gridwidth = 2;
         
-        setBtnEditBlackWord(new JButton(BUTTON_LABEL_BLACKWORD_EDIT));
-        getBtnEditBlackWord().setName(BUTTON_ID_BLACKWORD_EDIT);
-        getBtnEditBlackWord().addActionListener(dlmActionListener);
-        getBtnEditBlackWord().setPreferredSize(DIMENSION_BUTTON_SIZE);
-        this.mainPanel.add(getBtnEditBlackWord(), gbc);
+        btnEditBlackWord = new JButton(BUTTON_LABEL_BLACKWORD_EDIT);
+        btnEditBlackWord.setName(BUTTON_ID_BLACKWORD_EDIT);
+        btnEditBlackWord.addActionListener(dlmActionListener);
+        btnEditBlackWord.setPreferredSize(DIMENSION_BUTTON_SIZE);
+        mainPanel.add(btnEditBlackWord, gbc);
         
         // BUTTON DELETE BLACKWORD
         // y = 3, x = 8-9, fill horizontal
@@ -564,11 +561,11 @@ public class NetSpyFrame extends JFrame {
         gbc.gridy = 3;
         gbc.gridwidth = 2;
         
-        setBtnDeleteBlackWord(new JButton(BUTTON_LABEL_BLACKWORD_DELETE));
-        getBtnDeleteBlackWord().setName(BUTTON_ID_BLACKWORD_DELETE);
-        getBtnDeleteBlackWord().addActionListener(dlmActionListener);
-        getBtnDeleteBlackWord().setPreferredSize(DIMENSION_BUTTON_SIZE);
-        this.mainPanel.add(getBtnDeleteBlackWord(), gbc);
+        btnDeleteBlackword = new JButton(BUTTON_LABEL_BLACKWORD_DELETE);
+        btnDeleteBlackword.setName(BUTTON_ID_BLACKWORD_DELETE);
+        btnDeleteBlackword.addActionListener(dlmActionListener);
+        btnDeleteBlackword.setPreferredSize(DIMENSION_BUTTON_SIZE);
+        mainPanel.add(btnDeleteBlackword, gbc);
         
 		
         // BUTTON DELETE ALL BLACKWORDS
@@ -577,20 +574,20 @@ public class NetSpyFrame extends JFrame {
 		gbc.gridy = 4;
 		gbc.gridwidth = 2;
 		
-		setBtnDeleteAllBlackwords(new JButton(BUTTON_LABEL_BLACKWORD_DELETE_ALL));
-		getBtnDeleteAllBlackwords().setName(BUTTON_ID_BLACKWORD_DELETE_ALL);
-		getBtnDeleteAllBlackwords().addActionListener(dlmActionListener);
-		getBtnDeleteAllBlackwords().setPreferredSize(DIMENSION_BUTTON_SIZE);
-		this.mainPanel.add(getBtnDeleteAllBlackwords(), gbc);
+		btnDeleteAllBlackwords = new JButton(BUTTON_LABEL_BLACKWORD_DELETE_ALL);
+		btnDeleteAllBlackwords.setName(BUTTON_ID_BLACKWORD_DELETE_ALL);
+		btnDeleteAllBlackwords.addActionListener(dlmActionListener);
+		btnDeleteAllBlackwords.setPreferredSize(DIMENSION_BUTTON_SIZE);
+		mainPanel.add(btnDeleteAllBlackwords, gbc);
 		
 		// add list selection listener to JList and select first entry
-		getBlackwordList().addListSelectionListener(listSelectionListener);
-		if (getDlmBlackWord().size() > 0) {
-			getBlackwordList().setSelectedIndex(0);
+		blackwordList.addListSelectionListener(listSelectionListener);
+		if (dlmBlackWord.size() > 0) {
+			blackwordList.setSelectedIndex(0);
 		} else {
-			this.btnEditBlackWord.setEnabled(false);
-			this.btnDeleteBlackword.setEnabled(false);
-			this.btnDeleteAllBlackwords.setEnabled(false);
+			btnEditBlackWord.setEnabled(false);
+			btnDeleteBlackword.setEnabled(false);
+			btnDeleteAllBlackwords.setEnabled(false);
 		}
         
     }
@@ -614,16 +611,6 @@ public class NetSpyFrame extends JFrame {
 			}
 		}
 	}
- 
-	/**
-     * Sets the input mail path.
-     *
-     * @param inputMailPath the new input mail path
-     */
-    public void setInputMailPath(final JTextField inputMailPath) {
-
-        this.inputMailPath = inputMailPath;
-    }
 
     /**
      * Gets the input mail path.
@@ -632,17 +619,7 @@ public class NetSpyFrame extends JFrame {
      */
     public JTextField getInputMailPath() {
 
-        return this.inputMailPath;
-    }
-
-    /**
-     * Sets the input blackword path.
-     *
-     * @param inputBlackwordPath the new input blackword path
-     */
-    public void setInputBlackwordPath(final JTextField inputBlackwordPath) {
-
-        this.inputBlackwordPath = inputBlackwordPath;
+        return inputMailPath;
     }
 
     /**
@@ -652,17 +629,7 @@ public class NetSpyFrame extends JFrame {
      */
     public JTextField getInputBlackwordPath() {
 
-        return this.inputBlackwordPath;
-    }
-
-    /**
-     * Sets the input log path.
-     *
-     * @param inputLogPath the new input log path
-     */
-    public void setInputLogPath(final JTextField inputLogPath) {
-
-        this.inputLogPath = inputLogPath;
+        return inputBlackwordPath;
     }
 
     /**
@@ -672,17 +639,7 @@ public class NetSpyFrame extends JFrame {
      */
     public JTextField getInputLogPath() {
 
-        return this.inputLogPath;
-    }
-
-    /**
-     * Sets the input quarantine path.
-     *
-     * @param inputQuarantinePath the new input quarantine path
-     */
-    public void setInputQuarantinePath(final JTextField inputQuarantinePath) {
-
-        this.inputQuarantinePath = inputQuarantinePath;
+        return inputLogPath;
     }
 
     /**
@@ -692,7 +649,7 @@ public class NetSpyFrame extends JFrame {
      */
     public JTextField getInputQuarantinePath() {
 
-        return this.inputQuarantinePath;
+        return inputQuarantinePath;
     }
 
 	/**
@@ -701,70 +658,7 @@ public class NetSpyFrame extends JFrame {
 	 * @return the log box
 	 */
 	public Logbox getLogBox() {
-		return this.logBox;
-	}
-
-	/**
-	 * Sets the log box.
-	 *
-	 * @param logBox the new log box
-	 */
-	public void setLogBox(Logbox logBox) {
-		this.logBox = logBox;
-	}
-
-	/**
-	 * Gets the main panel.
-	 *
-	 * @return the main panel
-	 */
-	public JPanel getMainPanel() {
-		return this.mainPanel;
-	}
-
-	/**
-	 * Sets the main panel.
-	 *
-	 * @param mainPanel the new main panel
-	 */
-	public void setMainPanel(JPanel mainPanel) {
-		this.mainPanel = mainPanel;
-	}
-
-	/**
-	 * Gets the gbc.
-	 *
-	 * @return the gbc
-	 */
-	public GridBagConstraints getGbc() {
-		return this.gbc;
-	}
-
-	/**
-	 * Sets the gbc.
-	 *
-	 * @param gbc the new gbc
-	 */
-	public void setGbc(GridBagConstraints gbc) {
-		this.gbc = gbc;
-	}
-
-	/**
-	 * Gets the black word list.
-	 *
-	 * @return the black word list
-	 */
-	public JScrollPane getBlackwordScrollPane() {
-		return blackwordScrollPane;
-	}
-	
-	/**
-	 * Sets the blackword scroll pane.
-	 *
-	 * @param blackwordScrollPane the new blackword scroll pane
-	 */
-	public void setBlackwordScrollPane(JScrollPane blackwordScrollPane) {
-		this.blackwordScrollPane = blackwordScrollPane;
+		return logbox;
 	}
 
 	/**
@@ -777,66 +671,12 @@ public class NetSpyFrame extends JFrame {
 	}
 
 	/**
-	 * Sets the btn delete black word.
-	 *
-	 * @param btnDeleteBlackWord the new btn delete black word
-	 */
-	public void setBtnDeleteBlackWord(JButton btnDeleteBlackWord) {
-		this.btnDeleteBlackword = btnDeleteBlackWord;
-	}
-
-	/**
 	 * Gets the btn edit black word.
 	 *
 	 * @return the btn edit black word
 	 */
 	public JButton getBtnEditBlackWord() {
 		return btnEditBlackWord;
-	}
-
-	/**
-	 * Sets the btn edit black word.
-	 *
-	 * @param btnEditBlackWord the new btn edit black word
-	 */
-	public void setBtnEditBlackWord(JButton btnEditBlackWord) {
-		this.btnEditBlackWord = btnEditBlackWord;
-	}
-
-	/**
-	 * Gets the btn add black word.
-	 *
-	 * @return the btn add black word
-	 */
-	public JButton getBtnAddBlackWord() {
-		return btnAddBlackWord;
-	}
-
-	/**
-	 * Sets the btn add black word.
-	 *
-	 * @param btnAddBlackWord the new btn add black word
-	 */
-	public void setBtnAddBlackWord(JButton btnAddBlackWord) {
-		this.btnAddBlackWord = btnAddBlackWord;
-	}
-
-	/**
-	 * Gets the blackword list.
-	 *
-	 * @return the blackword list
-	 */
-	public JList<String> getBlackwordList() {
-		return blackwordList;
-	}
-
-	/**
-	 * Sets the blackword list.
-	 *
-	 * @param blackwordList the new blackword list
-	 */
-	public void setBlackwordList(JList<String> blackwordList) {
-		this.blackwordList = blackwordList;
 	}
 
 	/**
@@ -849,29 +689,11 @@ public class NetSpyFrame extends JFrame {
 	}
 
 	/**
-	 * Sets the btn delete all blackwords.
-	 *
-	 * @param btnDeleteAllBlackwords the new btn delete all blackwords
-	 */
-	public void setBtnDeleteAllBlackwords(JButton btnDeleteAllBlackwords) {
-		this.btnDeleteAllBlackwords = btnDeleteAllBlackwords;
-	}
-
-	/**
 	 * Gets the dlm black word.
 	 *
 	 * @return the dlm black word
 	 */
 	public DefaultListModel<String> getDlmBlackWord() {
 		return dlmBlackWord;
-	}
-
-	/**
-	 * Sets the dlm black word.
-	 *
-	 * @param dlmBlackWord the new dlm black word
-	 */
-	public void setDlmBlackWord(DefaultListModel<String> dlmBlackWord) {
-		this.dlmBlackWord = dlmBlackWord;
 	}
 }
